@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
         <meta charset="utf-8" />
-        <title>Yiif's BLOG - Tags</title>
+        <title>Yiif's BLOG - tech</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 </head>
 
@@ -18,14 +18,61 @@
                 </ul></nav>
         </header><!-- /#banner -->
 
-<section id="content" class="body">
-    <h1>Tags for Yiif's BLOG</h1>
-    <ul>
-        <li><a href="/tag/tech.html">tech</a> (1)</li>
-        <li><a href="/tag/website.html">website</a> (1)</li>
-    </ul>
-</section>
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/helloworld.html">Helloworld</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2020-06-05T00:00:00-07:00">
+                Published: 2020-06-05(周五)
+        </abbr>
+		<br />
+        <abbr class="modified" title="2020-06-10T00:00:00-07:00">
+                Updated: 2020-06-10(周三)
+        </abbr>
 
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/yifei-liu.html">Yifei Liu</a>
+        </address>
+<p>In <a href="/category/wang-zhan-xiang-guan.html">网站相关</a>.</p>
+<p>tags: <a href="/tag/website.html">website</a> <a href="/tag/tech.html">tech</a> </p>Translations:
+        <a href="/helloworld-en.html" hreflang="en">en</a>
+
+</footer><!-- /.post-info --><h1>建设中的博客</h1>
+<ul>
+<li><a href="https://daringfireball.net/projects/markdown/">markdown</a></li>
+</ul>
+<h3>TODO:</h3>
+<ol>
+<li>读<a href="https://docs.getpelican.com/en/stable/index.html">文档</a><ul>
+<li>metadata<ul>
+<li>多语言 done</li>
+<li>翻译 done</li>
+</ul>
+</li>
+<li>内部文件链接 done</li>
+<li>继续看</li>
+</ul>
+</li>
+<li>换主题</li>
+<li>大图片显示不完全</li>
+</ol>
+<h3>笔记:</h3>
+<ul>
+<li>
+<p>自动更新 auto_reload</p>
+<p><code>pelican -r</code></p>
+</li>
+<li>
+<p>重载时清空output文件夹,保留指定文件夹</p>
+<p><code>DELETE_OUTPUT_DIRECTORY =  TRUE</code></p>
+<p><code>OUTPUT_RETENTION = [".hg", ".git", ".bzr"]</code></p>
+</li>
+<li>
+<p>文件名正则提取metadata title &amp; date</p>
+<p><code>FILENAME_METADATA = '(?P&lt;title&gt;.*)(?P&lt;date&gt;\d{4}\d{2}\d{2})'</code></p>
+</li>
+</ul>                </article>
+            </aside><!-- /#featured -->
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>links</h2>
