@@ -1,139 +1,90 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-        <meta charset="utf-8" />
         <title>Yiif's BLOG - Yifei Liu</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="/theme/css/main.css" />
 </head>
+<body>
 
-<body id="index" class="home">
-<a href="https://github.com/EzekielDaun">
-<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" />
-</a>
-        <header id="banner" class="body">
-                <h1><a href="/">Yiif's BLOG </a></h1>
-                <nav><ul>
-                    <li><a href="/pages/about-page.html">About Page</a></li>
-                    <li><a href="/category/wang-zhan-xiang-guan.html">网站相关</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
+    <div class="main-nav-container">
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/helloworld.html">Helloworld</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2020-06-05T00:00:00-07:00">
-                Published: 2020-06-05(周五)
-        </abbr>
-		<br />
-        <abbr class="modified" title="2020-06-10T00:00:00-07:00">
-                Updated: 2020-06-10(周三)
-        </abbr>
+        <div class="pure-g">
+            <div class="pure-u-1 pure-u-lg-2-3">
+                <div class="main-nav">
+                    <ul class="main-nav-list">
+                        <li class="main-nav-item"><a href="/" class="pure-menu-link">Yiif's BLOG</a></li>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/yifei-liu.html">Yifei Liu</a>
-        </address>
-<p>In <a href="/category/wang-zhan-xiang-guan.html">网站相关</a>.</p>
-<p>tags: <a href="/tag/website.html">website</a> <a href="/tag/tech.html">tech</a> </p>Translations:
-        <a href="/helloworld-en.html" hreflang="en">en</a>
+                        <li class="main-nav-item"><a href="/pages/about-page.html" class="pure-menu-link">About Page</a></li>
+                        <li class="main-nav-item"><a href="/category/wang-zhan-xiang-guan.html" class="pure-menu-link">网站相关</a></li>
+                    </ul>
+                </div>
+             </div>
 
-</footer><!-- /.post-info --><h1>建设中的博客</h1>
-<ul>
-<li><a href="https://daringfireball.net/projects/markdown/">markdown</a></li>
-</ul>
-<h3>TODO:</h3>
-<ol>
-<li>读<a href="https://docs.getpelican.com/en/stable/index.html">文档</a><ul>
-<li>metadata<ul>
-<li>多语言 done</li>
-<li>翻译 done</li>
-</ul>
-</li>
-<li>内部文件链接 done</li>
-<li>继续看</li>
-</ul>
-</li>
-<li>换主题</li>
-<li>大图片显示不完全</li>
-</ol>
-<h3>笔记:</h3>
-<ul>
-<li>
-<p>自动更新 auto_reload</p>
-<p><code>pelican -r</code></p>
-</li>
-<li>
-<p>重载时清空output文件夹,保留指定文件夹</p>
-<p><code>DELETE_OUTPUT_DIRECTORY =  TRUE</code></p>
-<p><code>OUTPUT_RETENTION = [".hg", ".git", ".bzr"]</code></p>
-</li>
-<li>
-<p>文件名正则提取metadata title &amp; date</p>
-<p><code>FILENAME_METADATA = '(?P&lt;title&gt;.*)(?P&lt;date&gt;\d{4}\d{2}\d{2})'</code></p>
-</li>
-</ul>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+             <div class="pure-u-1 pure-u-lg-1-3"></div>
+        </div>
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/update_history.html" rel="bookmark"
-                           title="Permalink to 更新记录">更新记录</a></h1>
-                </header>
+    </div>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2020-06-05T00:00:00-07:00">
-                Published: 2020-06-05(周五)
-        </abbr>
-		<br />
-        <abbr class="modified" title="2020-06-10T00:00:00-07:00">
-                Updated: 2020-06-10(周三)
-        </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/yifei-liu.html">Yifei Liu</a>
-        </address>
-<p>In <a href="/category/wang-zhan-xiang-guan.html">网站相关</a>.</p>
-Translations:
-        <a href="/update_history-en.html" hreflang="en">en</a>
+<div class="author-page-header">
+</div>
 
-</footer><!-- /.post-info -->                <p>更新记录</p>
-                <a class="readmore" href="/update_history.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+<div class="author-page-divider">
+    <span>Latest Posts</span>
+</div>
 
-                            <li><a href="https://github.com/EzekielDaun">Github</a></li>
-                            <li><a href="https://www.zhihu.com/people/deathknight-65">Zhihu</a></li>
-                            <li><a href="https://space.bilibili.com/18310109">Bilibili</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
+<div class="author-page-container">
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+    <div class="post">
+        <div class="post-meta pure-g">
+
+            <div class="pure-u-3-4 meta-data">
+                <a href="/category/wang-zhan-xiang-guan.html" class="category">网站相关</a><br />
+
+                <a class="author" href="/author/yifei-liu.html">Yifei Liu</a>
+                &mdash; <abbr title="2020-06-05T00:00:00-07:00">2020-06-05(周五)</abbr>
+            </div>
+        </div>
+        <h2><a href="/helloworld.html" rel="bookmark" title="Permalink to Helloworld">Helloworld</a></h2>
+        <div class="post-content">
+            <p>Todo list for building a website by pelican and my notes.</p>
+        </div>
+        <div class="post-footer">
+            <a href="/helloworld.html">Read more</a>
+        </div>
+    </div>
+    <div class="post">
+        <div class="post-meta pure-g">
+
+            <div class="pure-u-3-4 meta-data">
+                <a href="/category/wang-zhan-xiang-guan.html" class="category">网站相关</a><br />
+
+                <a class="author" href="/author/yifei-liu.html">Yifei Liu</a>
+                &mdash; <abbr title="2020-06-05T00:00:00-07:00">2020-06-05(周五)</abbr>
+            </div>
+        </div>
+        <h2><a href="/update_history.html" rel="bookmark" title="Permalink to 更新记录">更新记录</a></h2>
+        <div class="post-content">
+            <p>更新记录</p>
+        </div>
+        <div class="post-footer">
+            <a href="/update_history.html">Read more</a>
+        </div>
+    </div>
+
+<div class="pagination">
+    <div class="post-meta pure-g">
+    </div>
+</div>
+
+</div>
+
 
 </body>
 </html>
