@@ -97,7 +97,7 @@ div.page-container footer div.post-footer div.post-category-info img { max-width
 div.page-container div.tags { padding: 20px; }
 @media screen and (min-width: 48em) { div.page-container div.tags { padding: 0; } }
 
-div.article-header-container div.background-image-container div.background-image { background-position: 50% 50%; background-size: cover; background-repeat: no-repeat; width: 100%; height: auto; position: relative; float: left; overflow-x: hidden; margin: 20px 0 40px 0; }
+div.article-header-container div.background-image-container div.background-image { background-position: 50% 50%; background-size: cover; background-repeat: no-repeat; width: 35%; height: auto; position: relative; float: none; overflow-x: hidden; margin: 20px 0 40px 0; display: inline-block;}
 div.article-header-container div.background-image-container div.background-image div.title { color: white; margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; }
 @media screen and (min-width: 35.5em) { div.article-header-container div.background-image-container div.background-image div.title { width: 80%; } }
 @media screen and (min-width: 48em) { div.article-header-container div.background-image-container div.background-image div.title { width: 90%; } }
