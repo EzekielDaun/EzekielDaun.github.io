@@ -81,8 +81,8 @@ div.post-meta div.meta-data a.author { color: inherit; }
 div.post-meta div.meta-data a.author:hover { color: rgba(0, 0, 0, 0.6); }
 
 div.page-container { text-align: center; margin-top: 80px; }
-div.page-container div.entry-content { max-width: 700px; margin: 0 auto; text-align: left; font-family: Merriweather, freight-text-pro, Georgia, Cambria, "Times New Roman", Times, serif; font-size: 18px; line-height: 1.5; padding: 20px; }
-@media screen and (min-width: 35.5em) { div.page-container div.entry-content { font-size: 20px; } }
+div.page-container div.entry-content { max-width: 700px; margin: 0 auto; text-align: left; font-family: Merriweather, freight-text-pro, Georgia, Cambria, "Times New Roman", Times, serif; font-size: 14px; line-height: 1.5; padding: 20px; }
+@media screen and (min-width: 35.5em) { div.page-container div.entry-content { font-size: 16px; } }
 div.page-container footer { margin: 0 auto; text-align: left; max-width: 700px; }
 div.page-container footer div.post-footer { padding: 20px; border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(0, 0, 0, 0.1); margin: 30px 0 40px 0; }
 @media screen and (min-width: 48em) { div.page-container footer div.post-footer { padding: 40px 0; } }
@@ -98,7 +98,7 @@ div.page-container div.tags { padding: 20px; }
 @media screen and (min-width: 48em) { div.page-container div.tags { padding: 0; } }
 
 div.article-header-container div.background-image-container div.background-image { background-position: 50% 50%; background-size: cover; background-repeat: no-repeat; width: 35%; height: auto; position: relative; float: none; overflow-x: hidden; margin: 20px 0 40px 0; display: inline-block;}
-div.article-header-container div.background-image-container div.background-image div.title { color: white; margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; }
+div.article-header-container div.background-image-container div.background-image div.title { color: white; margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%;text-align: center;text-justify: newspaper;word-break:break-all; }
 @media screen and (min-width: 35.5em) { div.article-header-container div.background-image-container div.background-image div.title { width: 80%; } }
 @media screen and (min-width: 48em) { div.article-header-container div.background-image-container div.background-image div.title { width: 90%; } }
 div.article-header-container div.background-image-container div.background-image h1 { font-size: 36px; line-height: 36px; margin: 0; }
@@ -185,7 +185,7 @@ div.author-page-container div.post img.post-image { width: 95%; }
 
 div.tags a { color: rgba(0, 0, 0, 0.6); background: rgba(255, 255, 255, 0.97); font-size: 13px; border-radius: 3px; border: 1px solid #f0f0f0; padding: 5px 10px; line-height: 22px; text-decoration: none; margin: 0 8px 8px 0; display: inline-block; }
 
-div.tags a:hover { color: #468c54; border-color: #a9d8b2; background: rgba(87, 173, 104, 0.1); text-decoration: none; }
+div.tags a:hover { color: #D77186; border-color: #D77186; background: rgba(215, 87, 37, 0.1); text-decoration: none; }
 
 pre { font-family: Consolas, 'Deja Vu Sans Mono', 'Ubuntu Mono', 'Bitstream Vera Sans Mono', Monaco, 'Courier New'; font-size: 16px; line-height: 1.4; background-color: #f5f5f5; border: 1px solid #ccc; border-radius: 4px; padding: 9.5px; }
 
@@ -343,4 +343,4 @@ div.pagination a:active { outline: none; color: rgba(0, 0, 0, 0.8); border-color
 
 [data-linenos]:before {
     content: attr(data-linenos);
-}
+}   /* 代码块显示行号 */
