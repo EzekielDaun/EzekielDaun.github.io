@@ -63,69 +63,87 @@
 <li><a href="https://daringfireball.net/projects/markdown/">markdown</a></li>
 </ul>
 <h3>TODO:</h3>
-<ol>
-<li>读<a href="https://docs.getpelican.com/en/stable/index.html">文档</a><ul>
-<li>metadata<ul>
-<li>多语言 done</li>
-<li>翻译 done</li>
+<ul class="task-list">
+<li>
+<details class="读文档" open><summary>读文档</summary><ul class="task-list">
+<li><a href="https://docs.getpelican.com/en/stable/index.html">链接</a></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> <del class="critic">metadata</del><ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> <del class="critic">多语言</del></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> 翻译</li>
 </ul>
 </li>
-<li>内部文件链接 done</li>
-<li>继续看</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> 内部文件链接</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 继续看</li>
+</ul>
+</details>
+</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> 换主题</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> 大图片显示不完全</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 主题没有翻译</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 主题微调<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> 多行代码块突出显示</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 单行代码突出显示</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 显示修改日期而不是创建日期</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 减少页面留白</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 添加背景纹理</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> 增大标题栏字号</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> 首页右侧TAGS上方横线移至下方或删除</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 支持多窗口宽度</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 添加折叠导航栏</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 导航栏中修改 Yiif's Blog 为主页</li>
 </ul>
 </li>
-<li>换主题 done</li>
-<li>大图片显示不完全 done</li>
-<li>主题没有翻译</li>
-<li>主题微调<ul>
-<li>多行代码块突出显示 done</li>
-<li>单行代码突出显示</li>
-<li>显示修改日期而不是创建日期</li>
-<li>减少页面留白</li>
-<li>添加背景纹理</li>
-<li>增大标题栏字号 done</li>
-<li>首页右侧TAGS上方横线移至下方或删除 done</li>
-<li>支持多窗口宽度</li>
-<li>添加折叠导航栏</li>
-<li>导航栏中修改 Yiif's Blog 为主页</li>
 </ul>
-</li>
-</ol>
 <h3>笔记:</h3>
 <ul>
-<li>
-<p>自动更新 auto_reload</p>
-<p><code>pelican -r</code></p>
-</li>
-<li>
-<p>重载时清空output文件夹,保留指定文件夹</p>
-<p><code>DELETE_OUTPUT_DIRECTORY =  TRUE</code></p>
-<p><code>OUTPUT_RETENTION = [".hg", ".git", ".bzr"]</code></p>
-</li>
-<li>
-<p>文件名正则提取metadata title &amp; date</p>
-<p><code>FILENAME_METADATA = '(?P&lt;title&gt;.*)(?P&lt;date&gt;\d{4}\d{2}\d{2})'</code></p>
-</li>
-<li>
-<p>GitHub更新css文件可能较慢?改变theme后不生效可能需要多等等</p>
-</li>
-<li>
-<p>Medius Theme 相关</p>
-<blockquote>
-<p>A post can have a SubTitle, a big Cover image and a Thumbnail that is used in various places. Cover is only used in article.html and it's cover image of the page. For example this page has a Cover defined in post metadata. Example metadata used in this post:</p>
-</blockquote>
-<div class="highlight"><pre><span></span><code><span class="lineno" data-linenos="1 "></span>Category: Category
+<li>自动更新 auto_reload
+    <br />
+    <code>pelican -r</code></li>
+<li>重载时清空output文件夹,保留指定文件夹
+    <br />
+    <code>DELETE_OUTPUT_DIRECTORY =  TRUE</code>
+    <br />
+    <code>OUTPUT_RETENTION = [".hg", ".git", ".bzr"]</code></li>
+<li>文件名正则提取metadata title &amp; date
+    <br />
+    <code>FILENAME_METADATA = '(?P&lt;title&gt;.*)(?P&lt;date&gt;\d{4}\d{2}\d{2})'</code></li>
+<li>GitHub更新css文件可能较慢?改变theme后不生效可能需要多等等</li>
+<li>Medius Theme 相关
+    <br />
+    &gt; A post can have a SubTitle, a big Cover image and a Thumbnail that is used in various places. Cover is only used in article.html and it's cover image of the page. For example this page has a Cover defined in post metadata. Example metadata used in this post:
+    <br />
+    <div class="highlight"><pre><span></span><code><span class="lineno" data-linenos="1 "></span>Category: Category
 <span class="lineno" data-linenos="2 "></span>Date: 2015-09-11
 <span class="lineno" data-linenos="3 "></span>SubTitle: The medium is the message
 <span class="lineno" data-linenos="4 "></span>Cover: https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg/1920px-Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg
 <span class="lineno" data-linenos="5 "></span>Thumbnail: https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg/800px-Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg
-</code></pre></div>
-
+</code></pre></div></li>
+<li>图片在容器中水平居中, 可以将容器的<code>display</code>属性改为<code>inline-block</code>
+    <br />
+    <code>display: inline-block;</code>
+    <br /></li>
+<li><a href="https://facelessuser.github.io/pymdown-extensions">Pymdownx extensions</a><ul>
+<li>task-list<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 列表混排</li>
+<li>修改CSS后,混排勉强能看.采用li-&gt;input实现,因此同级li元素失去圆点(比如这段话)</li>
+</ul>
 </li>
 <li>
-<p>图片在容器中水平居中, 可以将容器的<code>display</code>属性改为<code>inline-block</code></p>
-<p><code>display: inline-block;</code></p>
+<details class="details" open><summary>Details</summary><ul>
+<li>被折叠内容的缩进由被折叠内容本身决定.CSS中人为设置了p标签的padding</li>
+<li><code>???+</code>为默认打开,不带+默认关闭</li>
+</ul>
+</details>
 </li>
+<li>critics<ul>
+<li><mark class="critic">mark</mark></li>
+<li><del class="critic">del</del></li>
+<li><ins class="critic">ins</ins></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用<code>&lt;br&gt;</code>换行以避免回车换行产生<code>&lt;p&gt;</code>标签</li>
 </ul>
     </div>
 

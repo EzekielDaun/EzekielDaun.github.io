@@ -63,69 +63,87 @@
 <li><a href="https://daringfireball.net/projects/markdown/">markdown</a></li>
 </ul>
 <h3>TODO:</h3>
-<ol>
-<li>Read <a href="https://docs.getpelican.com/en/stable/index.html">document</a><ul>
-<li>metadata<ul>
-<li>multilanguage (done)</li>
-<li>translation (done)</li>
+<ul class="task-list">
+<li>
+<details class="read document" open><summary>Read</summary><ul class="task-list">
+<li><a href="https://docs.getpelican.com/en/stable/index.html">link</a></li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> <del class="critic">metadata</del><ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> multilanguage</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> translation</li>
 </ul>
 </li>
-<li>internal file link (done)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> internal file link</li>
 <li>keep learning</li>
 </ul>
+</details>
 </li>
-<li>Apply theme (done)</li>
-<li>Cannot fully display large pictures (done)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Apply theme</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Cannot fully display large pictures</li>
 <li>No translation in this theme</li>
-<li>Modify theme<ul>
-<li>highlight multi-line code blocks (done)</li>
+<li>Modify theme<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> highlight multi-line code blocks</li>
 <li>highlight single-line code blocks</li>
 <li>use modified date rather than created date</li>
 <li>reduce blank part of the page</li>
 <li>add background</li>
-<li>top bar font size (done)</li>
-<li>for the horizontal line near the 'tag' label on the right of the home page, remove or move to the bottom (done)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> top bar font size</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> for the horizontal line near the 'tag' label on the right of the home page, remove or move to the bottom</li>
 <li>support various window width</li>
 <li>add foldable navigation bar</li>
 <li>modify "Yiif's Blog" as main page in navigation bar</li>
 </ul>
 </li>
-</ol>
+</ul>
 <h3>Note:</h3>
 <ul>
-<li>
-<p>auto reload</p>
-<p><code>pelican -r</code></p>
-</li>
-<li>
-<p>Delete the output directory, and all of its contents, before generating new files. And retain folders below.</p>
-<p><code>DELETE_OUTPUT_DIRECTORY =  TRUE</code></p>
-<p><code>OUTPUT_RETENTION = [".hg", ".git", ".bzr"]</code></p>
-</li>
-<li>
-<p>extract metadata title &amp; date from filename</p>
-<p><code>FILENAME_METADATA = '(?P&lt;title&gt;.*)(?P&lt;date&gt;\d{4}\d{2}\d{2})'</code></p>
-</li>
-<li>
-<p>GitHub may need extra time to update css file. May need to wait a few minute after changing theme.</p>
-</li>
-<li>
-<p>About ##Medius## Theme</p>
-<blockquote>
-<p>A post can have a SubTitle, a big Cover image and a Thumbnail that is used in various places. Cover is only used in article.html and it's cover image of the page. For example this page has a Cover defined in post metadata. Example metadata used in this post:</p>
-</blockquote>
-<div class="highlight"><pre><span></span><code><span class="lineno" data-linenos="1 "></span>Category: Category
+<li>auto reload
+    <br>
+    <code>pelican -r</code></li>
+<li>Delete the output directory, and all of its contents, before generating new files. And retain folders below.
+    <br>
+    <code>DELETE_OUTPUT_DIRECTORY =  TRUE</code>
+    <br>
+    <code>OUTPUT_RETENTION = [".hg", ".git", ".bzr"]</code></li>
+<li>extract metadata title &amp; date from filename
+    <br>
+    <code>FILENAME_METADATA = '(?P&lt;title&gt;.*)(?P&lt;date&gt;\d{4}\d{2}\d{2})'</code></li>
+<li>GitHub may need extra time to update css file. May need to wait a few minute after changing theme.</li>
+<li>About ##Medius## Theme
+    <br>
+    &gt; A post can have a SubTitle, a big Cover image and a Thumbnail that is used in various places. Cover is only used in article.html and it's cover image of the page. For example this page has a Cover defined in post metadata. Example metadata used in this post:
+    <br>
+    <div class="highlight"><pre><span></span><code><span class="lineno" data-linenos="1 "></span>Category: Category
 <span class="lineno" data-linenos="2 "></span>Date: 2015-09-11
 <span class="lineno" data-linenos="3 "></span>SubTitle: The medium is the message
 <span class="lineno" data-linenos="4 "></span>Cover: https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg/1920px-Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg
 <span class="lineno" data-linenos="5 "></span>Thumbnail: https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg/800px-Hubble2005-01-barred-spiral-galaxy-NGC1300.jpg
-</code></pre></div>
-
+</code></pre></div></li>
+<li>To center the image in container, one can set <code>display</code> attribute of the container to <code>inline-block</code>
+    <br>
+    <code>display: inline-block;</code>
+    <br></li>
+<li><a href="https://facelessuser.github.io/pymdown-extensions">Pymdownx extensions</a><ul>
+<li>task-list<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> mixed with general list</li>
+<li>after modifying CSS styles, it's acceptable. Made by li-&gt;input, so li in the same level lose their dot (e.g. this sentence)</li>
+</ul>
 </li>
 <li>
-<p>To center the image in container, one can set <code>display</code> attribute of the container to <code>inline-block</code></p>
-<p><code>display: inline-block;</code></p>
+<details class="details" open><summary>Details</summary><ul>
+<li>indent of the folded content is decided by the content itself. Set padding in CSS</li>
+<li><code>???+</code> means default open</li>
+</ul>
+</details>
 </li>
+<li>critics<ul>
+<li><mark class="critic">mark</mark></li>
+<li><del class="critic">del</del></li>
+<li><ins class="critic">ins</ins></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>use <code>&lt;br&gt;</code> to create a new line instead of <code>return</code> to avoid create <code>&lt;p&gt;</code> label</li>
 </ul>
     </div>
 

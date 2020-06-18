@@ -80,7 +80,18 @@ div.post-meta div.meta-data a.category:hover { color: #596f83; }
 div.post-meta div.meta-data a.author { color: inherit; }
 div.post-meta div.meta-data a.author:hover { color: rgba(0, 0, 0, 0.6); }
 
+
 div.page-container { text-align: center; margin-top: 80px; }
+
+/*  */
+div.page-container div.entry-content p {margin-block-start:0em;margin-block-end:0.5em}
+
+div.page-container div.entry-content ul.task-list { padding:0 0 0 1.5em; list-style: none;}
+
+div.page-container div.entry-content details p { padding:0 0 0 1em;}
+
+/*  */
+
 div.page-container div.entry-content { max-width: 700px; margin: 0 auto; text-align: left; font-family: Merriweather, freight-text-pro, Georgia, Cambria, "Times New Roman", Times, serif; font-size: 14px; line-height: 1.5; padding: 20px; }
 @media screen and (min-width: 35.5em) { div.page-container div.entry-content { font-size: 16px; } }
 div.page-container footer { margin: 0 auto; text-align: left; max-width: 700px; }
