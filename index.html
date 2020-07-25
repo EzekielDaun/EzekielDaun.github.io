@@ -1,116 +1,150 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
+
+
 <head>
-        <title>Yiif's BLOG</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="/theme/css/main.css" />
+  <title>Yiif's BLOG</title>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Pelican" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS only -->
+  <link rel="stylesheet" href="/theme/css/bootstrap_cyborg.min.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'">
+
 </head>
-<body>
 
-    <div class="main-nav-container">
+<body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;">
+  <nav class="navbar navbar-dark sticky-top navbar-expand-md " id="menu" style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);">
+    <div class="container">
+      <a class="navbar-brand" href="/author/Yifei-Liu.html"><img src="/favicon.ico" width="30" height="30" alt="" loading="lazy"></a>
+      <a class="navbar-brand" href="/">Yiif's BLOG</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div class="pure-g">
-            <div class="pure-u-1 pure-u-lg-2-3">
-                <div class="main-nav">
-                    <ul class="main-nav-list">
-                        <li class="main-nav-item active"><a href="/" class="pure-menu-link">Yiif's BLOG</a></li>
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto mr-5">
+        <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
+            <li  class="nav-item"><a href="/pages/page.html" class="nav-link text-capitalize">page<span class="sr-only">(current)</span></a></li>
+            <li  class="nav-item" ><a href="/category/sheng-huo.html" class="nav-link text-capitalize">生活</a></li>
+            <li  class="nav-item" ><a href="/category/wang-zhan-xiang-guan.html" class="nav-link text-capitalize">网站相关</a></li>
+            <li  class="nav-item" ><a href="/category/xue-xi.html" class="nav-link text-capitalize">学习</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav><!-- /#menu -->
 
-                        <li class="main-nav-item"><a href="/pages/about-page.html" class="pure-menu-link">About Page</a></li>
-                        <li class="main-nav-item"><a href="/category/wang-zhan-xiang-guan.html" class="pure-menu-link">网站相关</a></li>
-                    </ul>
-                </div>
-             </div>
+    <div id="carousel_jumbotron" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1" ></li>
+        </ol>
 
-             <div class="pure-u-1 pure-u-lg-1-3"></div>
-        </div>
+        <ul class="carousel-inner" style="padding:0">
+            <li class="text-reset carousel-item active" style="height:45vh;background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))">
+                <a href="style.html">
+                    <div class="d-block w-100 container-fluid" style="background-image:url(/images/test.png);background-size:contain;background-position:center;background-repeat:no-repeat;height:100%;">
+                        <div class="carousel-caption d-none d-sm-block" style="bottom:15%;text-align:center;">
+                            <h1 class="display-1 text-capitalize" >style</h1>
+                            A sample to debug CSS
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="text-reset carousel-item " style="height:45vh;background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))">
+                <a href="helloworld.html">
+                    <div class="d-block w-100 container-fluid" style="background-image:url(/images/test-4.png);background-size:contain;background-position:center;background-repeat:no-repeat;height:100%;">
+                        <div class="carousel-caption d-none d-sm-block" style="bottom:15%;text-align:center;">
+                            <h1 class="display-1 text-capitalize" >Helloworld</h1>
+                            Todo list for building a website by pelican and my notes.
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+        <a class="carousel-control-prev" href="#carousel_jumbotron" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel_jumbotron" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+        </a>
 
     </div>
 
-
-<div class="main-container">
-    <div class="pure-g">
-        <div class="pure-u-1 pure-u-lg-2-3">
-
-
-            <div class="post">
-                <div class="post-meta pure-g">
-
-
-                    <div class="pure-u-3-4 meta-data">
-                        <a href="/category/wang-zhan-xiang-guan.html" class="category">网站相关</a><br />
-
-                        <a class="author" href="/author/yifei-liu.html">Yifei Liu</a>
-                        &mdash; <abbr title="2020-06-05T00:00:00-07:00">2020-06-05(周五)</abbr>
-                    </div>
-                </div>
-                <a href="/helloworld.html"><img src="/images/test.png" alt="Helloworld" class="post-image"/></a>
-                <h2><a href="/helloworld.html" rel="bookmark" title="Permalink to Helloworld">Helloworld</a></h2>
-                <div class="post-content">
-                    <p>Todo list for building a website by pelican and my notes.</p>
-                </div>
-                <div class="post-footer">
-                    <a href="/helloworld.html">Read more</a>
-                </div>
-            </div>
-            <div class="post">
-                <div class="post-meta pure-g">
-
-
-                    <div class="pure-u-3-4 meta-data">
-                        <a href="/category/wang-zhan-xiang-guan.html" class="category">网站相关</a><br />
-
-                        <a class="author" href="/author/yifei-liu.html">Yifei Liu</a>
-                        &mdash; <abbr title="2020-06-05T00:00:00-07:00">2020-06-05(周五)</abbr>
-                    </div>
-                </div>
-                <h2><a href="/update-history.html" rel="bookmark" title="Permalink to 更新记录">更新记录</a></h2>
-                <div class="post-content">
-                    <p>更新记录</p>
-                </div>
-                <div class="post-footer">
-                    <a href="/update-history.html">Read more</a>
-                </div>
-            </div>
-
-<div class="pagination">
-    <div class="post-meta pure-g">
-    </div>
-</div>
-
-            <footer class="index-footer">
-
-                <a href="/" title="Yiif's BLOG">Yiif's BLOG</a>
-                <a href="/category/wang-zhan-xiang-guan.html">网站相关</a>
-                <a href="http://getpelican.com/">Pelican</a>
-                <a href="http://python.org/">Python.org</a>
-                <a href="http://jinja.pocoo.org/">Jinja2</a>
-
-            </footer>
-
+  <div class="container">
+    <section class="container-fluid" id="content">
+    <div class="row">
+        <div class="col-12 col-lg-3 order-lg-second" id="sidebar">
+            <h2 class="text-uppercase">tags</h2>
+            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="tag/learning.html">learning <span class="badge badge-dark">1</span> </a>
+            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="tag/life.html">life <span class="badge badge-dark">1</span> </a>
+            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="tag/website.html">website <span class="badge badge-dark">3</span> </a>
+            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="tag/tech.html">tech <span class="badge badge-dark">1</span> </a>
+            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm" href="tag/learning.html">learning <span class="badge badge-dark">1</span> </a>
+            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm" href="tag/life.html">life <span class="badge badge-dark">1</span> </a>
+            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm" href="tag/tech.html">tech <span class="badge badge-dark">1</span> </a>
+            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm" href="tag/website.html">website <span class="badge badge-dark">3</span> </a>
         </div>
 
-
-        <div class="pure-u-1 pure-u-lg-1-3">
-            <div class="right-container">
-                <div class="right-bar">
-                    <div class="right-head">
-                         Tags
+        <div class="col-12 col-lg-9 order-lg-first" id="recent-posts">
+            <h2 class="col-12">Recent Posts</h2>
+            <div class="card-group">
+                <div class="card" style="min-width:33%">
+                    <div class="card-body">
+                        <h3 class="card-title"><a class="stretched-link text-reset text-capitalize" href="learning.html">learning</a></h3>
+                        <p class="card-text">sample_learning</p>
                     </div>
-                    <div class="tags">
-                    <a href="/tag/website.html">website</a>
-                    <a href="/tag/tech.html">tech</a>
+                    <div class="card-footer"><small class="text-muted">2020-07-22(周三)</small></div>
+                </div>
+                <div class="card" style="min-width:33%">
+<img src="/images/test-4.png" class="card-img-top" alt=life>                    <div class="card-body">
+                        <h3 class="card-title"><a class="stretched-link text-reset text-capitalize" href="life.html">life</a></h3>
+                        <p class="card-text">sample_life</p>
                     </div>
+                    <div class="card-footer"><small class="text-muted">2020-07-22(周三)</small></div>
+                </div>
+                <div class="card" style="min-width:33%">
+                    <div class="card-body">
+                        <h3 class="card-title"><a class="stretched-link text-reset text-capitalize" href="test.html">test</a></h3>
+                        <p class="card-text">A blank article for debugging use</p>
+                    </div>
+                    <div class="card-footer"><small class="text-muted">2020-07-16(周四)</small></div>
+                </div>
+                <div class="card" style="min-width:33%">
+<img src="/images/test.png" class="card-img-top" alt=style>                    <div class="card-body">
+                        <h3 class="card-title"><a class="stretched-link text-reset text-capitalize" href="style.html">style</a></h3>
+                        <p class="card-text">A sample to debug CSS</p>
+                    </div>
+                    <div class="card-footer"><small class="text-muted">2020-06-20(周六)</small></div>
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
+    </div><!-- /.row -->
 
 
+    </section>
+
+    <footer id="about" class="blockquote-footer">
+      <address>
+        Proudly powered by <a href="https://getpelican.com/">Pelican</a>,
+        which takes great advantage of <a href="https://www.python.org/">Python</a>.
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      </address>
+    </footer><!-- /#about -->
+  </div>
 </body>
 </html>
