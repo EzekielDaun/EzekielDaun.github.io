@@ -18,12 +18,19 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
 
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'">
 
 
 
+
         <link rel="alternate" hreflang="en" href="/update-history-en.html">
+
 
 
 
@@ -32,7 +39,7 @@
 <body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;">
   <nav class="navbar navbar-dark sticky-top navbar-expand-md " id="menu" style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);">
     <div class="container">
-      <a class="navbar-brand" href="/author/Yifei-Liu.html"><img src="/favicon.ico" width="30" height="30" alt="" loading="lazy"></a>
+      <a class="navbar-brand" href="#"><img src="/favicon.ico" width="30" height="30" alt="" loading="lazy"></a>
       <a class="navbar-brand" href="/">Yiif's BLOG</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -70,6 +77,9 @@
       <div class="category">
         Category: <a href="/category/wang-zhan-xiang-guan.html">网站相关</a>
       </div>
+    <span class="text-muted" id="busuanzi_container_page_pv">
+      本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次
+    </span>
   </footer><!-- /#post-info -->
 </div><!-- /.jumbotron -->
 
@@ -290,6 +300,8 @@
   <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-chevron-bar-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.646 11.854a.5.5 0 0 0 .708 0L8 8.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708zM2.4 5.2c0 .22.18.4.4.4h10.4a.4.4 0 0 0 0-.8H2.8a.4.4 0 0 0-.4.4z"/></svg>
 </a>
 
+
+
     </section>
 
     <footer id="about" class="blockquote-footer">
@@ -297,7 +309,7 @@
         Proudly powered by <a href="https://getpelican.com/">Pelican</a>,
         which takes great advantage of <a href="https://www.python.org/">Python</a>.
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+        <span id="busuanzi_container_site_uv">本站总访客数<span id="busuanzi_value_site_uv"></span></span>
       </address>
     </footer><!-- /#about -->
   </div>

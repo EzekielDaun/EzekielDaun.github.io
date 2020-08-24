@@ -135,6 +135,8 @@ dd {
 }
 blockquote {
   margin: 0 0 1rem;
+  border-left: 0.5rem solid #FFFFFF;
+  padding-left: 0.5rem;
 }
 b,
 strong {

@@ -18,15 +18,21 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
 
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'">
+
 
 </head>
 
 <body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;">
   <nav class="navbar navbar-dark sticky-top navbar-expand-md " id="menu" style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);">
     <div class="container">
-      <a class="navbar-brand" href="/author/Yifei-Liu.html"><img src="/favicon.ico" width="30" height="30" alt="" loading="lazy"></a>
+      <a class="navbar-brand" href="#"><img src="/favicon.ico" width="30" height="30" alt="" loading="lazy"></a>
       <a class="navbar-brand" href="/">Yiif's BLOG</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,12 +53,23 @@
 
   <div class="container">
     <section class="container-fluid" id="content">
-<h2>Articles tagged with website</h2>
 
-<ul>
-    <li><a href="/test.html">test</a></li>
-    <li><a href="/style.html">style</a></li>
-    <li><a href="/helloworld.html">Helloworld</a></li>
+<ul class="list-group list-group-flush col-lg-8 offset-lg-2 text-center">
+    <h1 class="display-4 text-capitalize">website</h1>
+
+    <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
+        <a href=/test.html class="text-reset stretched-link">test</a>
+        <small class="text-muted">2020-07-16(周四)</small>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
+        <a href=/style.html class="text-reset stretched-link">style</a>
+        <small class="text-muted">2020-06-20(周六)</small>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
+        <a href=/helloworld.html class="text-reset stretched-link">Helloworld</a>
+        <small class="text-muted">2020-06-05(周五)</small>
+    </li>
+
 </ul>
 
     </section>
@@ -62,7 +79,7 @@
         Proudly powered by <a href="https://getpelican.com/">Pelican</a>,
         which takes great advantage of <a href="https://www.python.org/">Python</a>.
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+        <span id="busuanzi_container_site_uv">本站总访客数<span id="busuanzi_value_site_uv"></span></span>
       </address>
     </footer><!-- /#about -->
   </div>
