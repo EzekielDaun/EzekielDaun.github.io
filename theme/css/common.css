@@ -1,0 +1,9 @@
+[data-linenos]:before {
+  content: attr(data-linenos);
+}
+
+/* @supports not (backdrop-filter: none) {
+  nav.navbar {
+    background-color: var(--secondary);
+  }
+} */

@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-
-
 <head>
     <title>Yiif's BLOG - page</title>
   <meta charset="utf-8" />
@@ -9,7 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- CSS only -->
-  <link rel="stylesheet" href="/theme/css/bootstrap_cyborg.min.css">
+  <link rel="stylesheet" href="/theme/css/dark.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/theme/css/bootstrap.min.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/theme/css/common.css">
+
   <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
 
   <!-- JS, Popper.js, and jQuery -->
@@ -23,8 +24,10 @@
   </script>
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
+  <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
+
   <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'">
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'"> -->
 
 
 
@@ -32,10 +35,15 @@
 </head>
 
 <body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;">
-  <nav class="navbar navbar-dark sticky-top navbar-expand-md " id="menu" style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);">
+  <nav class="navbar navbar-dark sticky-top navbar-expand-md" id="menu" style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);">
     <div class="container">
       <a class="navbar-brand" href="#"><img src="/favicon.ico" width="30" height="30" alt="" loading="lazy"></a>
       <a class="navbar-brand" href="/">Yiif's BLOG</a>
+      <a class="navbar-brand"><dark-mode-toggle
+        id="dark-mode-toggle-1"
+        appearance="toggle"
+        permanent="true"
+        ></dark-mode-toggle></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
