@@ -2,6 +2,41 @@
   content: attr(data-linenos);
 }
 
+/* #theme-switch */
+input[type="checkbox"]#theme-switch{
+  visibility: hidden;
+}
+#theme-switch +label{
+  margin:0;
+}
+#theme-switch +label::before,#theme-switch:checked +label::before{
+  line-height:100%;
+}
+#theme-switch +label::before{
+  content: "\1F31E";
+}
+#theme-switch:checked +label::before{
+  content: "\1F319";
+}
+
+/* Jumbotron */
+div#jumbotron{
+  text-align:center;
+  background-size:contain;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+div#cover-background{
+  background-image:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6))
+}
+
+/* smooth transition between light and dark modes */
+body{
+  --duration: 0.5s;
+  --timing: ease;
+  transition: color var(--duration) var(--timing), background-color var(--duration) var(--timing);
+}
+
 /* @supports not (backdrop-filter: none) {
   nav.navbar {
     background-color: var(--secondary);
