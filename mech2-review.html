@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
+
 <head>
     <title>Yiif's BLOG - Mech2 Review</title>
   <meta charset="utf-8" />
   <meta name="generator" content="Pelican" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- CSS only -->
-  <link rel="stylesheet" href="/theme/css/dark.css" id="theme">
+  <link rel="alternate stylesheet" id="theme-dark" href="/theme/css/dark.css">
+  <link rel="alternate stylesheet" id="theme-light" href="/theme/css/bootstrap.min.css">
+
   <link rel="stylesheet" href="/theme/css/common.css">
 
   <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/> -->
-  <link rel="stylesheet" href="/theme/css/bootstrap-toc.min.css"/>
+  <link rel="stylesheet" href="/theme/css/bootstrap-toc.min.css" />
 
 
   <!-- JS, Popper.js, and jQuery -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
 
   <!-- <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script> -->
   <script src="/theme/js/bootstrap-toc.min.js"></script>
@@ -25,9 +36,12 @@
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   </script>
-  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <script type="text/javascript" src="/theme/js/themeSelector.js"></script>
+  <script src="/theme/js/themeSelector.js"></script>
+
+  <script src="https://unpkg.com/three@0.120.1/build/three.js"></script>
+  <script src="/theme/js/test.js"></script>
 
   <!-- Fonts -->
   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'"> -->
@@ -41,24 +55,29 @@
 
 </head>
 
-<body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;" onload="loaded()">
-  <nav class="navbar navbar-dark sticky-top navbar-expand-md" id="menu" style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);background: linear-gradient(90deg, rgba(247, 149, 51, 0.1) 0, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 173, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100%);">
+<body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;">
+  <nav class="navbar navbar-dark sticky-top navbar-expand-md" id="menu"
+    style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);background: linear-gradient(90deg, rgba(247, 149, 51, 0.1) 0, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 173, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100%);">
     <div class="container">
       <a class="navbar-brand" href="#"><img src="/favicon.ico" width="30" height="30" alt="" loading="lazy"></a>
       <a class="navbar-brand" href="/">Yiif's BLOG</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto mr-5">
-        <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
-            <li  class="nav-item"><a href="/pages/page.html" class="nav-link text-capitalize">page<span class="sr-only">(current)</span></a></li>
-            <li  class="nav-item" ><a href="/category--sheng-huo.html" class="nav-link text-capitalize">生活</a></li>
-            <li  class="nav-item" ><a href="/category--wang-zhan-xiang-guan.html" class="nav-link text-capitalize">网站相关</a></li>
-            <li  class="nav-item active" class="nav-item" ><a href="/category--xue-xi.html" class="nav-link text-capitalize">学习</a></li>
+          <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
+          <li  class="nav-item"><a
+              href="/pages/page.html" class="nav-link text-capitalize">page<span
+                class="sr-only">(current)</span></a></li>
+          <li  class="nav-item"><a
+              class="nav-link text-capitalize" href="/category--wang-zhan-xiang-guan.html">网站相关</a></li>
+          <li  class="nav-item active"  class="nav-item"><a
+              class="nav-link text-capitalize" href="/category--xue-xi.html">学习</a></li>
         </ul>
 
-        <input type="checkbox" onclick="theme_switch()" id="theme-switch"><!-- dark mode switch -->
+        <input id="theme-switch" type="checkbox" onclick="themeSwitch()"><!-- dark mode switch -->
         <label for="theme-switch"></label>
 
       </div>
@@ -74,8 +93,8 @@ Math and Physics review in 2020 summer  <footer id="post-info">
     
     </div>
     <div class="time">
-      <time class="modified" datetime="2020-08-23(周日)">
-        Last Edited: 2020-08-23(周日)
+      <time class="modified" datetime="2020-08-23(日)">
+        Last Edited: 2020-08-23(日)
         <!-- article.modified.isoformat() -->
       </time>
     </div>
@@ -152,103 +171,6 @@ Math and Physics review in 2020 summer  <footer id="post-info">
 <p>
  计算侧面积比计算体积要多个坑.首先看以下圆台的侧面积:
 </p>
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg content='&lt;mxfile host="Electron" modified="2020-09-07T08:19:37.174Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/13.6.2 Chrome/83.0.4103.122 Electron/9.2.0 Safari/537.36" etag="MnzV_zFD0uOhUih_8C7d" version="13.6.2" type="device"&gt;&lt;diagram id="Y2m9ydKChyYVU5Du-1l_" name="第 1 页"&gt;7VjbctowEP0apk9hLMmG8BgDTR7SyySdSfoobGGrMRaVZS75+kpYvhsMLqSZafKQ8R6tZGnPWe2aHhovNrccL/0vzCVBDxrupocmPQiRAeV/BWwTACIrATxO3QQCOfBIX4kGDY3G1CVRyVEwFgi6LIMOC0PiiBKGOWfrstucBeW3LrFHasCjg4M6+kRd4SfoNRzm+B2hnp++GQxGycgCp876JJGPXbYuQGjaQ2POmEieFpsxCVTs0rgk8z7vGc02xkkojpnAoe/DH7f29PYZ47vf9BeawSu92RUOYn1gvVmxTSPgcRYve8gO8IwENnZeFBC6YxYwLj1CFpJslHGX8MrInIUihZyYq+1q064fQZ9qRbggmyaC8SzdVx5DqT3CFkTwrfTTs+BAh13rzjS0vc5ZhNdai36RwZF2xFo5XrZ2Hlz5oON7QqxBe6zlKlLYKmprnwryuMSOGlnL1JKYLxbyhROggkqDoJGB0/mJBGcvZA9DJ5F3UGFVRuvMaaZG1nFEpX5n5wl+8HSQJz1qDvt1prLsKTI1QH1kAmgZ+g9ciDirRtx9nbnQvVFlIY9rgS0ZIb59Lho/pWHIc2pzos5uZNY2tTZUZNPkc2GWtPJJykjnvG8ZRCzmDmm/zATmHjm0ns4d4pbK7F5RGX3DMq5LN/cVADWZWQ0qSzFOAizoqly/m7SmN/GdURmRbAfptbLdUw6SyOhJxXJbWQcC1B+W1xqCPqxcWkn8DqyWOrL5PCIln12KZBHsnjWDI667o5LG6JY0xkfSdE2a/ygjOqidPsyf4tlX4NDVeP1tQJ88bDc0Ybwmd1kARVnjnET0VbeeSoc4FixKvlXUMA6oFyr1SJkQpRtVRan8iLjRAwvqumqyvVTn2p3UsnvWpLlDKKtVgzvBE1dv4B/U+0pDDRv66QYNwjN0041E1ru0hw8ijyISZo1bmtFvyGXzvVgn8/7T27RuLo78HRmgtbycr4hcrnkCA7MtSy9YKUwDVd7esVSYZuXrfVhZqLVv2jQe4XJdFEB/20Z1aIdOEG9Db1SR6dnl3doOva82B43KmrOq193R4m3Lgs4tjjTz3wsT9/xHVzT9Aw==&lt;/diagram&gt;&lt;/mxfile&gt;' height="391px" version="1.1" viewbox="-0.5 -0.5 287 391" width="287px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
- <defs>
- </defs>
- <g>
-  <ellipse cx="142.5" cy="342.5" fill="none" pointer-events="all" rx="142.5" ry="47.5" stroke="currentcolor">
-  </ellipse>
-  <ellipse cx="142.5" cy="231.67" fill="none" pointer-events="all" rx="95" ry="31.670625000000005" stroke="currentcolor">
-  </ellipse>
-  <path d="M 285 342.5 L 237.5 231.67" fill="none" pointer-events="stroke" stroke="currentcolor" stroke-miterlimit="10">
-  </path>
-  <g transform="translate(-0.5 -0.5)">
-   <switch>
-    <foreignobject height="100%" pointer-events="none" requiredfeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;" width="100%">
-     <div style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 280px; margin-left: 270px;" xmlns="http://www.w3.org/1999/xhtml">
-      <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
-       <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: currentColor; line-height: 1.2; pointer-events: all; white-space: nowrap; ">
-        L
-       </div>
-      </div>
-     </div>
-    </foreignobject>
-    <text fill="currentColor" font-family="Helvetica" font-size="11px" text-anchor="middle" x="270" y="283">
-     L
-    </text>
-   </switch>
-  </g>
-  <path d="M 0 342.5 L 47.5 231.67" fill="none" pointer-events="stroke" stroke="currentcolor" stroke-miterlimit="10">
-  </path>
-  <rect fill="none" height="20" pointer-events="all" stroke="none" width="20" x="60" y="220">
-  </rect>
-  <g transform="translate(-0.5 -0.5)">
-   <switch>
-    <foreignobject height="100%" pointer-events="none" requiredfeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;" width="100%">
-     <div style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 230px; margin-left: 70px;" xmlns="http://www.w3.org/1999/xhtml">
-      <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
-       <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: currentColor; line-height: 1.2; pointer-events: all; white-space: nowrap; ">
-        r
-       </div>
-      </div>
-     </div>
-    </foreignobject>
-    <text fill="currentColor" font-family="Helvetica" font-size="12px" text-anchor="middle" x="70" y="234">
-     r
-    </text>
-   </switch>
-  </g>
-  <rect fill="none" height="20" pointer-events="all" stroke="none" width="20" x="27.5" y="320">
-  </rect>
-  <g transform="translate(-0.5 -0.5)">
-   <switch>
-    <foreignobject height="100%" pointer-events="none" requiredfeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;" width="100%">
-     <div style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 330px; margin-left: 38px;" xmlns="http://www.w3.org/1999/xhtml">
-      <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
-       <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: currentColor; line-height: 1.2; pointer-events: all; white-space: nowrap; ">
-        R
-       </div>
-      </div>
-     </div>
-    </foreignobject>
-    <text fill="currentColor" font-family="Helvetica" font-size="12px" text-anchor="middle" x="38" y="334">
-     R
-    </text>
-   </switch>
-  </g>
-  <path d="M 143 0 L 237.5 231.67" fill="none" pointer-events="stroke" stroke="currentcolor" stroke-dasharray="3 3" stroke-miterlimit="10">
-  </path>
-  <g transform="translate(-0.5 -0.5)">
-   <switch>
-    <foreignobject height="100%" pointer-events="none" requiredfeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;" width="100%">
-     <div style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 110px; margin-left: 211px;" xmlns="http://www.w3.org/1999/xhtml">
-      <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
-       <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: currentColor; line-height: 1.2; pointer-events: all; white-space: nowrap; ">
-        L'
-       </div>
-      </div>
-     </div>
-    </foreignobject>
-    <text fill="currentColor" font-family="Helvetica" font-size="11px" text-anchor="middle" x="211" y="114">
-     L'
-    </text>
-   </switch>
-  </g>
-  <path d="M 47.5 231.67 L 143 0" fill="none" pointer-events="stroke" stroke="currentcolor" stroke-dasharray="3 3" stroke-miterlimit="10">
-  </path>
- </g>
- <switch>
-  <g requiredfeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-  </g>
-  <a target="_blank" transform="translate(0,-5)" xlink:href="https://desk.draw.io/support/solutions/articles/16000042487">
-   <text font-size="10px" text-anchor="middle" x="50%" y="100%">
-    Viewer does not support full SVG 1.1
-   </text>
-  </a>
- </switch>
-</svg>
 <p>
  由圆锥侧面积公式
  <span>
@@ -642,7 +564,7 @@ Math and Physics review in 2020 summer  <footer id="post-info">
 
     </section>
 
-    <footer id="about" class="blockquote-footer">
+    <footer class="blockquote-footer" id="about">
       <address>
         Proudly powered by <a href="https://getpelican.com/">Pelican</a>,
         which takes great advantage of <a href="https://www.python.org/">Python</a>.
@@ -652,4 +574,5 @@ Math and Physics review in 2020 summer  <footer id="post-info">
     </footer><!-- /#about -->
   </div>
 </body>
+
 </html>

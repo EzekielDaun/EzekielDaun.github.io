@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
+
 <head>
   <title>Yiif's BLOG</title>
   <meta charset="utf-8" />
   <meta name="generator" content="Pelican" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- CSS only -->
-  <link rel="stylesheet" href="/theme/css/dark.css" id="theme">
+  <link rel="alternate stylesheet" id="theme-dark" href="/theme/css/dark.css">
+  <link rel="alternate stylesheet" id="theme-light" href="/theme/css/bootstrap.min.css">
+
   <link rel="stylesheet" href="/theme/css/common.css">
 
   <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/> -->
-  <link rel="stylesheet" href="/theme/css/bootstrap-toc.min.css"/>
+  <link rel="stylesheet" href="/theme/css/bootstrap-toc.min.css" />
 
 
   <!-- JS, Popper.js, and jQuery -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
 
   <!-- <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script> -->
   <script src="/theme/js/bootstrap-toc.min.js"></script>
@@ -25,9 +36,12 @@
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   </script>
-  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <script type="text/javascript" src="/theme/js/themeSelector.js"></script>
+  <script src="/theme/js/themeSelector.js"></script>
+
+  <script src="https://unpkg.com/three@0.120.1/build/three.js"></script>
+  <script src="/theme/js/test.js"></script>
 
   <!-- Fonts -->
   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'"> -->
@@ -35,24 +49,29 @@
 
 </head>
 
-<body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;" onload="loaded()">
-  <nav class="navbar navbar-dark sticky-top navbar-expand-md" id="menu" style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);background: linear-gradient(90deg, rgba(247, 149, 51, 0.1) 0, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 173, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100%);">
+<body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;">
+  <nav class="navbar navbar-dark sticky-top navbar-expand-md" id="menu"
+    style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);background: linear-gradient(90deg, rgba(247, 149, 51, 0.1) 0, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 173, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100%);">
     <div class="container">
       <a class="navbar-brand" href="#"><img src="/favicon.ico" width="30" height="30" alt="" loading="lazy"></a>
       <a class="navbar-brand" href="/">Yiif's BLOG</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto mr-5">
-        <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
-            <li  class="nav-item"><a href="/pages/page.html" class="nav-link text-capitalize">page<span class="sr-only">(current)</span></a></li>
-            <li  class="nav-item" ><a href="/category--sheng-huo.html" class="nav-link text-capitalize">生活</a></li>
-            <li  class="nav-item" ><a href="/category--wang-zhan-xiang-guan.html" class="nav-link text-capitalize">网站相关</a></li>
-            <li  class="nav-item" ><a href="/category--xue-xi.html" class="nav-link text-capitalize">学习</a></li>
+          <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
+          <li  class="nav-item"><a
+              href="/pages/page.html" class="nav-link text-capitalize">page<span
+                class="sr-only">(current)</span></a></li>
+          <li  class="nav-item"><a
+              class="nav-link text-capitalize" href="/category--wang-zhan-xiang-guan.html">网站相关</a></li>
+          <li  class="nav-item"><a
+              class="nav-link text-capitalize" href="/category--xue-xi.html">学习</a></li>
         </ul>
 
-        <input type="checkbox" onclick="theme_switch()" id="theme-switch"><!-- dark mode switch -->
+        <input id="theme-switch" type="checkbox" onclick="themeSwitch()"><!-- dark mode switch -->
         <label for="theme-switch"></label>
 
       </div>
@@ -61,55 +80,81 @@
 
   <div class="container">
     <section class="container-fluid" id="content">
-    <div class="row">
-        <div class="col-12 col-lg-3 order-lg-second" id="sidebar">
-            <div class="col">
-                <h2 class="text-capitalize">tags</h2>
-                <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="/tag--learning.html">learning <span class="badge badge-dark">1</span> </a>
-                <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="/tag--life.html">life <span class="badge badge-dark">1</span> </a>
-                <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="/tag--website.html">website <span class="badge badge-dark">3</span> </a>
-                <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="/tag--tech.html">tech <span class="badge badge-dark">1</span> </a>
-            </div>
-            <div class="col">
-                <canvas id="radar-map">
-                    <p>radar-map test</p>
-                </canvas>
+
+<h1 class="text-center">Hi  看点什么?</h1>
+
+<div class="" id="ball" style="height:500px;width:100%;"></div>
+
+<ul class="row" id="timeline">
+    <li class="row col-12 mt-1">
+
+        <div class="col-11 col-lg-5">
+            <div class="card text-center mb-5">
+                <p class="d-block d-lg-none card-header">2020-08-23(日)</p>
+                <div class="card-body">
+                    <h2 class="card-title text-uppercase"><a class="text-reset" href="mech2-review.html">
+                            Mech2 Review</a></h2>
+<p class="card-text">Math and Physics review in 2020 summer</p>                </div>
             </div>
         </div>
+        <div class="d-none d-sm-flex col-1 col-lg-2" style="display:flex;justify-content:center;">
+            <div class="timeline">&#x1F789</div>
+        </div>
+        <p class="col-5 d-none d-lg-block text-left text-muted">2020-08-23(日)</p>
+    </li>
+    <li class="row col-12 mt-1">
 
-        <div class="col-12 col-lg-9 order-lg-first" id="recent-posts">
-            <h2 class="col-12">Recent Posts</h2>
-            <div class="card-group">
-                <div class="card" style="min-width:33%">
-                    <div class="card-body">
-                        <h3 class="card-title"><a class="stretched-link text-reset text-capitalize" href="mech2-review.html">Mech2 Review</a></h3>
-                        <p class="card-text">Math and Physics review in 2020 summer</p>
-                    </div>
-                    <div class="card-footer"><small class="text-muted">2020-08-23(周日)</small></div>
-                </div>
-                <div class="card" style="min-width:33%">
-                    <div class="card-body">
-                        <h3 class="card-title"><a class="stretched-link text-reset text-capitalize" href="life.html">life</a></h3>
-                        <p class="card-text"></p>
-                    </div>
-                    <div class="card-footer"><small class="text-muted">2020-07-22(周三)</small></div>
-                </div>
-                <div class="card" style="min-width:33%">
-                    <div class="card-body">
-                        <h3 class="card-title"><a class="stretched-link text-reset text-capitalize" href="test.html">test</a></h3>
-                        <p class="card-text">A blank article for debugging use</p>
-                    </div>
-                    <div class="card-footer"><small class="text-muted">2020-07-16(周四)</small></div>
-                </div>
+        <p class="col-5 d-none d-lg-block order-lg-1 text-left text-lg-right text-muted">2020-06-20(六)</p>
+        <div class="d-none d-sm-flex col-1 col-lg-2 order-2" style="display:flex;justify-content:center;">
+            <div class="timeline">&#x1F789</div>
+        </div>
+        <div class="col-11 col-lg-5 order-lg-3">
+            <div class="card text-center mb-5">
+                <p class="d-block d-lg-none card-header">2020-06-20(六)</p>
+                <div class="card-body">
+                    <h2 class="card-title text-uppercase"><a class="text-reset" href="style.html">
+                            style</a></h2>
+<p class="card-text">For debugging CSS</p>                </div>
             </div>
         </div>
-    </div><!-- /.row -->
+    </li>
+    <li class="row col-12 mt-1">
 
-    <!--  -->
+        <div class="col-11 col-lg-5">
+            <div class="card text-center mb-5">
+                <p class="d-block d-lg-none card-header">2020-06-05(五)</p>
+                <div class="card-body">
+                    <h2 class="card-title text-uppercase"><a class="text-reset" href="helloworld.html">
+                            Helloworld</a></h2>
+<p class="card-text">Todo list for building a website by pelican and my notes.</p>                </div>
+            </div>
+        </div>
+        <div class="d-none d-sm-flex col-1 col-lg-2" style="display:flex;justify-content:center;">
+            <div class="timeline">&#x1F789</div>
+        </div>
+        <p class="col-5 d-none d-lg-block text-left text-muted">2020-06-05(五)</p>
+    </li>
+    <li class="row col-12 mt-1">
+
+        <p class="col-5 d-none d-lg-block order-lg-1 text-left text-lg-right text-muted">2020-06-05(五)</p>
+        <div class="d-none d-sm-flex col-1 col-lg-2 order-2" style="display:flex;justify-content:center;">
+            <div class="timeline">&#x1F789</div>
+        </div>
+        <div class="col-11 col-lg-5 order-lg-3">
+            <div class="card text-center mb-5">
+                <p class="d-block d-lg-none card-header">2020-06-05(五)</p>
+                <div class="card-body">
+                    <h2 class="card-title text-uppercase"><a class="text-reset" href="update-history.html">
+                            更新记录</a></h2>
+<p class="card-text">更新记录</p>                </div>
+            </div>
+        </div>
+    </li>
+</ul>
 
     </section>
 
-    <footer id="about" class="blockquote-footer">
+    <footer class="blockquote-footer" id="about">
       <address>
         Proudly powered by <a href="https://getpelican.com/">Pelican</a>,
         which takes great advantage of <a href="https://www.python.org/">Python</a>.
@@ -119,4 +164,5 @@
     </footer><!-- /#about -->
   </div>
 </body>
+
 </html>

@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Yiif's BLOG - History</title>
   <meta charset="utf-8" />
   <meta name="generator" content="Pelican" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- CSS only -->
-  <link rel="stylesheet" href="/theme/css/dark.css" id="theme">
+  <link rel="alternate stylesheet" id="theme-dark" href="/theme/css/dark.css">
+  <link rel="alternate stylesheet" id="theme-light" href="/theme/css/bootstrap.min.css">
+
   <link rel="stylesheet" href="/theme/css/common.css">
 
   <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/> -->
-  <link rel="stylesheet" href="/theme/css/bootstrap-toc.min.css"/>
+  <link rel="stylesheet" href="/theme/css/bootstrap-toc.min.css" />
 
 
   <!-- JS, Popper.js, and jQuery -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
 
   <!-- <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script> -->
   <script src="/theme/js/bootstrap-toc.min.js"></script>
@@ -25,9 +36,12 @@
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   </script>
-  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <script type="text/javascript" src="/theme/js/themeSelector.js"></script>
+  <script src="/theme/js/themeSelector.js"></script>
+
+  <script src="https://unpkg.com/three@0.120.1/build/three.js"></script>
+  <script src="/theme/js/test.js"></script>
 
   <!-- Fonts -->
   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'"> -->
@@ -42,24 +56,29 @@
 
 </head>
 
-<body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;" onload="loaded()">
-  <nav class="navbar navbar-dark sticky-top navbar-expand-md" id="menu" style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);background: linear-gradient(90deg, rgba(247, 149, 51, 0.1) 0, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 173, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100%);">
+<body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;">
+  <nav class="navbar navbar-dark sticky-top navbar-expand-md" id="menu"
+    style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);background: linear-gradient(90deg, rgba(247, 149, 51, 0.1) 0, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 173, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100%);">
     <div class="container">
       <a class="navbar-brand" href="#"><img src="/favicon.ico" width="30" height="30" alt="" loading="lazy"></a>
       <a class="navbar-brand" href="/">Yiif's BLOG</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto mr-5">
-        <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
-            <li  class="nav-item"><a href="/pages/page.html" class="nav-link text-capitalize">page<span class="sr-only">(current)</span></a></li>
-            <li  class="nav-item" ><a href="/category--sheng-huo.html" class="nav-link text-capitalize">生活</a></li>
-            <li  class="nav-item active" class="nav-item" ><a href="/category--wang-zhan-xiang-guan.html" class="nav-link text-capitalize">网站相关</a></li>
-            <li  class="nav-item" ><a href="/category--xue-xi.html" class="nav-link text-capitalize">学习</a></li>
+          <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
+          <li  class="nav-item"><a
+              href="/pages/page.html" class="nav-link text-capitalize">page<span
+                class="sr-only">(current)</span></a></li>
+          <li  class="nav-item active"  class="nav-item"><a
+              class="nav-link text-capitalize" href="/category--wang-zhan-xiang-guan.html">网站相关</a></li>
+          <li  class="nav-item"><a
+              class="nav-link text-capitalize" href="/category--xue-xi.html">学习</a></li>
         </ul>
 
-        <input type="checkbox" onclick="theme_switch()" id="theme-switch"><!-- dark mode switch -->
+        <input id="theme-switch" type="checkbox" onclick="themeSwitch()"><!-- dark mode switch -->
         <label for="theme-switch"></label>
 
       </div>
@@ -309,7 +328,7 @@ Update Record  <footer id="post-info">
 
     </section>
 
-    <footer id="about" class="blockquote-footer">
+    <footer class="blockquote-footer" id="about">
       <address>
         Proudly powered by <a href="https://getpelican.com/">Pelican</a>,
         which takes great advantage of <a href="https://www.python.org/">Python</a>.
@@ -319,4 +338,5 @@ Update Record  <footer id="post-info">
     </footer><!-- /#about -->
   </div>
 </body>
+
 </html>

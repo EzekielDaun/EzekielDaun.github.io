@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
+
 <head>
     <title>Yiif's BLOG - Helloworld</title>
   <meta charset="utf-8" />
   <meta name="generator" content="Pelican" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- CSS only -->
-  <link rel="stylesheet" href="/theme/css/dark.css" id="theme">
+  <link rel="alternate stylesheet" id="theme-dark" href="/theme/css/dark.css">
+  <link rel="alternate stylesheet" id="theme-light" href="/theme/css/bootstrap.min.css">
+
   <link rel="stylesheet" href="/theme/css/common.css">
 
   <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/> -->
-  <link rel="stylesheet" href="/theme/css/bootstrap-toc.min.css"/>
+  <link rel="stylesheet" href="/theme/css/bootstrap-toc.min.css" />
 
 
   <!-- JS, Popper.js, and jQuery -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
 
   <!-- <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script> -->
   <script src="/theme/js/bootstrap-toc.min.js"></script>
@@ -25,9 +36,12 @@
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   </script>
-  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <script type="text/javascript" src="/theme/js/themeSelector.js"></script>
+  <script src="/theme/js/themeSelector.js"></script>
+
+  <script src="https://unpkg.com/three@0.120.1/build/three.js"></script>
+  <script src="/theme/js/test.js"></script>
 
   <!-- Fonts -->
   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'"> -->
@@ -44,24 +58,29 @@
 
 </head>
 
-<body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;" onload="loaded()">
-  <nav class="navbar navbar-dark sticky-top navbar-expand-md" id="menu" style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);background: linear-gradient(90deg, rgba(247, 149, 51, 0.1) 0, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 173, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100%);">
+<body data-spy="scroll" data-target="#toc" style="font-family: 'Noto Serif SC', serif;">
+  <nav class="navbar navbar-dark sticky-top navbar-expand-md" id="menu"
+    style="-webkit-backdrop-filter: saturate(180%) blur(1em);backdrop-filter: saturate(180%) blur(1em);background: linear-gradient(90deg, rgba(247, 149, 51, 0.1) 0, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 173, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100%);">
     <div class="container">
       <a class="navbar-brand" href="#"><img src="/favicon.ico" width="30" height="30" alt="" loading="lazy"></a>
       <a class="navbar-brand" href="/">Yiif's BLOG</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto mr-5">
-        <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
-            <li  class="nav-item"><a href="/pages/page.html" class="nav-link text-capitalize">page<span class="sr-only">(current)</span></a></li>
-            <li  class="nav-item" ><a href="/category--sheng-huo.html" class="nav-link text-capitalize">生活</a></li>
-            <li  class="nav-item active" class="nav-item" ><a href="/category--wang-zhan-xiang-guan.html" class="nav-link text-capitalize">网站相关</a></li>
-            <li  class="nav-item" ><a href="/category--xue-xi.html" class="nav-link text-capitalize">学习</a></li>
+          <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
+          <li  class="nav-item"><a
+              href="/pages/page.html" class="nav-link text-capitalize">page<span
+                class="sr-only">(current)</span></a></li>
+          <li  class="nav-item active"  class="nav-item"><a
+              class="nav-link text-capitalize" href="/category--wang-zhan-xiang-guan.html">网站相关</a></li>
+          <li  class="nav-item"><a
+              class="nav-link text-capitalize" href="/category--xue-xi.html">学习</a></li>
         </ul>
 
-        <input type="checkbox" onclick="theme_switch()" id="theme-switch"><!-- dark mode switch -->
+        <input id="theme-switch" type="checkbox" onclick="themeSwitch()"><!-- dark mode switch -->
         <label for="theme-switch"></label>
 
       </div>
@@ -79,8 +98,8 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
 
     </div>
     <div class="time">
-      <time class="modified" datetime="2020-09-06(周日)">
-        Last Edited: 2020-09-06(周日)
+      <time class="modified" datetime="2020-09-06(日)">
+        Last Edited: 2020-09-06(日)
         <!-- article.modified.isoformat() -->
       </time>
     </div>
@@ -121,7 +140,7 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
  </li>
  <li>
   <a href="https://bootswatch.com/">
-   bootstrap开源主题
+   bootstrap 开源主题
   </a>
  </li>
 </ul>
@@ -134,101 +153,95 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
    <summary>
     读文档
    </summary>
-   <ul class="task-list">
-    <li>
-     <a href="https://docs.getpelican.com/en/stable/index.html">
-      链接
-     </a>
-    </li>
-    <li class="task-list-item">
-     <input checked="" disabled="" type="checkbox"/>
-     <del class="critic">
-      多语言(pelican template)
-     </del>
-    </li>
-    <li class="task-list-item">
-     <input disabled="" type="checkbox"/>
-     国际化(i18n插件)
-    </li>
-    <li>
-     继续看
-    </li>
-   </ul>
   </details>
+ </li>
+ <li>
+  <a href="https://docs.getpelican.com/en/stable/index.html">
+   链接
+  </a>
+ </li>
+ <li class="task-list-item">
+  <input checked="" disabled="" type="checkbox"/>
+  <del class="critic">
+   多语言(pelican template)
+  </del>
  </li>
  <li class="task-list-item">
   <input disabled="" type="checkbox"/>
-  Pelican-theme (自建基于bootstrap主题,名字未定)
+  国际化(i18n 插件)
+ </li>
+ <li>
+  继续看
+ </li>
+ <li class="task-list-item">
+  <input disabled="" type="checkbox"/>
+  Pelican-theme (自建基于 bootstrap 主题,名字未定)
+ </li>
+ <li class="task-list-item">
+  <input disabled="" type="checkbox"/>
+  toc
   <ul class="task-list">
    <li class="task-list-item">
-    <input disabled="" type="checkbox"/>
-    toc
-    <ul class="task-list">
-     <li class="task-list-item">
-      <input checked="" disabled="" type="checkbox"/>
-      <a href="https://afeld.github.io/bootstrap-toc/">
-       Bootstrap TOC插件
-      </a>
-     </li>
-     <li class="task-list-item">
-      <input disabled="" type="checkbox"/>
-      文本颜色
-     </li>
-    </ul>
+    <input checked="" disabled="" type="checkbox"/>
+    <a href="https://afeld.github.io/bootstrap-toc/">
+     Bootstrap TOC 插件
+    </a>
    </li>
    <li class="task-list-item">
     <input disabled="" type="checkbox"/>
-    字体
-    <ul class="task-list">
-     <li class="task-list-item">
-      <input checked="" disabled="" type="checkbox"/>
-      googlefont
-     </li>
-     <li class="task-list-item">
-      <input disabled="" type="checkbox"/>
-      着重号,直角引号
-     </li>
-     <li class="task-list-item">
-      <input disabled="" type="checkbox"/>
-      首字加大
-     </li>
-    </ul>
-   </li>
-   <li class="task-list-item">
-    <input checked="" disabled="" type="checkbox"/>
-    回到顶部
-   </li>
-   <li class="task-list-item">
-    <input checked="" disabled="" type="checkbox"/>
-    自动为图片添加
-    <code>
-     .img-fluid
-    </code>
-    (目前采用插件解决)
+    文本颜色
    </li>
   </ul>
+ </li>
+ <li class="task-list-item">
+  <input disabled="" type="checkbox"/>
+  字体
+  <ul class="task-list">
+   <li class="task-list-item">
+    <input checked="" disabled="" type="checkbox"/>
+    googlefont
+   </li>
+   <li class="task-list-item">
+    <input disabled="" type="checkbox"/>
+    着重号,直角引号
+   </li>
+   <li class="task-list-item">
+    <input disabled="" type="checkbox"/>
+    首字加大
+   </li>
+  </ul>
+ </li>
+ <li class="task-list-item">
+  <input checked="" disabled="" type="checkbox"/>
+  回到顶部
+ </li>
+ <li class="task-list-item">
+  <input checked="" disabled="" type="checkbox"/>
+  自动为图片添加
+  <code>
+   .img-fluid
+  </code>
+  (目前采用插件解决)
  </li>
  <li class="task-list-item">
   <input disabled="" type="checkbox"/>
   进阶
-  <ul class="task-list">
-   <li class="task-list-item">
-    <input disabled="" type="checkbox"/>
-    waifu纸片人
-    <ul>
-     <li>
-      眼神
-     </li>
-     <li>
-      点击互动
-     </li>
-    </ul>
+ </li>
+ <li class="task-list-item">
+  <input disabled="" type="checkbox"/>
+  waifu 纸片人
+  <ul>
+   <li>
+    眼神
    </li>
-   <li class="task-list-item">
-    <input disabled="" type="checkbox"/>
-    文章分类数量雷达图
+   <li>
+    点击互动
    </li>
   </ul>
+ </li>
+ <li class="task-list-item">
+  <input disabled="" type="checkbox"/>
+  文章分类数量雷达图
  </li>
 </ul>
 <h3>
@@ -243,10 +256,10 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
   </code>
  </li>
  <li>
-  重载时清空output文件夹,保留指定文件夹
+  重载时清空 output 文件夹,保留指定文件夹
   <br/>
   <code>
-   DELETE_OUTPUT_DIRECTORY =  TRUE
+   DELETE_OUTPUT_DIRECTORY = TRUE
   </code>
   <br/>
   <code>
@@ -254,67 +267,65 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
   </code>
  </li>
  <li>
-  文件名正则提取metadata title &amp; date
+  文件名正则提取 metadata title &amp; date
   <br/>
   <code>
    FILENAME_METADATA = '(?P&lt;title&gt;.*)(?P&lt;date&gt;\d{4}\d{2}\d{2})'
   </code>
  </li>
  <li>
-  GitHub更新css文件可能较慢? 改变theme后不生效可能需要多等等
+  GitHub 更新 css 文件可能较慢? 改变 theme 后不生效可能需要多等等
  </li>
  <li>
   <a href="https://facelessuser.github.io/pymdown-extensions">
    Pymdownx extensions
   </a>
+ </li>
+ <li>
+  task-list
+  <ul class="task-list">
+   <li class="task-list-item">
+    <input disabled="" type="checkbox"/>
+    列表混排
+   </li>
+   <li class="task-list-item">
+    <input disabled="" type="checkbox"/>
+    自动添加删除线
+   </li>
+  </ul>
+ </li>
+ <li>
+  <details class="details">
+   <summary>
+    Details
+   </summary>
+   <ul>
+    <li>
+     <code>
+      ???+
+     </code>
+     为默认打开,不带+默认关闭
+    </li>
+   </ul>
+  </details>
+ </li>
+ <li>
+  critics
   <ul>
    <li>
-    task-list
-    <ul class="task-list">
-     <li class="task-list-item">
-      <input disabled="" type="checkbox"/>
-      列表混排
-     </li>
-     <li class="task-list-item">
-      <input disabled="" type="checkbox"/>
-      自动添加删除线
-     </li>
-    </ul>
+    <mark class="critic">
+     {==mark 中文==}
+    </mark>
    </li>
    <li>
-    <details class="details">
-     <summary>
-      Details
-     </summary>
-     <ul>
-      <li>
-       <code>
-        ???+
-       </code>
-       为默认打开,不带+默认关闭
-      </li>
-     </ul>
-    </details>
+    <del class="critic">
+     {--del--}
+    </del>
    </li>
    <li>
-    critics
-    <ul>
-     <li>
-      <mark class="critic">
-       {==mark中文==}
-      </mark>
-     </li>
-     <li>
-      <del class="critic">
-       {--del--}
-      </del>
-     </li>
-     <li>
-      <ins class="critic">
-       {++ins++}
-      </ins>
-     </li>
-    </ul>
+    <ins class="critic">
+     {++ins++}
+    </ins>
    </li>
   </ul>
  </li>
@@ -337,7 +348,7 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
   <code>
    {! xxx.xxx !}
   </code>
-  的形式在md中添加文件
+  的形式在 md 中添加文件
   <br/>
   <code>
    pip install mdx_include
@@ -345,24 +356,21 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
   <code>
    'mdx_include':{'base_path': 'path/to/your/directory',}
   </code>
-  <ul>
-   <li>
-    使用
-    <code>
-     \
-    </code>
-    来取消解析
-   </li>
-  </ul>
+  <br/>
+  使用
+  <code>
+   \
+  </code>
+  来取消解析
  </li>
  <li>
-  svg自动跟随body颜色(仅限黑白图片)
+  svg 自动跟随 body 颜色(仅限黑白图片)
   <br/>
-  画svg的时候设置
+  画 svg 的时候设置
   <code>
    strokeColor=currentColor
   </code>
-  ,其他各种color也都要设为
+  ,其他各种 color 也都要设为
   <code>
    currentColor
   </code>
@@ -371,6 +379,16 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
   <a href="https://web.dev/prefers-color-scheme/#smooth-transitions-between-modes">
    深色模式平滑切换
   </a>
+  <br/>
+  使用
+  <code>
+   rel="alternate stylesheet"
+  </code>
+  来预载全部css避免闪烁,切换时设置
+  <code>
+   rel="stylesheet"
+  </code>
+  即可
  </li>
 </ul></article>
 </div><!-- /#article-content -->
@@ -383,7 +401,7 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
 
     </section>
 
-    <footer id="about" class="blockquote-footer">
+    <footer class="blockquote-footer" id="about">
       <address>
         Proudly powered by <a href="https://getpelican.com/">Pelican</a>,
         which takes great advantage of <a href="https://www.python.org/">Python</a>.
@@ -393,4 +411,5 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
     </footer><!-- /#about -->
   </div>
 </body>
+
 </html>
