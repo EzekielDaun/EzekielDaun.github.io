@@ -36,16 +36,13 @@
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   </script>
-  <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
   <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
   </script>
 
-
   <script src="/theme/js/themeSelector.js"></script>
-
-  <script src="https://unpkg.com/three@0.120.1/build/three.js"></script>
-  <!-- <script src="/theme/js/test.js"></script> -->
+  <script src="/theme/js/jquery.svg3dtagcloud.min.js"></script>
+  <script src="/theme/js/ball.js"></script>
 
   <!-- Fonts -->
   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'"> -->
@@ -74,8 +71,10 @@
         <ul class="navbar-nav ml-auto mr-5">
           <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
           <li  class="nav-item"><a
-              href="/pages/page.html" class="nav-link text-capitalize">page<span
+              href="/pages/about.html" class="nav-link text-capitalize">About<span
                 class="sr-only">(current)</span></a></li>
+          <li  class="nav-item"><a
+              class="nav-link text-capitalize" href="/category--sheng-huo.html">生活</a></li>
           <li  class="nav-item active"  class="nav-item"><a
               class="nav-link text-capitalize" href="/category--wang-zhan-xiang-guan.html">网站相关</a></li>
           <li  class="nav-item"><a
@@ -121,210 +120,9 @@
     <!-- <nav class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="125"></nav> -->
     <nav id="toc" data-spy="affix" data-toggle="toc" class="sticky-top text-reset" style="top:5rem"></nav>
   </div>
-  <article class="col col-sm-9 col-md-10" role="main"><details class="v1">
- <summary>
-  V1
- </summary>
- <h1>
-  V1
- </h1>
- <h2>
-  20200605
- </h2>
- <ul>
-  <li>
-   pelican搭建本地网站
-  </li>
- </ul>
- <h2>
-  20200606
- </h2>
- <ul>
-  <li>
-   插入
-   <a href="/helloworld.html">
-    内部网址
-   </a>
-  </li>
-  <li>
-   插入
-   <a href="/images/test.png">
-    图片
-   </a>
-  </li>
- </ul>
- <h2>
-  20200607
- </h2>
- <ul>
-  <li>
-   成功上传到github
-  </li>
- </ul>
- <h2>
-  20200608
- </h2>
- <ul>
-  <li>
-   多语言页面(手动翻译)
-  </li>
-  <li>
-   <del class="critic">
-    注意到slug以及文件名不能有大写字母以及空格
-   </del>
-   <ul>
-    <li>
-     <del class="critic">
-      本地运行没有此问题
-     </del>
-    </li>
-    <li>
-     <del class="critic">
-      chrome清缓存后才能正常测试
-     </del>
-    </li>
-   </ul>
-  </li>
- </ul>
- <h2>
-  20200610
- </h2>
- <ul>
-  <li>
-   以文件夹名称作为页面分类
-  </li>
-  <li>
-   文件名正则提取metadata
-  </li>
- </ul>
- <h2>
-  20200611
- </h2>
- <ul>
-  <li>
-   添加主题
-   <a href="https://onur.github.io/medius/medius.html">
-    medius
-   </a>
-  </li>
- </ul>
- <h2>
-  20200612
- </h2>
- <ul>
-  <li>
-   参考
-   <a href="https://www.cnblogs.com/luizyao/p/11910504.html#6-markdown%E8%A7%A3%E6%9E%90%E5%BC%82%E5%B8%B8">
-    这篇文章
-   </a>
-   修改markdown解释器及相关设置
-  </li>
-  <li>
-   修改markdown解析器为pymdownx
-   <br/>
-   <code>
-    pip install pymdown-extensions
-   </code>
-   <br/>
-  </li>
-  <li>
-   添加```包裹代码块并渲染行号
-  </li>
-  <li>
-   <a href="https://github.com/EzekielDaun/medius">
-    fork medius
-   </a>
-   , 更改主色调
-  </li>
-  <li>
-   给
-   <a href="/helloworld.html">
-    Helloworld
-   </a>
-   添加了封面和预览图
-  </li>
- </ul>
- <h2>
-  20200613
- </h2>
- <ul>
-  <li>
-   修改配色为
-   <code>
-    #D77186
-   </code>
-   <code>
-    #61A2DA
-   </code>
-   <code>
-    #6CB7DA
-   </code>
-   <code>
-    #B5B5B3
-   </code>
-   <code>
-    #D75725
-   </code>
-  </li>
-  <li>
-   顶部标题栏添加渐变背景色
-  </li>
-  <li>
-   文章页面封面图大小调整
-  </li>
- </ul>
- <h2>
-  20200615
- </h2>
- <ul>
-  <li>
-   调整导航栏宽度
-  </li>
-  <li>
-   调整导航栏字体大小
-  </li>
- </ul>
- <h2>
-  20200617
- </h2>
- <ul>
-  <li>
-   添加markdown扩展
-   <a href="https://facelessuser.github.io/pymdown-extensions">
-    pymdownx
-   </a>
-  </li>
-  <li>
-   调整CSS以适配pymdownx中的task-list和details
-  </li>
-  <li>
-   调整
-   <code>
-    &lt;p&gt;
-   </code>
-   标签的margin
-  </li>
- </ul>
-</details>
-<h1>
- V2
-</h1>
-<h2>
- 20200725
-</h2>
-<ul>
+  <article class="col col-sm-9 col-md-10" role="main"><ul>
  <li>
-  使用
-  <a href="https://v4.bootcss.com">
-   Bootstrap V4
-  </a>
-  重建
- </li>
- <li>
-  <a href="https://afeld.github.io/bootstrap-toc/">
-   Bootstrap TOC 插件
-  </a>
-  添加文章目录
+  V1.0 20210102
  </li>
 </ul></article>
 </div><!-- /#article-content -->

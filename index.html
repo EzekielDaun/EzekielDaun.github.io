@@ -36,16 +36,13 @@
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   </script>
-  <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
   <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
   </script>
 
-
   <script src="/theme/js/themeSelector.js"></script>
-
-  <script src="https://unpkg.com/three@0.120.1/build/three.js"></script>
-  <!-- <script src="/theme/js/test.js"></script> -->
+  <script src="/theme/js/jquery.svg3dtagcloud.min.js"></script>
+  <script src="/theme/js/ball.js"></script>
 
   <!-- Fonts -->
   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'"> -->
@@ -67,8 +64,10 @@
         <ul class="navbar-nav ml-auto mr-5">
           <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
           <li  class="nav-item"><a
-              href="/pages/page.html" class="nav-link text-capitalize">page<span
+              href="/pages/about.html" class="nav-link text-capitalize">About<span
                 class="sr-only">(current)</span></a></li>
+          <li  class="nav-item"><a
+              class="nav-link text-capitalize" href="/category--sheng-huo.html">生活</a></li>
           <li  class="nav-item"><a
               class="nav-link text-capitalize" href="/category--wang-zhan-xiang-guan.html">网站相关</a></li>
           <li  class="nav-item"><a
@@ -85,19 +84,59 @@
   <div class="container">
     <section class="container-fluid" id="content">
 
-<h1 class="text-center">Hi  看点什么?</h1>
+<!-- <h1 class="text-center">Hi  看点什么?</h1> -->
 
-<!-- <div class="" id="ball" style="height:500px;width:100%;"></div> -->
+<div class='row' id='ball-wrapper card' style='display:flex;justify-content:center'>
+    <div id='ball'>
+            <a class="ball-element d-none" href="/di-yi-pian-wen-zhang.html" title="第一篇文章"></a>
+            <a class="ball-element d-none" href="/vs-codeda-kai-duo-ge-git-repo.html" title="VS code打开多个git repo"></a>
+            <a class="ball-element d-none" href="/review.html" title="Review"></a>
+            <a class="ball-element d-none" href="/helloworld.html" title="Helloworld"></a>
+            <a class="ball-element d-none" href="/update-history.html" title="更新记录"></a>
+    </div>
+</div>
 
 <ul class="row" id="timeline">
     <li class="row col-12 mt-1">
 
         <div class="col-11 col-lg-5">
             <div class="card text-center mb-5">
+                <p class="d-block d-lg-none card-header">2021-01-02(六)</p>
+                <div class="card-body">
+                    <h2 class="card-title text-uppercase"><a class="text-reset" href="di-yi-pian-wen-zhang.html">
+                            第一篇文章</a></h2>
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-sm-flex col-1 col-lg-2" style="display:flex;justify-content:center;">
+            <div class="timeline">&#x1F789</div>
+        </div>
+        <p class="col-5 d-none d-lg-block text-left text-muted">2021-01-02(六)</p>
+    </li>
+    <li class="row col-12 mt-1">
+
+        <p class="col-5 d-none d-lg-block order-lg-1 text-left text-lg-right text-muted">2020-12-14(一)</p>
+        <div class="d-none d-sm-flex col-1 col-lg-2 order-2" style="display:flex;justify-content:center;">
+            <div class="timeline">&#x1F789</div>
+        </div>
+        <div class="col-11 col-lg-5 order-lg-3">
+            <div class="card text-center mb-5">
+                <p class="d-block d-lg-none card-header">2020-12-14(一)</p>
+                <div class="card-body">
+                    <h2 class="card-title text-uppercase"><a class="text-reset" href="vs-codeda-kai-duo-ge-git-repo.html">
+                            VS code打开多个git repo</a></h2>
+<p class="card-text">Manage multiple git repos in a single VS Code workspace</p>                </div>
+            </div>
+        </div>
+    </li>
+    <li class="row col-12 mt-1">
+
+        <div class="col-11 col-lg-5">
+            <div class="card text-center mb-5">
                 <p class="d-block d-lg-none card-header">2020-08-23(日)</p>
                 <div class="card-body">
-                    <h2 class="card-title text-uppercase"><a class="text-reset" href="mech2-review.html">
-                            Mech2 Review</a></h2>
+                    <h2 class="card-title text-uppercase"><a class="text-reset" href="review.html">
+                            Review</a></h2>
 <p class="card-text">Math and Physics review in 2020 summer</p>                </div>
             </div>
         </div>
@@ -105,38 +144,6 @@
             <div class="timeline">&#x1F789</div>
         </div>
         <p class="col-5 d-none d-lg-block text-left text-muted">2020-08-23(日)</p>
-    </li>
-    <li class="row col-12 mt-1">
-
-        <p class="col-5 d-none d-lg-block order-lg-1 text-left text-lg-right text-muted">2020-06-20(六)</p>
-        <div class="d-none d-sm-flex col-1 col-lg-2 order-2" style="display:flex;justify-content:center;">
-            <div class="timeline">&#x1F789</div>
-        </div>
-        <div class="col-11 col-lg-5 order-lg-3">
-            <div class="card text-center mb-5">
-                <p class="d-block d-lg-none card-header">2020-06-20(六)</p>
-                <div class="card-body">
-                    <h2 class="card-title text-uppercase"><a class="text-reset" href="style.html">
-                            style</a></h2>
-<p class="card-text">For debugging CSS</p>                </div>
-            </div>
-        </div>
-    </li>
-    <li class="row col-12 mt-1">
-
-        <div class="col-11 col-lg-5">
-            <div class="card text-center mb-5">
-                <p class="d-block d-lg-none card-header">2020-06-05(五)</p>
-                <div class="card-body">
-                    <h2 class="card-title text-uppercase"><a class="text-reset" href="helloworld.html">
-                            Helloworld</a></h2>
-<p class="card-text">Todo list for building a website by pelican and my notes.</p>                </div>
-            </div>
-        </div>
-        <div class="d-none d-sm-flex col-1 col-lg-2" style="display:flex;justify-content:center;">
-            <div class="timeline">&#x1F789</div>
-        </div>
-        <p class="col-5 d-none d-lg-block text-left text-muted">2020-06-05(五)</p>
     </li>
     <li class="row col-12 mt-1">
 
@@ -148,11 +155,27 @@
             <div class="card text-center mb-5">
                 <p class="d-block d-lg-none card-header">2020-06-05(五)</p>
                 <div class="card-body">
+                    <h2 class="card-title text-uppercase"><a class="text-reset" href="helloworld.html">
+                            Helloworld</a></h2>
+<p class="card-text">Todo list, notes.</p>                </div>
+            </div>
+        </div>
+    </li>
+    <li class="row col-12 mt-1">
+
+        <div class="col-11 col-lg-5">
+            <div class="card text-center mb-5">
+                <p class="d-block d-lg-none card-header">2020-06-05(五)</p>
+                <div class="card-body">
                     <h2 class="card-title text-uppercase"><a class="text-reset" href="update-history.html">
                             更新记录</a></h2>
 <p class="card-text">更新记录</p>                </div>
             </div>
         </div>
+        <div class="d-none d-sm-flex col-1 col-lg-2" style="display:flex;justify-content:center;">
+            <div class="timeline">&#x1F789</div>
+        </div>
+        <p class="col-5 d-none d-lg-block text-left text-muted">2020-06-05(五)</p>
     </li>
 </ul>
 

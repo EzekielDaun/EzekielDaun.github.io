@@ -36,16 +36,13 @@
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   </script>
-  <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
   <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
   </script>
 
-
   <script src="/theme/js/themeSelector.js"></script>
-
-  <script src="https://unpkg.com/three@0.120.1/build/three.js"></script>
-  <!-- <script src="/theme/js/test.js"></script> -->
+  <script src="/theme/js/jquery.svg3dtagcloud.min.js"></script>
+  <script src="/theme/js/ball.js"></script>
 
   <!-- Fonts -->
   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&amp;family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel+Decorative:wght@700&amp;display=swap" media="all" onload="this.media='all'"> -->
@@ -76,8 +73,10 @@
         <ul class="navbar-nav ml-auto mr-5">
           <!-- <li id="home"><a href="/">Yiif's BLOG</a></li> -->
           <li  class="nav-item"><a
-              href="/pages/page.html" class="nav-link text-capitalize">page<span
+              href="/pages/about.html" class="nav-link text-capitalize">About<span
                 class="sr-only">(current)</span></a></li>
+          <li  class="nav-item"><a
+              class="nav-link text-capitalize" href="/category--sheng-huo.html">生活</a></li>
           <li  class="nav-item active"  class="nav-item"><a
               class="nav-link text-capitalize" href="/category--wang-zhan-xiang-guan.html">网站相关</a></li>
           <li  class="nav-item"><a
@@ -95,15 +94,15 @@
     <section class="container-fluid" id="content">
 <div class="text-center mt-5 mb-3">
   <h1 class="text-wrap">Helloworld</h1>
-Todo list for building a website by pelican and my notes.  <footer id="post-info">
+Todo list, notes.  <footer id="post-info">
     <div class="translation">
     Translations:
 <a href="/helloworld-en.html" hreflang="en">en</a>
 
     </div>
     <div class="time">
-      <time class="modified" datetime="2020-09-06(日)">
-        Last Edited: 2020-09-06(日)
+      <time class="modified" datetime="2021-01-02(六)">
+        Last Edited: 2021-01-02(六)
         <!-- article.modified.isoformat() -->
       </time>
     </div>
@@ -139,12 +138,12 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
  </li>
  <li>
   <a href="https://io-oi.me/">
-   主题参考
+   一个不错的博客
   </a>
  </li>
  <li>
   <a href="https://bootswatch.com/">
-   bootstrap 开源主题
+   bootstrap 主题站
   </a>
  </li>
 </ul>
@@ -157,95 +156,121 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
    <summary>
     读文档
    </summary>
+   <ul class="task-list">
+    <li>
+     <a href="https://docs.getpelican.com/en/stable/index.html">
+      链接
+     </a>
+    </li>
+    <li class="task-list-item">
+     <input checked="" disabled="" type="checkbox"/>
+     <del class="critic">
+      多语言(pelican template)
+     </del>
+    </li>
+    <li class="task-list-item">
+     <input disabled="" type="checkbox"/>
+     国际化(i18n 插件)
+    </li>
+   </ul>
   </details>
- </li>
- <li>
-  <a href="https://docs.getpelican.com/en/stable/index.html">
-   链接
-  </a>
- </li>
- <li class="task-list-item">
-  <input checked="" disabled="" type="checkbox"/>
-  <del class="critic">
-   多语言(pelican template)
-  </del>
- </li>
- <li class="task-list-item">
-  <input disabled="" type="checkbox"/>
-  国际化(i18n 插件)
- </li>
- <li>
-  继续看
  </li>
  <li class="task-list-item">
   <input disabled="" type="checkbox"/>
   Pelican-theme (自建基于 bootstrap 主题,名字未定)
- </li>
- <li class="task-list-item">
-  <input disabled="" type="checkbox"/>
-  toc
   <ul class="task-list">
    <li class="task-list-item">
-    <input checked="" disabled="" type="checkbox"/>
-    <a href="https://afeld.github.io/bootstrap-toc/">
-     Bootstrap TOC 插件
-    </a>
+    <input disabled="" type="checkbox"/>
+    toc
+    <ul class="task-list">
+     <li class="task-list-item">
+      <input checked="" disabled="" type="checkbox"/>
+      <a href="https://afeld.github.io/bootstrap-toc/">
+       Bootstrap TOC 插件
+      </a>
+     </li>
+     <li class="task-list-item">
+      <input disabled="" type="checkbox"/>
+      文本颜色
+     </li>
+    </ul>
    </li>
    <li class="task-list-item">
     <input disabled="" type="checkbox"/>
-    文本颜色
+    字体
+    <ul class="task-list">
+     <li class="task-list-item">
+      <input checked="" disabled="" type="checkbox"/>
+      googlefont
+     </li>
+     <li class="task-list-item">
+      <input disabled="" type="checkbox"/>
+      中文采用着重号替代加粗,改用直角引号
+     </li>
+     <li class="task-list-item">
+      <input disabled="" type="checkbox"/>
+      首字加大
+     </li>
+    </ul>
+   </li>
+   <li class="task-list-item">
+    <input disabled="" type="checkbox"/>
+    更好看的
+    <code>
+     回到顶部
+    </code>
+   </li>
+   <li class="task-list-item">
+    <input checked="" disabled="" type="checkbox"/>
+    自动为图片添加
+    <code>
+     .img-fluid
+    </code>
+    (目前采用pelican插件解决)
    </li>
   </ul>
  </li>
  <li class="task-list-item">
   <input disabled="" type="checkbox"/>
-  字体
+  task-list
   <ul class="task-list">
    <li class="task-list-item">
-    <input checked="" disabled="" type="checkbox"/>
-    googlefont
+    <input disabled="" type="checkbox"/>
+    列表混排
    </li>
    <li class="task-list-item">
     <input disabled="" type="checkbox"/>
-    着重号,直角引号
-   </li>
-   <li class="task-list-item">
-    <input disabled="" type="checkbox"/>
-    首字加大
+    自动添加删除线
    </li>
   </ul>
- </li>
- <li class="task-list-item">
-  <input checked="" disabled="" type="checkbox"/>
-  回到顶部
- </li>
- <li class="task-list-item">
-  <input checked="" disabled="" type="checkbox"/>
-  自动为图片添加
-  <code>
-   .img-fluid
-  </code>
-  (目前采用插件解决)
  </li>
  <li class="task-list-item">
   <input disabled="" type="checkbox"/>
   进阶
- </li>
- <li class="task-list-item">
-  <input disabled="" type="checkbox"/>
-  waifu 纸片人
-  <ul>
-   <li>
-    眼神
+  <ul class="task-list">
+   <li class="task-list-item">
+    <input disabled="" type="checkbox"/>
+    纸片人
+    <del class="critic">
+     waifu
+    </del>
+    <ul>
+     <li>
+      眼神
+     </li>
+     <li>
+      点击互动
+     </li>
+    </ul>
    </li>
-   <li>
-    点击互动
+   <li class="task-list-item">
+    <input disabled="" type="checkbox"/>
+    文章分类数量雷达图
+    <del class="critic">
+     写的多了再说
+    </del>
    </li>
   </ul>
- </li>
- <li class="task-list-item">
-  <input disabled="" type="checkbox"/>
-  文章分类数量雷达图
  </li>
 </ul>
 <h3>
@@ -260,7 +285,7 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
   </code>
  </li>
  <li>
-  重载时清空 output 文件夹,保留指定文件夹
+  重新生成时清空 output 文件夹,保留指定文件夹
   <br/>
   <code>
    DELETE_OUTPUT_DIRECTORY = TRUE
@@ -284,52 +309,41 @@ Todo list for building a website by pelican and my notes.  <footer id="post-info
   <a href="https://facelessuser.github.io/pymdown-extensions">
    Pymdownx extensions
   </a>
- </li>
- <li>
-  task-list
-  <ul class="task-list">
-   <li class="task-list-item">
-    <input disabled="" type="checkbox"/>
-    列表混排
-   </li>
-   <li class="task-list-item">
-    <input disabled="" type="checkbox"/>
-    自动添加删除线
-   </li>
-  </ul>
- </li>
- <li>
-  <details class="details">
-   <summary>
-    Details
-   </summary>
-   <ul>
-    <li>
-     <code>
-      ???+
-     </code>
-     为默认打开,不带+默认关闭
-    </li>
-   </ul>
-  </details>
- </li>
- <li>
-  critics
   <ul>
    <li>
-    <mark class="critic">
-     {==mark 中文==}
-    </mark>
+    <details class="details">
+     <summary>
+      Details
+     </summary>
+     <ul>
+      <li>
+       <code>
+        ???+
+       </code>
+       为默认打开,不带+默认关闭
+      </li>
+     </ul>
+    </details>
    </li>
    <li>
-    <del class="critic">
-     {--del--}
-    </del>
-   </li>
-   <li>
-    <ins class="critic">
-     {++ins++}
-    </ins>
+    critics
+    <ul>
+     <li>
+      <mark class="critic">
+       {==mark 中文==}
+      </mark>
+     </li>
+     <li>
+      <del class="critic">
+       {--del--}
+      </del>
+     </li>
+     <li>
+      <ins class="critic">
+       {++ins++}
+      </ins>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
