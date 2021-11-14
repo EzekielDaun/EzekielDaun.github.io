@@ -2,30 +2,30 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>ezekieldaun.github.io/EzekielBlog/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="ezekieldaun.github.io/EzekielBlog/zh-cn/categories/"
+                        href="https://ezekieldaun.github.io/zh-cn/categories/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="ezekieldaun.github.io/EzekielBlog/categories/"
+                    href="https://ezekieldaun.github.io/categories/"
                     /></url><url>
-            <loc>ezekieldaun.github.io/EzekielBlog/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="ezekieldaun.github.io/EzekielBlog/zh-cn/"
+                        href="https://ezekieldaun.github.io/zh-cn/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="ezekieldaun.github.io/EzekielBlog/"
+                    href="https://ezekieldaun.github.io/"
                     /></url><url>
-            <loc>ezekieldaun.github.io/EzekielBlog/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="ezekieldaun.github.io/EzekielBlog/zh-cn/tags/"
+                        href="https://ezekieldaun.github.io/zh-cn/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="ezekieldaun.github.io/EzekielBlog/tags/"
+                    href="https://ezekieldaun.github.io/tags/"
                     /></url></urlset>

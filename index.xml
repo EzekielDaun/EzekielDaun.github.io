@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Ez&#39;s blog</title>
-        <link>ezekieldaun.github.io/EzekielBlog/</link>
+        <link>https://ezekieldaun.github.io/</link>
         <description>Ezekiel&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language>
-            <atom:link href="ezekieldaun.github.io/EzekielBlog/index.xml" rel="self" type="application/rss+xml" />
+            <atom:link href="https://ezekieldaun.github.io/index.xml" rel="self" type="application/rss+xml" />
         </channel>
 </rss>
