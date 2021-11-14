@@ -1,16 +1,16 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Ez的博客</title>
-        <link>http://example.org/zh-cn/</link>
+        <link>ezekieldaun.github.io/EzekielBlog/zh-cn/</link>
         <description>Ezekiel&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</lastBuildDate>
-            <atom:link href="http://example.org/zh-cn/index.xml" rel="self" type="application/rss+xml" />
+            <atom:link href="ezekieldaun.github.io/EzekielBlog/zh-cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Hello World</title>
-    <link>http://example.org/zh-cn/first_post/</link>
+    <link>ezekieldaun.github.io/EzekielBlog/zh-cn/first_post/</link>
     <pubDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://example.org/zh-cn/first_post/</guid>
+    <guid>ezekieldaun.github.io/EzekielBlog/zh-cn/first_post/</guid>
     <description><![CDATA[博客历程 Notion 搞一个博客的想法由来已久，2017 年接触到 notion，文章可以开启外链，当博客用完全没问题。然而国内访问不稳定，以及——不好看，]]></description>
 </item></channel>
 </rss>
