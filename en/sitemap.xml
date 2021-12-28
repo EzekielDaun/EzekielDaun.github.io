@@ -2,6 +2,33 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>https://ezekieldaun.github.io/</loc><lastmod>2021-11-08T19:38:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://ezekieldaun.github.io/zh-cn/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://ezekieldaun.github.io/"
+                    /></url><url>
+            <loc>https://ezekieldaun.github.io/hello-world/</loc><lastmod>2021-11-08T19:38:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://ezekieldaun.github.io/zh-cn/hello-world/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://ezekieldaun.github.io/hello-world/"
+                    /></url><url>
+            <loc>https://ezekieldaun.github.io/posts/</loc><lastmod>2021-11-08T19:38:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://ezekieldaun.github.io/zh-cn/posts/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://ezekieldaun.github.io/posts/"
+                    /></url><url>
             <loc>https://ezekieldaun.github.io/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
@@ -10,15 +37,6 @@
                     rel="alternate"
                     hreflang="en"
                     href="https://ezekieldaun.github.io/categories/"
-                    /></url><url>
-            <loc>https://ezekieldaun.github.io/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://ezekieldaun.github.io/"
                     /></url><url>
             <loc>https://ezekieldaun.github.io/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"

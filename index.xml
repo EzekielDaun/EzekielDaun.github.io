@@ -3,7 +3,14 @@
         <title>Ez&#39;s blog</title>
         <link>https://ezekieldaun.github.io/</link>
         <description>Ezekiel&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</lastBuildDate>
             <atom:link href="https://ezekieldaun.github.io/index.xml" rel="self" type="application/rss+xml" />
-        </channel>
+        <item>
+    <title>Hello World</title>
+    <link>https://ezekieldaun.github.io/hello-world/</link>
+    <pubDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://ezekieldaun.github.io/hello-world/</guid>
+    <description><![CDATA[博客历程 Notion ]]></description>
+</item></channel>
 </rss>
