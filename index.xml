@@ -11,6 +11,8 @@
     <pubDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</pubDate>
     <author>Author</author>
     <guid>https://ezekieldaun.github.io/hello-world/</guid>
-    <description><![CDATA[博客历程 Notion ]]></description>
+    <description><![CDATA[My blog journey.
+Notion It has been a long time since I thought about having a blog. In 2017 I met notion, where pages could be shared as a link which is definitely OK for a blog. However connecting from China is sometimes unstable and — the appearance. Now I am using notion’s database as a cross-platform bookmark and sometimes a to-do list.
+Pelican In 2019, I met Github Pages and static web frameworks, and chose Pelican because I&rsquo;m familiar with Python.]]></description>
 </item></channel>
 </rss>

@@ -14,9 +14,9 @@
 [^next]: https://github.com/iissnan/hexo-theme-next
 [^meme]: https://io-oi.me 他的文章也很有意思
 
-- dark mode：以前常驻深色模式，但宿舍采光很好，导致白天只能调高亮度用白色模式，夜晚只能调低亮度用深色模式，否则眼睛难受。我的博客自然也应具备这个功能。实现上就是用 js 做两套 css 的切换。具体到深色模式的[配色设计]()，又有很多细节，以及 svg 的适配等等，也是个小坑。
+- dark mode：以前常驻深色模式，但宿舍采光很好，导致白天只能调高亮度用白色模式，夜晚只能调低亮度用深色模式，否则眼睛难受。我的博客自然也应具备这个功能。实现上就是用 js 做两套 css 的切换。具体到深色模式的[配色设计](https://web.dev/prefers-color-scheme/)，又有很多细节，以及 svg 的适配等等，也是个小坑。
 - responsive：适配移动端，本质上是 css 的 media 属性。折叠菜单等又需要 js 配合。
-- toc：Meme[^meme]可以说满足 99% 的需求，除了没有侧边目录，导致只能线性阅读。更适合杂文而非技术类博客。
+- [toc]^(table of contents)：Meme[^meme]可以说满足 99% 的需求，除了没有侧边目录，导致只能线性阅读。更适合杂文而非技术类博客。
 - 一个好看的[顶栏](https://io-oi.me/tech/natural-native-gradient-rainbow-header/)，起码 sticky 定位
 - $\LaTeX$：KaTeX 或 MathJax
 - markdown 扩展语法
@@ -31,7 +31,7 @@
 
 ### [Eureka](https://github.com/wangchucheng/hugo-eureka)
 
-换到 Hugo 之后并没有像 Pelican 一样深入了解。这个主题的 doc 模式启发了另一种组织文章的方式。
+这个主题的 doc 模式启发了另一种组织文章的方式。
 
 ### [LoveIt](https://github.com/dillonzq/LoveIt)
 

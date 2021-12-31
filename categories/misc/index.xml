@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>All Posts - Ez&#39;s blog</title>
-        <link>https://ezekieldaun.github.io/posts/</link>
-        <description>All Posts | Ez&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <title>misc - Category - Ez&#39;s blog</title>
+        <link>https://ezekieldaun.github.io/categories/misc/</link>
+        <description>misc - Category - Ez&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/categories/misc/" rel="self" type="application/rss+xml" /><item>
     <title>Hello World</title>
     <link>https://ezekieldaun.github.io/hello-world/</link>
     <pubDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</pubDate>
