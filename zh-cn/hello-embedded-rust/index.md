@@ -1,4 +1,4 @@
-# 初探嵌入式 Rust
+# 初探 STM32 嵌入式 Rust
 
 
 这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结
@@ -59,7 +59,7 @@ cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
 pwm.ctl.modify(|r, w| w.globalsync0().clear_bit());
 ```
 
-[HAL]^(Hardware Abstract Layer) 在 PAC 基础上遵循 [embedded-hal](https://crates.io/crates/embedded-hal) 编写. 但至少 STM32 各系列的实现程度并不高, 并且进度各不相同, 导致同样的外设在 f1, f4 系列上的代码可能大不一样, 各芯片的 driver crate 也不一定都能使用. 部分外设如 FSMC, 因为 hal 没有编写相关部分, 几乎只能靠手动配置寄存器并引入 unsafe 块才能使用
+[HAL]^(Hardware Abstract Layer) 在 PAC 基础上遵循 [embedded-hal](https://crates.io/crates/embedded-hal) 编写. 但至少 STM32 各系列的实现略有区别, 导致同样的外设在 f1, f4 系列上的代码可能大不一样, 各芯片的 driver crate 也不一定都能使用. 部分外设如 FSMC, 因为 hal 没有编写相关部分, 几乎只能靠手动配置寄存器并引入 unsafe 块才能使用
 
 ## 起手式(裸机)
 
@@ -127,9 +127,9 @@ fn main() -> ! {
 
 ## RTIC
 
-我很想管 RTIC 叫抢占式调度框架, 如果搭配内存分配器, 用起来和抢占式的 rtos 没啥区别. 然而它其实只是个前后台系统, 靠设置中断优先级来管理任务, 并不具有上下文切换的能力. 用它的原因就在于它包装了上述复杂的 `Mutex<RefCell<Option<T>>>`, 并可以将空闲的硬中断注册为可以有参数和容量的多个软中断.
+我很想管 RTIC 叫抢占式调度框架, 如果搭配内存分配器, 用起来和抢占式的 RTOS 没啥区别. 然而它其实只是个前后台系统, 靠设置中断优先级来管理任务, 并不具有上下文切换的能力. 用它的原因就在于它包装了上述复杂的 `Mutex<RefCell<Option<T>>>`, 并可以将空闲的硬中断注册为可以有参数和容量的多个软中断.
 
-然而, 缺点来自于它使用了大量的宏, 导致无论 RLS 还是 RA 都不能很好的支持自动补全和类型. 有些报错会一直显示却不影响正常编译... 真正编不过时又找不到报错的原因. 因此我经常先在裸机上搭好一些外设驱动框架, 调试好类型后再复制进 RTIC 项目.
+然而, 缺点来自于它使用了大量的宏, 导致无论 [RLS]^(Rust Language Server) 还是 [RA]^(Rust Analyzer) 都不能很好的支持自动补全和类型. 有些报错会一直显示却不影响正常编译... 真正编不过时又找不到报错的原因. 因此我经常先在裸机上搭好一些外设驱动框架, 调试好类型后再复制进 RTIC 项目.
 
 ## 内存分配器
 
@@ -150,7 +150,7 @@ RTOS 方面估计很难超越 μCOS 和 FreeRTOS, 大量芯片驱动都有现成
 - [heapless](https://crates.io/crates/heapless): 提供了静态内存分配的常用数据类型
   - HistoryBuffer: 可用于平滑滤波
   - spsc::Queue: 消息队列
-  - String:: 方便输出调试信息
+  - String: 方便输出调试信息
 - [bitbang-hal](https://crates.io/crates/bitbang-hal): 提供了软件模拟的 I2C, USART, SPI
 - [nb](https://crates.io/crates/nb): 虽然名字叫做 non-block 但更多用 block!宏来等待外设工作完成, 例如:
   ```rust
@@ -166,4 +166,8 @@ RTOS 方面估计很难超越 μCOS 和 FreeRTOS, 大量芯片驱动都有现成
 
 1. 本质仍然是前后台, 复杂任务调度比较烧脑
 2. 运行速度比 μCOSⅢ 慢不少, 写了个简单的串口环回, 能慢将近一半. 或许是我时钟没配好...也可能人家商业公司在关中断这块儿确实优化的好. 尝试了两天, 还是改用 μCOS 了, 因为即便我这个实习生写出来也以后没人接手维护...
+
+Rust 合理的 trait 抽象加上 embedded-hal 这套统一的规范, 使得各种库的编写成为可能. 我的平衡车项目几乎纯靠调库就能完成, 可见这套抽象的威力. 这也是 STM32 的标准库和 HAL 库 之所以火遍中国. 然而现实很骨感, 一是性能损失, 这种抽象多少会带来一些冗余代码, 当然 LLVM 能不能优化我就不懂了; 二是虽然有 embedded-hal 规定了一些 trait, 但 trait 之外的部分各不相同, 就比如 ST 系列, FSMC 几乎没有, F1XXHAL 和 F4XXHAL 许多 api 完全不同... 最后一点纯属猜测, C++ 也有虚函数, 也完全可以定义一套接口规范, 为何 ARM 厂商不用 C++ 呢? 虚表实现有性能损失, 那编译器也可以用其他实现呀, 反正芯片厂的编译器都是魔改过的...这么多年 C++ 都没在嵌入式铺开, Rust 只能说悬
+
+Rust 是个好语言, 但在嵌入式方面生态似乎是更主要的问题. 没有解决大痛点的话业界根本没有动力抛弃多年积累重新开始.
 

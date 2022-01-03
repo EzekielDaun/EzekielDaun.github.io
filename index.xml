@@ -3,9 +3,17 @@
         <title>Ez&#39;s blog</title>
         <link>https://ezekieldaun.github.io/</link>
         <description>Ezekiel&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 27 Dec 2021 18:48:13 -0800</lastBuildDate>
             <atom:link href="https://ezekieldaun.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>A First Step in STM32 Embedded Rust</title>
+    <link>https://ezekieldaun.github.io/hello-embedded-rust/</link>
+    <pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate>
+    <author>Author</author>
+    <guid>https://ezekieldaun.github.io/hello-embedded-rust/</guid>
+    <description><![CDATA[A brief summary for recent learning about embedded rust in internship and projects.
+Resources  The Book: Basic rust grammar. Pay attention to Channel, Mutex, Cell, RefCell etc. in the concurrency section, which are also useful in embedded rust. Discovery: There is a new version using micro:bit when I write this blog. I was reading the STM32F3Discovery version. The Embedded Rust Book: If you are experienced in embedded systems, you can jump right in to this book.]]></description>
+</item><item>
     <title>Hello World</title>
     <link>https://ezekieldaun.github.io/hello-world/</link>
     <pubDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</pubDate>

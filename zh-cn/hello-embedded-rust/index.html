@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>初探嵌入式 Rust - Ez的博客</title><meta name="Description" content="Ezekiel&#39;s blog"><meta property="og:title" content="初探嵌入式 Rust" />
+        <title>初探 STM32 嵌入式 Rust - Ez的博客</title><meta name="Description" content="Ezekiel&#39;s blog"><meta property="og:title" content="初探 STM32 嵌入式 Rust" />
 <meta property="og:description" content="这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结 资料 The Book: 熟悉 Rust 语法, 其中并发部分的 channel 和 Mutex, Cell, RefCell 等, 在嵌入式中有类似的用法 Discovery: 写博客时发现这本" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ezekieldaun.github.io/zh-cn/hello-embedded-rust/" /><meta property="og:image" content="https://ezekieldaun.github.io/logo.png"/><meta property="article:section" content="posts" />
@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://ezekieldaun.github.io/logo.png"/>
 
-<meta name="twitter:title" content="初探嵌入式 Rust"/>
+<meta name="twitter:title" content="初探 STM32 嵌入式 Rust"/>
 <meta name="twitter:description" content="这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结 资料 The Book: 熟悉 Rust 语法, 其中并发部分的 channel 和 Mutex, Cell, RefCell 等, 在嵌入式中有类似的用法 Discovery: 写博客时发现这本"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -24,12 +24,12 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "初探嵌入式 Rust",
+        "headline": "初探 STM32 嵌入式 Rust",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/ezekieldaun.github.io\/zh-cn\/hello-embedded-rust\/"
-        },"genre": "posts","wordcount":  2172 ,
+        },"genre": "posts","wordcount":  2503 ,
         "url": "https:\/\/ezekieldaun.github.io\/zh-cn\/hello-embedded-rust\/","datePublished": "2021-12-27T18:48:13-08:00","dateModified": "2021-12-27T18:48:13-08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -47,7 +47,7 @@
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"> 文章 </a><a class="menu-item" href="/zh-cn/tags/"> 标签 </a><a class="menu-item" href="/zh-cn/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/hello-embedded-rust/" selected>简体中文</option></select>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/hello-embedded-rust/">English</option><option value="/zh-cn/hello-embedded-rust/" selected>简体中文</option></select>
                     </a><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
@@ -94,7 +94,7 @@
                 </div><a class="menu-item" href="/zh-cn/posts/" title="">文章</a><a class="menu-item" href="/zh-cn/tags/" title="">标签</a><a class="menu-item" href="/zh-cn/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw"></i>
             </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/hello-embedded-rust/" selected>简体中文</option></select>
+                    <select class="language-select" onchange="location = this.value;"><option value="/hello-embedded-rust/">English</option><option value="/zh-cn/hello-embedded-rust/" selected>简体中文</option></select>
                 </a></div>
     </div>
 </header>
@@ -108,9 +108,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">初探嵌入式 Rust</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">初探 STM32 嵌入式 Rust</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Ezekiel</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/tech/"><i class="far fa-folder fa-fw"></i>tech</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-27">2021-12-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2172 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-27">2021-12-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2503 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -199,7 +199,7 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 <pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="n">pwm</span><span class="p">.</span><span class="n">ctl</span><span class="p">.</span><span class="n">modify</span><span class="p">(</span><span class="o">|</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="o">|</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">globalsync0</span><span class="p">().</span><span class="n">clear_bit</span><span class="p">());</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><p><strong><ruby>HAL<rt>Hardware Abstract Layer</rt></ruby></strong> 在 PAC 基础上遵循 <a href="https://crates.io/crates/embedded-hal" target="_blank" rel="noopener noreffer">embedded-hal</a> 编写. 但至少 STM32 各系列的实现程度并不高, 并且进度各不相同, 导致同样的外设在 f1, f4 系列上的代码可能大不一样, 各芯片的 driver crate 也不一定都能使用. 部分外设如 FSMC, 因为 hal 没有编写相关部分, 几乎只能靠手动配置寄存器并引入 unsafe 块才能使用</p>
+</div><p><strong><ruby>HAL<rt>Hardware Abstract Layer</rt></ruby></strong> 在 PAC 基础上遵循 <a href="https://crates.io/crates/embedded-hal" target="_blank" rel="noopener noreffer">embedded-hal</a> 编写. 但至少 STM32 各系列的实现略有区别, 导致同样的外设在 f1, f4 系列上的代码可能大不一样, 各芯片的 driver crate 也不一定都能使用. 部分外设如 FSMC, 因为 hal 没有编写相关部分, 几乎只能靠手动配置寄存器并引入 unsafe 块才能使用</p>
 <h2 id="起手式裸机">起手式(裸机)</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -313,8 +313,8 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 </ul>
 <p>这部分相当让人抓狂, 许多在 C 语言中可以直接写的部分要包上好多层, 即便我知道它是安全的.</p>
 <h2 id="rtic">RTIC</h2>
-<p>我很想管 RTIC 叫抢占式调度框架, 如果搭配内存分配器, 用起来和抢占式的 rtos 没啥区别. 然而它其实只是个前后台系统, 靠设置中断优先级来管理任务, 并不具有上下文切换的能力. 用它的原因就在于它包装了上述复杂的 <code>Mutex&lt;RefCell&lt;Option&lt;T&gt;&gt;&gt;</code>, 并可以将空闲的硬中断注册为可以有参数和容量的多个软中断.</p>
-<p>然而, 缺点来自于它使用了大量的宏, 导致无论 RLS 还是 RA 都不能很好的支持自动补全和类型. 有些报错会一直显示却不影响正常编译&hellip; 真正编不过时又找不到报错的原因. 因此我经常先在裸机上搭好一些外设驱动框架, 调试好类型后再复制进 RTIC 项目.</p>
+<p>我很想管 RTIC 叫抢占式调度框架, 如果搭配内存分配器, 用起来和抢占式的 RTOS 没啥区别. 然而它其实只是个前后台系统, 靠设置中断优先级来管理任务, 并不具有上下文切换的能力. 用它的原因就在于它包装了上述复杂的 <code>Mutex&lt;RefCell&lt;Option&lt;T&gt;&gt;&gt;</code>, 并可以将空闲的硬中断注册为可以有参数和容量的多个软中断.</p>
+<p>然而, 缺点来自于它使用了大量的宏, 导致无论 <strong><ruby>RLS<rt>Rust Language Server</rt></ruby></strong> 还是 <strong><ruby>RA<rt>Rust Analyzer</rt></ruby></strong> 都不能很好的支持自动补全和类型. 有些报错会一直显示却不影响正常编译&hellip; 真正编不过时又找不到报错的原因. 因此我经常先在裸机上搭好一些外设驱动框架, 调试好类型后再复制进 RTIC 项目.</p>
 <h2 id="内存分配器">内存分配器</h2>
 <p><a href="https://crates.io/crates/alloc-cortex-m" target="_blank" rel="noopener noreffer">alloc-cortex-m</a>: 需要 nightly 工具链, <a href="https://github.com/rust-embedded/alloc-cortex-m/blob/master/examples/global_alloc.rs" target="_blank" rel="noopener noreffer">用法</a></p>
 <p>使用内存分配器后, 可以像有 std 一样使用方便地使用 <code>vec!</code> 等. 可以先通过 FSMC 配置好外部 RAM 后将其内存起始地址指向 RAM</p>
@@ -328,7 +328,7 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 <ul>
 <li>HistoryBuffer: 可用于平滑滤波</li>
 <li>spsc::Queue: 消息队列</li>
-<li>String:: 方便输出调试信息</li>
+<li>String: 方便输出调试信息</li>
 </ul>
 </li>
 <li><a href="https://crates.io/crates/bitbang-hal" target="_blank" rel="noopener noreffer">bitbang-hal</a>: 提供了软件模拟的 I2C, USART, SPI</li>
@@ -351,6 +351,8 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 <li>本质仍然是前后台, 复杂任务调度比较烧脑</li>
 <li>运行速度比 μCOSⅢ 慢不少, 写了个简单的串口环回, 能慢将近一半. 或许是我时钟没配好&hellip;也可能人家商业公司在关中断这块儿确实优化的好. 尝试了两天, 还是改用 μCOS 了, 因为即便我这个实习生写出来也以后没人接手维护&hellip;</li>
 </ol>
+<p>Rust 合理的 trait 抽象加上 embedded-hal 这套统一的规范, 使得各种库的编写成为可能. 我的平衡车项目几乎纯靠调库就能完成, 可见这套抽象的威力. 这也是 STM32 的标准库和 HAL 库 之所以火遍中国. 然而现实很骨感, 一是性能损失, 这种抽象多少会带来一些冗余代码, 当然 LLVM 能不能优化我就不懂了; 二是虽然有 embedded-hal 规定了一些 trait, 但 trait 之外的部分各不相同, 就比如 ST 系列, FSMC 几乎没有, F1XXHAL 和 F4XXHAL 许多 api 完全不同&hellip; 最后一点纯属猜测, C++ 也有虚函数, 也完全可以定义一套接口规范, 为何 ARM 厂商不用 C++ 呢? 虚表实现有性能损失, 那编译器也可以用其他实现呀, 反正芯片厂的编译器都是魔改过的&hellip;这么多年 C++ 都没在嵌入式铺开, Rust 只能说悬</p>
+<p>Rust 是个好语言, 但在嵌入式方面生态似乎是更主要的问题. 没有解决大痛点的话业界根本没有动力抛弃多年积累重新开始.</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -379,7 +381,7 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.91.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Ezekiel</a></span></div>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Ezekiel</a></span></div>
         </div>
     </footer></div>
 
