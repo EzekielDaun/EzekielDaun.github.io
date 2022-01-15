@@ -3,7 +3,18 @@
         <title>All Posts - Ez&#39;s blog</title>
         <link>https://ezekieldaun.github.io/posts/</link>
         <description>All Posts | Ez&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 27 Dec 2021 18:48:13 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 28 Dec 2021 15:34:52 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Balancing Bot</title>
+    <link>https://ezekieldaun.github.io/balancing-bot/</link>
+    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate>
+    <author>Author</author>
+    <guid>https://ezekieldaun.github.io/balancing-bot/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/featuredImage.jpg" referrerpolicy="no-referrer">
+            </div>In this post, I am going to share my experience in developing a balancing bot. As I haven&rsquo;t formally learned any courses about the control system, I could not guarantee the correctness of all the points.
+The Cascade PID Controller for the Bot PID There are too much explanation about the PID controller. So I will just share my own understanding.
+You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop.]]></description>
+</item><item>
     <title>A First Step in STM32 Embedded Rust</title>
     <link>https://ezekieldaun.github.io/hello-embedded-rust/</link>
     <pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate>
