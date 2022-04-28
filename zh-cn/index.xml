@@ -11,7 +11,9 @@
     <pubDate>Wed, 13 Apr 2022 15:49:02 -0700</pubDate>
     <author>作者</author>
     <guid>https://ezekieldaun.github.io/zh-cn/course-summary/</guid>
-    <description><![CDATA[简要总结下本科课程 First Year 大一, 可以说就是把国内高中的东西拿英文重新上一遍, 压力很小, 几乎每天都有时间健身. 两个工程导论课还算有意思, 小组讨论的]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/ubcLogo.jpg" referrerpolicy="no-referrer">
+            </div>简要总结下本科课程 First Year 大一, 可以说就是把国内高中的东西拿英文重新上一遍, 压力很小, 几乎每天都有时间健身. 两个工程导论课还算有意思, 小组讨论的]]></description>
 </item><item>
     <title>平衡小车</title>
     <link>https://ezekieldaun.github.io/zh-cn/balancing-bot/</link>
@@ -27,7 +29,9 @@
     <pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate>
     <author>作者</author>
     <guid>https://ezekieldaun.github.io/zh-cn/hello-embedded-rust/</guid>
-    <description><![CDATA[这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结 资料 The Book: 熟悉 Rust 语法, 其中并发部分的 channel 和 Mutex, Cell, RefCell 等, 在嵌入式中有类似的用法 Discovery: 写博客时发现这本]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/hello.jpg" referrerpolicy="no-referrer">
+            </div>这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结 资料 The Book: 熟悉 Rust 语法, 其中并发部分的 channel 和 Mutex, Cell, RefCell 等, 在嵌入式中有类似的用法 Discovery: 写博客时发现这本]]></description>
 </item><item>
     <title>你好 世界</title>
     <link>https://ezekieldaun.github.io/zh-cn/hello-world/</link>
