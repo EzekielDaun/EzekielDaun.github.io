@@ -158,11 +158,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rustup target add thumbv6m-none-eabi        <span class="c1">#  Cortex-M0 and Cortex-M0+</span>
-rustup target add thumbv7m-none-eabi        <span class="c1">#  Cortex-M3</span>
-rustup target add thumbv7em-none-eabi       <span class="c1">#  Cortex-M4 and Cortex-M7 (no FPU)</span>
-rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and Cortex-M7F (with FPU)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">rustup target add thumbv6m-none-eabi        <span class="c1">#  Cortex-M0 and Cortex-M0+</span>
+</span></span><span class="line"><span class="cl">rustup target add thumbv7m-none-eabi        <span class="c1">#  Cortex-M3</span>
+</span></span><span class="line"><span class="cl">rustup target add thumbv7em-none-eabi       <span class="c1">#  Cortex-M4 and Cortex-M7 (no FPU)</span>
+</span></span><span class="line"><span class="cl">rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and Cortex-M7F (with FPU)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="调试工具">调试工具</h3>
 <p>我使用包管理器 <a href="https://github.com/ScoopInstaller/Scoop" target="_blank" rel="noopener noreffer">scoop</a>, 以下工具<code>scoop install</code> 即可</p>
@@ -179,8 +179,8 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol>
 <li>修改 .cargo/config.toml</li>
@@ -196,8 +196,8 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="n">pwm</span><span class="p">.</span><span class="n">ctl</span><span class="p">.</span><span class="n">modify</span><span class="p">(</span><span class="o">|</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="o">|</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">globalsync0</span><span class="p">().</span><span class="n">clear_bit</span><span class="p">());</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="n">pwm</span><span class="p">.</span><span class="n">ctl</span><span class="p">.</span><span class="n">modify</span><span class="p">(</span><span class="o">|</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="o">|</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">globalsync0</span><span class="p">().</span><span class="n">clear_bit</span><span class="p">());</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong><ruby>HAL<rt>Hardware Abstract Layer</rt></ruby></strong> 在 PAC 基础上遵循 <a href="https://crates.io/crates/embedded-hal" target="_blank" rel="noopener noreffer">embedded-hal</a> 编写. 但至少 STM32 各系列的实现略有区别, 导致同样的外设在 f1, f4 系列上的代码可能大不一样, 各芯片的 driver crate 也不一定都能使用. 部分外设如 FSMC, 因为 hal 没有编写相关部分, 几乎只能靠手动配置寄存器并引入 unsafe 块才能使用</p>
 <h2 id="起手式裸机">起手式(裸机)</h2>
@@ -249,51 +249,51 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 </span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#![no_main]</span><span class="w"> </span><span class="cm">/* main使用entry宏引入 */</span><span class="w">
-</span><span class="w"></span><span class="cp">#![no_std]</span><span class="w"> </span><span class="cm">/* 不使用std因为不可用 */</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">panic_semihosting</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">_</span><span class="p">;</span><span class="w"> </span><span class="cm">/* 选择panic处理方式, 不接调试器semihosting会卡死 */</span><span class="w">
-</span><span class="w"></span><span class="c1">// use panic_halt as _;
-</span><span class="c1">// use panic_abort as _; /* 需要nightly工具链 */
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="c1">// use cortex_m::asm; /* 如果需要直接使用汇编指令 */
-</span><span class="c1"></span><span class="k">use</span><span class="w"> </span><span class="n">cortex_m_rt</span>::<span class="n">entry</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="c1">// use cortex_m_semihosting::hprintln; /* semihosting下的println!宏, 方便调试 */
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="c1">// use core::fmt::Write; /* 如果使用串口调试, 使用write!宏向串口tx输出 */
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">hal</span>::<span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">delay</span>::<span class="n">Delay</span><span class="p">,</span><span class="w"> </span><span class="cm">/* 常用的延时 */</span><span class="w">
-</span><span class="w">    </span><span class="n">pac</span><span class="p">,</span><span class="w"> </span><span class="cm">/* hal包装过的pac */</span><span class="w">
-</span><span class="w">    </span><span class="n">prelude</span>::<span class="o">*</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">};</span><span class="w">
-</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">stm32f1xx_hal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">hal</span><span class="p">;</span><span class="w"> </span><span class="cm">/* 导入一个hal */</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="cp">#[entry]</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="o">!</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">cp</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span><span class="w">        </span><span class="cm">/* dp:device peripherals, 指MCU厂商扩展的外设 */</span><span class="w">
-</span><span class="w">        </span><span class="n">pac</span>::<span class="n">Peripherals</span>::<span class="n">take</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w">
-</span><span class="w">        </span><span class="cm">/* cp: core peripherals, 指ARM自带的外设 */</span><span class="w">
-</span><span class="w">        </span><span class="n">cortex_m</span>::<span class="n">Peripherals</span>::<span class="n">take</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w">
-</span><span class="w">    </span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cm">/* 配置时钟 */</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">flash</span><span class="p">,</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">.</span><span class="n">FLASH</span><span class="p">.</span><span class="n">constrain</span><span class="p">(),</span><span class="w"> </span><span class="n">dp</span><span class="p">.</span><span class="n">RCC</span><span class="p">.</span><span class="n">constrain</span><span class="p">());</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">clocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">cfgr</span><span class="p">.</span><span class="n">use_hse</span><span class="p">(</span><span class="mf">8.</span><span class="n">mhz</span><span class="p">()).</span><span class="n">freeze</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">flash</span><span class="p">.</span><span class="n">acr</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cm">/* 初始化delay对象, 这里用系统时钟SYST */</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Delay</span>::<span class="n">new</span><span class="p">(</span><span class="n">cp</span><span class="p">.</span><span class="n">SYST</span><span class="p">,</span><span class="w"> </span><span class="n">clocks</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cm">/* gpio抽象, 各hal略有不同 */</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">gpioa</span><span class="p">,</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">gpiob</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">.</span><span class="n">GPIOA</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">apb2</span><span class="p">),</span><span class="w"> </span><span class="n">dp</span><span class="p">.</span><span class="n">GPIOB</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">apb2</span><span class="p">));</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="k">loop</span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="cm">/* do something */</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="err">```</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">#![no_main]</span><span class="w"> </span><span class="cm">/* main使用entry宏引入 */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">#![no_std]</span><span class="w"> </span><span class="cm">/* 不使用std因为不可用 */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">panic_semihosting</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">_</span><span class="p">;</span><span class="w"> </span><span class="cm">/* 选择panic处理方式, 不接调试器semihosting会卡死 */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use panic_halt as _;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// use panic_abort as _; /* 需要nightly工具链 */
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use cortex_m::asm; /* 如果需要直接使用汇编指令 */
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">use</span><span class="w"> </span><span class="n">cortex_m_rt</span>::<span class="n">entry</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use cortex_m_semihosting::hprintln; /* semihosting下的println!宏, 方便调试 */
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use core::fmt::Write; /* 如果使用串口调试, 使用write!宏向串口tx输出 */
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">hal</span>::<span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">delay</span>::<span class="n">Delay</span><span class="p">,</span><span class="w"> </span><span class="cm">/* 常用的延时 */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">pac</span><span class="p">,</span><span class="w"> </span><span class="cm">/* hal包装过的pac */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">prelude</span>::<span class="o">*</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">stm32f1xx_hal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">hal</span><span class="p">;</span><span class="w"> </span><span class="cm">/* 导入一个hal */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">#[entry]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="o">!</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">cp</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="cm">/* dp:device peripherals, 指MCU厂商扩展的外设 */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">pac</span>::<span class="n">Peripherals</span>::<span class="n">take</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="cm">/* cp: core peripherals, 指ARM自带的外设 */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">cortex_m</span>::<span class="n">Peripherals</span>::<span class="n">take</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* 配置时钟 */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">flash</span><span class="p">,</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">.</span><span class="n">FLASH</span><span class="p">.</span><span class="n">constrain</span><span class="p">(),</span><span class="w"> </span><span class="n">dp</span><span class="p">.</span><span class="n">RCC</span><span class="p">.</span><span class="n">constrain</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">clocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">cfgr</span><span class="p">.</span><span class="n">use_hse</span><span class="p">(</span><span class="mf">8.</span><span class="n">mhz</span><span class="p">()).</span><span class="n">freeze</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">flash</span><span class="p">.</span><span class="n">acr</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* 初始化delay对象, 这里用系统时钟SYST */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Delay</span>::<span class="n">new</span><span class="p">(</span><span class="n">cp</span><span class="p">.</span><span class="n">SYST</span><span class="p">,</span><span class="w"> </span><span class="n">clocks</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* gpio抽象, 各hal略有不同 */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">gpioa</span><span class="p">,</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">gpiob</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">.</span><span class="n">GPIOA</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">apb2</span><span class="p">),</span><span class="w"> </span><span class="n">dp</span><span class="p">.</span><span class="n">GPIOB</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">apb2</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">loop</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="cm">/* do something */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">```</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="safe-全局变量">safe 全局变量</h2>
 <p>我们都知道操作 <code>static mut</code> 是 unsafe 的, 大量的编程规范要求尽量减少使用全局变量. 但嵌入式环境下往往无法避免. 一个更好的方法是规划好变量的作用范围后使用 <a href="https://rtic.rs/" target="_blank" rel="noopener noreffer">RTIC</a>. 不过这里先讲一下简单的做法和原理</p>
@@ -338,8 +338,8 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="n">block</span><span class="o">!</span><span class="p">(</span><span class="n">Serial</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte</span><span class="p">))</span><span class="o">?</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="n">block</span><span class="o">!</span><span class="p">(</span><span class="n">Serial</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte</span><span class="p">))</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li><a href="https://crates.io/crates/micromath" target="_blank" rel="noopener noreffer">micromath</a>: 提供了嵌入式环境下可能缺失的某些 F32 操作</li>
@@ -381,7 +381,7 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">Ezekiel</a></span></div>
         </div>
     </footer></div>

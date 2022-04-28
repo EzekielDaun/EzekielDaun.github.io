@@ -146,7 +146,7 @@ Resources  The Book: Basic rust grammar. Pay attention to Channel, Mutex, Cell, 
 <li><a href="https://docs.rust-embedded.org/discovery/" target="_blank" rel="noopener noreffer">Discovery</a>: There is a <a href="https://docs.rust-embedded.org/discovery/microbit/" target="_blank" rel="noopener noreffer">new version</a> using micro:bit when I write this blog. I was reading the <a href="https://docs.rust-embedded.org/discovery/f3discovery/" target="_blank" rel="noopener noreffer">STM32F3Discovery</a> version.</li>
 <li><a href="https://docs.rust-embedded.org/book/" target="_blank" rel="noopener noreffer">The Embedded Rust Book</a>: If you are experienced in embedded systems, you can jump right in to this book. I have the F3 board so I didn&rsquo;t use QEMU.</li>
 <li><a href="https://rtic.rs" target="_blank" rel="noopener noreffer">RTIC</a>: A concurrent framework on bare metal. Better handle rust variables with ownerships. When I learned it was v0.5. Good to see that 1.0 has been released.</li>
-<li><a href="https://ferrous-systems.com/blog/all/" target="_blank" rel="noopener noreffer">ferrous-systems' blog</a>: This company introduced many technologies into embedded rust, includes testing, debugging etc. The most impressive is that they implement a <a href="https://github.com/ferrous-systems/async-on-embedded" target="_blank" rel="noopener noreffer">async/await executor</a>.</li>
+<li><a href="https://ferrous-systems.com/blog/all/" target="_blank" rel="noopener noreffer">ferrous-systems&rsquo; blog</a>: This company introduced many technologies into embedded rust, includes testing, debugging etc. The most impressive is that they implement a <a href="https://github.com/ferrous-systems/async-on-embedded" target="_blank" rel="noopener noreffer">async/await executor</a>.</li>
 </ul>
 <h2 id="environment">Environment</h2>
 <h3 id="rust-toolchain">Rust Toolchain</h3>
@@ -160,11 +160,11 @@ Resources  The Book: Basic rust grammar. Pay attention to Channel, Mutex, Cell, 
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rustup target add thumbv6m-none-eabi        <span class="c1">#  Cortex-M0 and Cortex-M0+</span>
-rustup target add thumbv7m-none-eabi        <span class="c1">#  Cortex-M3</span>
-rustup target add thumbv7em-none-eabi       <span class="c1">#  Cortex-M4 and Cortex-M7 (no FPU)</span>
-rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and Cortex-M7F (with FPU)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">rustup target add thumbv6m-none-eabi        <span class="c1">#  Cortex-M0 and Cortex-M0+</span>
+</span></span><span class="line"><span class="cl">rustup target add thumbv7m-none-eabi        <span class="c1">#  Cortex-M3</span>
+</span></span><span class="line"><span class="cl">rustup target add thumbv7em-none-eabi       <span class="c1">#  Cortex-M4 and Cortex-M7 (no FPU)</span>
+</span></span><span class="line"><span class="cl">rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and Cortex-M7F (with FPU)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="debugging-tools">Debugging Tools</h3>
 <p>I am using the <a href="https://github.com/ScoopInstaller/Scoop" target="_blank" rel="noopener noreffer">scoop</a> package manager. So just <code>scoop install</code> the following tools:</p>
@@ -181,8 +181,8 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol>
 <li>modify <code>.cargo/config.toml</code></li>
@@ -198,8 +198,8 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="n">pwm</span><span class="p">.</span><span class="n">ctl</span><span class="p">.</span><span class="n">modify</span><span class="p">(</span><span class="o">|</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="o">|</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">globalsync0</span><span class="p">().</span><span class="n">clear_bit</span><span class="p">());</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="n">pwm</span><span class="p">.</span><span class="n">ctl</span><span class="p">.</span><span class="n">modify</span><span class="p">(</span><span class="o">|</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="o">|</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">globalsync0</span><span class="p">().</span><span class="n">clear_bit</span><span class="p">());</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong><ruby>HAL<rt>Hardware Abstract Layer</rt></ruby></strong> is based on the PAC, (partly) implements <a href="https://crates.io/crates/embedded-hal" target="_blank" rel="noopener noreffer">embedded-hal</a>. The STM32 series have some different implementations among each other, making the code for the same peripheral usually not interchangeable. You may not use all the driver crates since it requires some traits that the HAL doesn&rsquo;t implement, or you have to use unsafe blocks to directly manipulate registers.</p>
 <h2 id="to-start-with-bare-metal">To Start with (Bare Metal)</h2>
@@ -251,51 +251,51 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 </span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#![no_main]</span><span class="w"> </span><span class="cm">/* use entry macro */</span><span class="w">
-</span><span class="w"></span><span class="cp">#![no_std]</span><span class="w"> </span><span class="cm">/* std not available */</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">panic_semihosting</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">_</span><span class="p">;</span><span class="w"> </span><span class="cm">/* choose panic handler, need a debugger or it would block */</span><span class="w">
-</span><span class="w"></span><span class="c1">// use panic_halt as _;
-</span><span class="c1">// use panic_abort as _; /* need nightly toolchain */
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="c1">// use cortex_m::asm; /* if need to use assembly */
-</span><span class="c1"></span><span class="k">use</span><span class="w"> </span><span class="n">cortex_m_rt</span>::<span class="n">entry</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="c1">// use cortex_m_semihosting::hprintln; /* println! with semihosting, makes debugging easier */
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="c1">// use core::fmt::Write; /* if instead using serial port, use write! to write into serial&#39;s tx */
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">hal</span>::<span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">delay</span>::<span class="n">Delay</span><span class="p">,</span><span class="w"> </span><span class="cm">/* delay function */</span><span class="w">
-</span><span class="w">    </span><span class="n">pac</span><span class="p">,</span><span class="w">
-</span><span class="w">    </span><span class="n">prelude</span>::<span class="o">*</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">};</span><span class="w">
-</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">stm32f1xx_hal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">hal</span><span class="p">;</span><span class="w"> </span><span class="cm">/* import a hal */</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="cp">#[entry]</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="o">!</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">cp</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span><span class="w">        </span><span class="cm">/* dp: device peripherals that the MCU designer provided */</span><span class="w">
-</span><span class="w">        </span><span class="n">pac</span>::<span class="n">Peripherals</span>::<span class="n">take</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w">
-</span><span class="w">        </span><span class="cm">/* cp: core peripherals that comes with ARM core */</span><span class="w">
-</span><span class="w">        </span><span class="n">cortex_m</span>::<span class="n">Peripherals</span>::<span class="n">take</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w">
-</span><span class="w">    </span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cm">/* Setup the clock tree */</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">flash</span><span class="p">,</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">.</span><span class="n">FLASH</span><span class="p">.</span><span class="n">constrain</span><span class="p">(),</span><span class="w"> </span><span class="n">dp</span><span class="p">.</span><span class="n">RCC</span><span class="p">.</span><span class="n">constrain</span><span class="p">());</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">clocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">cfgr</span><span class="p">.</span><span class="n">use_hse</span><span class="p">(</span><span class="mf">8.</span><span class="n">mhz</span><span class="p">()).</span><span class="n">freeze</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">flash</span><span class="p">.</span><span class="n">acr</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cm">/* Use SYST or other clock sources to initialize the delay object */</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Delay</span>::<span class="n">new</span><span class="p">(</span><span class="n">cp</span><span class="p">.</span><span class="n">SYST</span><span class="p">,</span><span class="w"> </span><span class="n">clocks</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cm">/* gpio abstraction, depends on the hal */</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">gpioa</span><span class="p">,</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">gpiob</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">.</span><span class="n">GPIOA</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">apb2</span><span class="p">),</span><span class="w"> </span><span class="n">dp</span><span class="p">.</span><span class="n">GPIOB</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">apb2</span><span class="p">));</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="k">loop</span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="cm">/* do something */</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="err">```</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">#![no_main]</span><span class="w"> </span><span class="cm">/* use entry macro */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">#![no_std]</span><span class="w"> </span><span class="cm">/* std not available */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">panic_semihosting</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">_</span><span class="p">;</span><span class="w"> </span><span class="cm">/* choose panic handler, need a debugger or it would block */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use panic_halt as _;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// use panic_abort as _; /* need nightly toolchain */
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use cortex_m::asm; /* if need to use assembly */
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">use</span><span class="w"> </span><span class="n">cortex_m_rt</span>::<span class="n">entry</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use cortex_m_semihosting::hprintln; /* println! with semihosting, makes debugging easier */
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use core::fmt::Write; /* if instead using serial port, use write! to write into serial&#39;s tx */
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">hal</span>::<span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">delay</span>::<span class="n">Delay</span><span class="p">,</span><span class="w"> </span><span class="cm">/* delay function */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">pac</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">prelude</span>::<span class="o">*</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">stm32f1xx_hal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">hal</span><span class="p">;</span><span class="w"> </span><span class="cm">/* import a hal */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">#[entry]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="o">!</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">cp</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="cm">/* dp: device peripherals that the MCU designer provided */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">pac</span>::<span class="n">Peripherals</span>::<span class="n">take</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="cm">/* cp: core peripherals that comes with ARM core */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">cortex_m</span>::<span class="n">Peripherals</span>::<span class="n">take</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* Setup the clock tree */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">flash</span><span class="p">,</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">.</span><span class="n">FLASH</span><span class="p">.</span><span class="n">constrain</span><span class="p">(),</span><span class="w"> </span><span class="n">dp</span><span class="p">.</span><span class="n">RCC</span><span class="p">.</span><span class="n">constrain</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">clocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">cfgr</span><span class="p">.</span><span class="n">use_hse</span><span class="p">(</span><span class="mf">8.</span><span class="n">mhz</span><span class="p">()).</span><span class="n">freeze</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">flash</span><span class="p">.</span><span class="n">acr</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* Use SYST or other clock sources to initialize the delay object */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Delay</span>::<span class="n">new</span><span class="p">(</span><span class="n">cp</span><span class="p">.</span><span class="n">SYST</span><span class="p">,</span><span class="w"> </span><span class="n">clocks</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* gpio abstraction, depends on the hal */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">gpioa</span><span class="p">,</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">gpiob</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">.</span><span class="n">GPIOA</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">apb2</span><span class="p">),</span><span class="w"> </span><span class="n">dp</span><span class="p">.</span><span class="n">GPIOB</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">apb2</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">loop</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="cm">/* do something */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">```</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="safe-global-variables">Safe Global Variables</h2>
 <p>We all know that modifying a <code>static mut</code> variable is unsafe in rust. Tons of style guides require for less global variables as possible. However, they are commonly used in embedded systems as we are doing low level coding and the whole program is not that complex. A better way in rust is using <a href="https://rtic.rs/" target="_blank" rel="noopener noreffer">RTIC</a>. But here we start from the basics.</p>
@@ -334,8 +334,8 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="n">block</span><span class="o">!</span><span class="p">(</span><span class="n">Serial</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte</span><span class="p">))</span><span class="o">?</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="n">block</span><span class="o">!</span><span class="p">(</span><span class="n">Serial</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte</span><span class="p">))</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li><a href="https://crates.io/crates/micromath" target="_blank" rel="noopener noreffer">micromath</a>: provide operations on floating point numbers that may be missing in no_std environment</li>
@@ -346,7 +346,7 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 <li>large binaries in debug mode. I have a <a href="https://github.com/EzekielDaun/rs-balancing-bot" target="_blank" rel="noopener noreffer">balancing-bot</a> project in which I would tell you more later.</li>
 <li>annoying grammar noise</li>
 </ul>
-<p>I tried embedded rust for some tiny boards' verifying demo. If the logic isn&rsquo;t too complex, you can complete the whole project in just a few minutes. I have also tried RTIC for large projects and found a few problems:</p>
+<p>I tried embedded rust for some tiny boards&rsquo; verifying demo. If the logic isn&rsquo;t too complex, you can complete the whole project in just a few minutes. I have also tried RTIC for large projects and found a few problems:</p>
 <ol>
 <li>basically foreground/background system, bothersome when design complex scheduling.</li>
 <li>much slower that μCOSⅢ. I made a simple serial loop-back, and it could be 50% slower! Maybe I didn&rsquo;t properly config the clock&hellip; Or micrium optimized a lot in handling interrupts. I give up in 2 days, turned to μCOS, because even if I complete it, no one could maintain it lol.</li>
@@ -380,7 +380,7 @@ rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and C
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Ezekiel</a></span></div>
         </div>
     </footer></div>
