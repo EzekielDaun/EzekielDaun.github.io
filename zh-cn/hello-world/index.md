@@ -9,18 +9,18 @@
 
 ## Pelican
 
-2019 年大一期间找点事做，接触到 Github Pages 与静态博客工具，因为相对熟悉 Python 选择了 Pelican。断断续续开发到 2020 年暑假结束，接触了很多前端知识。最后的效果差强人意，虽然确实部署了一两篇文章，但总因为外观不舒心而没有动力更新。在此期间了解了 Hexo Next[^next], Hugo Meme[^meme]等等基于其他博客平台的主题，确定了自己期望的几个主要功能：
+2019 年大一期间找点事做，接触到 Github Pages 与静态博客工具，因为相对熟悉 Python 选择了 Pelican。断断续续开发到 2020 年暑假结束，接触了很多前端知识。最后的效果差强人意，虽然确实部署了一两篇文章，但总因为外观不舒心而没有动力更新。在此期间了解了 Hexo Next[^next], Hugo Meme[^meme] 等等基于其他博客平台的主题，确定了自己期望的几个主要功能：
 
 [^next]: https://github.com/iissnan/hexo-theme-next
 [^meme]: https://io-oi.me 他的文章也很有意思
 
 - dark mode：以前常驻深色模式，但宿舍采光很好，导致白天只能调高亮度用白色模式，夜晚只能调低亮度用深色模式，否则眼睛难受。我的博客自然也应具备这个功能。实现上就是用 js 做两套 css 的切换。具体到深色模式的[配色设计](https://web.dev/prefers-color-scheme/)，又有很多细节，以及 svg 的适配等等，也是个小坑。
 - responsive：适配移动端，本质上是 css 的 media 属性。折叠菜单等又需要 js 配合。
-- [toc]^(table of contents)：Meme[^meme]可以说满足 99% 的需求，除了没有侧边目录，导致只能线性阅读。更适合杂文而非技术类博客。
+- [toc]^(table of contents)：Meme[^meme] 可以说满足 99% 的需求，除了没有侧边目录，导致只能线性阅读。更适合杂文而非技术类博客。
 - 一个好看的[顶栏](https://io-oi.me/tech/natural-native-gradient-rainbow-header/)，起码 sticky 定位
 - $\LaTeX$：KaTeX 或 MathJax
 - markdown 扩展语法
-- 中文：一个好看的中文字体，Meme[^meme]所用的[思源宋体]^(Noto Serif SC)真是太棒了
+- 中文：一个好看的中文字体，Meme[^meme] 所用的 [思源宋体]^(Noto Serif SC) 真是太棒了
 - 图片：支持图片下方标注，合理的缩放
 
 ## Hugo
