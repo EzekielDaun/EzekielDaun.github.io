@@ -19,7 +19,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ezekieldaun.github.io/zh-cn/balancing-bot/" /><link rel="prev" href="https://ezekieldaun.github.io/zh-cn/hello-embedded-rust/" /><link rel="next" href="https://ezekieldaun.github.io/zh-cn/course-summary/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ezekieldaun.github.io/zh-cn/balancing-bot/" /><link rel="prev" href="https://ezekieldaun.github.io/zh-cn/my-first-intern/" /><link rel="next" href="https://ezekieldaun.github.io/zh-cn/course-summary/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -33,7 +33,7 @@
                             "url": "https:\/\/ezekieldaun.github.io\/zh-cn\/balancing-bot\/featuredImage.jpg",
                             "width":  4032 ,
                             "height":  3024 
-                        }],"genre": "posts","wordcount":  4670 ,
+                        }],"genre": "posts","keywords": "Rust, Embedded","wordcount":  4684 ,
         "url": "https:\/\/ezekieldaun.github.io\/zh-cn\/balancing-bot\/","datePublished": "2021-12-28T15:34:52-08:00","dateModified": "2021-12-28T15:34:52-08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -114,7 +114,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">平衡小车</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://ezekieldaun.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Ezekiel</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/tech/"><i class="far fa-folder fa-fw"></i>tech</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-28">2021-12-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4670 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-28">2021-12-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4684 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -172,9 +172,9 @@ $$</p>
 <p>我总觉得 arduino 更像个玩具，买了没啥大用，而树莓派也有 GPIO 口，还是个 Linux PC，怎么看可玩性都更高一些。于是买了个最丐的 2G RAM 4B 进行开发。主要使用 C 语言和 <a href="http://wiringpi.com" target="_blank" rel="noopener noreffer">Wiring Pi</a>. 硬件部分<a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-10676576509.5.2d6922d9W5CQkh&amp;id=45470143481" target="_blank" rel="noopener noreffer">淘宝</a>解决，上来先驱动下各个部件：</p>
 <ul>
 <li>直流电机<br>
-驱动器是常见的 L298N. 简单说就是两个引脚电平调方向，一路 PWM 输出控制电压. PWM 采用树莓派的 pwm0, pwm1 两路硬件 pwm, <a href="http://wiringpi.com" target="_blank" rel="noopener noreffer">WiringPi</a> 有对应的函数，非常好写，注意一下引脚号即可。</li>
+驱动器是常见的 L298N. 简单说就是两个引脚电平调方向，一路 PWM 输出控制电压。PWM 采用树莓派的 pwm0, pwm1 两路硬件 pwm, <a href="http://wiringpi.com" target="_blank" rel="noopener noreffer">WiringPi</a> 有对应的函数，非常好写，注意一下引脚号即可。</li>
 <li>MPU6050<br>
-I2C 协议的六轴陀螺仪加速度计. MPU6050 有内置的运动处理器 DMP，可以直接以四元数的形式输出融合后的姿态，<del>诶！?什么叫融合&hellip;直接读不就完了？</del> 节约主机计算资源，不过不能通过一般的方式驱动，芯片手册里也没有驱动相关的信息。官方提供了 MSP430 上的例程，代码量比较大，核心是要传一串神秘代码来开启 DMP 功能。我找了半天适合树莓派的 dmp 库只发现了<a href="https://github.com/richardghirst/PiBits/tree/master/MPU6050-Pi-Demo" target="_blank" rel="noopener noreffer">这个 C++ 库</a>. 虽说也可以自行移植，但当时我这个小白办不到啊&hellip; 唉，在 C++ 里写 C 吧。</li>
+I2C 协议的六轴陀螺仪加速度计。MPU6050 有内置的运动处理器 DMP，可以直接以四元数的形式输出融合后的姿态，<del>诶！?什么叫融合&hellip;直接读不就完了？</del> 节约主机计算资源，不过不能通过一般的方式驱动，芯片手册里也没有驱动相关的信息。官方提供了 MSP430 上的例程，代码量比较大，核心是要传一串神秘代码来开启 DMP 功能。我找了半天适合树莓派的 dmp 库只发现了<a href="https://github.com/richardghirst/PiBits/tree/master/MPU6050-Pi-Demo" target="_blank" rel="noopener noreffer">这个 C++ 库</a>. 虽说也可以自行移植，但当时我这个小白办不到啊&hellip; 唉，在 C++ 里写 C 吧。</li>
 <li>编码器<br>
 硬件上它产生两路 90° 相位的方波，每转一圈会产生固定数量的跳变。通过读一路跳变时另一路的电平来确定当前旋转方向，往往用中断驱动。真是神奇啊。</li>
 </ul>
@@ -597,10 +597,10 @@ atom 是不可分的意思，原子操作就是不会被打断的操作。缺点
 还有一种取巧的做法，使用内存来通信。环形缓冲区可以实现为数组 + 头尾原子指针，我们可以让发送端独占头指针，接收端独占尾指针，每次发送/接收，都向内存中写入/读取数据后操作指针自增。只要缓冲区够大且接收端处理速度大于发送端发送速度，一般不会漏掉消息。保险起见还可以在发送和/或接收时加上头尾指针判断</li>
 </ol>
 <p>如果现在让我重新设计树莓派编码器测速逻辑：我会使用中断操作原子类型计数，用互斥锁包装速度全局变量，让测速线程和主线程抢锁，来保证对速度变量的操作不会产生竟态条件。</p>
-<p>不过，后来实习接触了 STM32 这样的单片机，拿来做平衡小车足够了，反观树莓派 4B 还需要 5V3A 供电，我还特意买了微雪的电池扩展版，头顶两节 18650 简直不要太笨重，于是树莓派就光荣的吃灰了. STM32 的定时器具有编码器功能，可以通过每次读取后清零的方法获取速度，配合定时器中断测速即可。不过我用 rust 实现的版本因为软件 I2C 的库必须要一个定时器，导致没定时器拿来做中断了&hellip; 只好用延时实现。</p>
+<p>不过，后来实习接触了 STM32 这样的单片机，拿来做平衡小车足够了，反观树莓派 4B 还需要 5V3A 供电，我还特意买了微雪的电池扩展版，头顶两节 18650 简直不要太笨重，于是树莓派就光荣的吃灰了。STM32 的定时器具有编码器功能，可以通过每次读取后清零的方法获取速度，配合定时器中断测速即可。不过我用 rust 实现的版本因为软件 I2C 的库必须要一个定时器，导致没定时器拿来做中断了&hellip; 只好用延时实现。</p>
 <h2 id="多传感器融合">多传感器融合</h2>
 <p>还记得 MPU6050 有个 DMP 库吗？后来转向 Rust + STM32 后，因为没找到能用的 DMP 库，我就用的六轴原始数据。确定角度还不简单？三轴加速度和重力一比较就完事儿了，我用的库还有现成的包装 <a href="https://docs.rs/mpu6050/0.1.5/mpu6050/struct.Mpu6050.html#method.get_acc_angles" target="_blank" rel="noopener noreffer">get_acc_angles(&amp;mut self) -&gt; Result&lt;Vector2<f32>, Mpu6050Error<E>&gt;</a>.</p>
-<p>快快拿来一试，再加上现成的 <a href="https://crates.io/crates/pid_control" target="_blank" rel="noopener noreffer">PID 库</a>, P 输入用刚才获得的角度，D 输入直接用陀螺仪，不到一个小时<a href="https://github.com/EzekielDaun/rs-balancing-bot" target="_blank" rel="noopener noreffer">代码</a>就编译通过了。不得不说，Rust 这点真的香: 99% 的情况下<strong>能过编译就能跑</strong>. 小车拿在手里，前倾就向前加速，后倾就向后加速，各参数极性正确！但是 PID 参数我竟然调了三天都没调明白&hellip;连最基本的姿态环都几乎无法实现。最好的一组参数也只能维持个 10 秒钟左右。我干脆两手捏住轮子当成纯倒立摆，诶！?怎么这都稳定不了？看了输出才发现，获取到的角度抖动太大！那就加平滑滤波！可加了滤波也没法稳定，这让我又犯了难&hellip;</p>
+<p>快快拿来一试，再加上现成的 <a href="https://crates.io/crates/pid_control" target="_blank" rel="noopener noreffer">PID 库</a>, P 输入用刚才获得的角度，D 输入直接用陀螺仪，不到一个小时<a href="https://github.com/EzekielDaun/rs-balancing-bot" target="_blank" rel="noopener noreffer">代码</a>就编译通过了。不得不说，Rust 这点真的香：99% 的情况下<strong>能过编译就能跑</strong>. 小车拿在手里，前倾就向前加速，后倾就向后加速，各参数极性正确！但是 PID 参数我竟然调了三天都没调明白&hellip;连最基本的姿态环都几乎无法实现。最好的一组参数也只能维持个 10 秒钟左右。我干脆两手捏住轮子当成纯倒立摆，诶！?怎么这都稳定不了？看了输出才发现，获取到的角度抖动太大！那就加平滑滤波！可加了滤波也没法稳定，这让我又犯了难&hellip;</p>
 <p>想想也是，这小车本身就在抖动，读出来的加速度可不仅仅是重力加速度。那要怎么确定角度呢？有以下几种办法：</p>
 <h3 id="互补滤波">互补滤波</h3>
 <p>$$
@@ -643,13 +643,13 @@ $$</p>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/rust/">Rust</a>,&nbsp;<a href="/zh-cn/tags/embedded/">Embedded</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/zh-cn/hello-embedded-rust/" class="prev" rel="prev" title="初探 STM32 嵌入式 Rust"><i class="fas fa-angle-left fa-fw"></i>初探 STM32 嵌入式 Rust</a>
+    <div class="post-nav"><a href="/zh-cn/my-first-intern/" class="prev" rel="prev" title="第一份实习"><i class="fas fa-angle-left fa-fw"></i>第一份实习</a>
             <a href="/zh-cn/course-summary/" class="next" rel="next" title="我的 UBC 课程总结">我的 UBC 课程总结<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>

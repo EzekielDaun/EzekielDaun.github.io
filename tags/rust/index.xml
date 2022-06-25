@@ -1,0 +1,25 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Rust - Tag - Ez&#39;s blog</title>
+        <link>https://ezekieldaun.github.io/tags/rust/</link>
+        <description>Rust - Tag - Ez&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
+            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Tue, 28 Dec 2021 15:34:52 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/tags/rust/" rel="self" type="application/rss+xml" /><item>
+    <title>Balancing Bot</title>
+    <link>https://ezekieldaun.github.io/balancing-bot/</link>
+    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate>
+    <author>Author</author>
+    <guid>https://ezekieldaun.github.io/balancing-bot/</guid>
+    <description><![CDATA[In this post, I am going to share my experience in developing a balancing bot. As I haven&rsquo;t formally learned any courses about the control system, I could not guarantee the correctness of all the points.
+The Cascade PID Controller for the Bot PID There are too much explanation about the PID controller. So I will just share my own understanding.
+You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop.]]></description>
+</item><item>
+    <title>A First Step in STM32 Embedded Rust</title>
+    <link>https://ezekieldaun.github.io/hello-embedded-rust/</link>
+    <pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate>
+    <author>Author</author>
+    <guid>https://ezekieldaun.github.io/hello-embedded-rust/</guid>
+    <description><![CDATA[A brief summary for recent learning about embedded rust in internship and projects.
+Resources The Book: Basic rust grammar. Pay attention to Channel, Mutex, Cell, RefCell etc. in the concurrency section, which are also useful in embedded rust. Discovery: There is a new version using micro:bit when I write this blog. I was reading the STM32F3Discovery version. The Embedded Rust Book: If you are experienced in embedded systems, you can jump right in to this book.]]></description>
+</item></channel>
+</rss>

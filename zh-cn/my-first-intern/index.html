@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>第一份实习 - Ez的博客</title><meta name="Description" content="Ezekiel&#39;s blog"><meta property="og:title" content="第一份实习" />
+<meta property="og:description" content="2021 年大二结束后的暑假，托关系找了份实习。一家医疗器械公司，主营体外检测仪器和配套试剂。安排我到他们做快速荧光 PCR 的项目里。说起来也蛮有趣，我一" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ezekieldaun.github.io/zh-cn/my-first-intern/" /><meta property="og:image" content="https://ezekieldaun.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-28T15:34:14-08:00" />
+<meta property="article:modified_time" content="2021-12-28T15:34:14-08:00" /><meta property="og:site_name" content="Ez的博客" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ezekieldaun.github.io/logo.png"/>
+
+<meta name="twitter:title" content="第一份实习"/>
+<meta name="twitter:description" content="2021 年大二结束后的暑假，托关系找了份实习。一家医疗器械公司，主营体外检测仪器和配套试剂。安排我到他们做快速荧光 PCR 的项目里。说起来也蛮有趣，我一"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ezekieldaun.github.io/zh-cn/my-first-intern/" /><link rel="prev" href="https://ezekieldaun.github.io/zh-cn/hello-embedded-rust/" /><link rel="next" href="https://ezekieldaun.github.io/zh-cn/balancing-bot/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "第一份实习",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ezekieldaun.github.io\/zh-cn\/my-first-intern\/"
+        },"genre": "posts","keywords": "Rust, C\/C\u002b\u002b, RTOS, SolidWorks, PCB, Embedded","wordcount":  3731 ,
+        "url": "https:\/\/ezekieldaun.github.io\/zh-cn\/my-first-intern\/","datePublished": "2021-12-28T15:34:14-08:00","dateModified": "2021-12-28T15:34:14-08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Ezekiel"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Ez的博客">EZ</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"> 文章 </a><a class="menu-item" href="/zh-cn/tags/"> 标签 </a><a class="menu-item" href="/zh-cn/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/my-first-intern/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Ez的博客">EZ</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/" title="">文章</a><a class="menu-item" href="/zh-cn/tags/" title="">标签</a><a class="menu-item" href="/zh-cn/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/my-first-intern/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">第一份实习</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://ezekieldaun.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Ezekiel</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/work/"><i class="far fa-folder fa-fw"></i>work</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-28">2021-12-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3731 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#软件原型">软件原型</a></li>
+    <li><a href="#步进电机驱动调研">步进电机驱动调研</a></li>
+    <li><a href="#荧光镜片组外壳迭代">荧光镜片组外壳迭代</a></li>
+    <li><a href="#荧光模块采集程序">荧光模块采集程序</a></li>
+    <li><a href="#荧光采集模块主控固件">荧光采集模块主控固件</a></li>
+    <li><a href="#cqt-数据拟合--可视化">C++/Qt 数据拟合 + 可视化</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>2021 年大二结束后的暑假，托关系找了份实习。一家医疗器械公司，主营体外检测仪器和配套试剂。安排我到他们做快速荧光 PCR 的项目里。说起来也蛮有趣，我一个臭机械本科生，六个月里竟然前后干了机械电子软件三种工作（大约各两个月）。流水账式地记录下几个主要内容。</p>
+<h2 id="软件原型">软件原型</h2>
+<p>仪器准备投放到基层医院，所以需要一个比较易用的界面，方便操作员快速培训上岗。正好我入职啥也不懂，安排我设计下软件原型。咱也不是艺术生，配色啥的咱也不懂，主要就是设计 UI/UX 的操作流程，点这个按钮跳到什么什么界面这样。原型软件领导直接给买了两份 axure，不过似乎 figma 更火的样子。现在看来软件原型也确实是一个很好的入门项目，快速熟悉了基本的仪器原理和运行流程。</p>
+<h2 id="步进电机驱动调研">步进电机驱动调研</h2>
+<p>唉，下个学期才开电机的课，就当提前预习了吧。驱动器一般分为脉冲型和总线型。</p>
+<ul>
+<li>
+<p>脉冲型：</p>
+<p>你只需要发脉冲，一个脉冲走一步，全步半步微步什么的可以用其他引脚配置。缺点是运动加减速全部都要自己控制，实时性要求比较高，如果要求闭环控制则更复杂；胜在价格便宜，一片不过十几块钱</p>
+</li>
+<li>
+<p>总线型：</p>
+<ul>
+<li>
+<p>驱动模块：</p>
+<p>当时正在使用一款国产 CAN 总线驱动器，小毛病不断而且价格不菲，一台机器要 12 个，每个要 300 多元，成本上希望压榨一下。领导的意思是自己搞个 FPGA 接脉冲型芯片，12 个驱动器一起控制了。我想了想 FPGA 开发难度实在是有点大，而且只带 12 个是不是有点大材小用 <del>关键是项目里没人会</del></p>
+</li>
+<li>
+<p>驱动芯片：</p>
+<p>推荐了 <a href="https://www.trinamic.com/" target="_blank" rel="noopener noreffer">Trinamic</a> 的 <code>TMC5160</code>，一个是功能强效果好，另外公司里另一个项目组就选了同款芯片，有打好的电路板可以直接拿来用。芯片一片 80 左右，单片机用 F103 最低配都绰绰有余，也可以用个资源多的型号同时控多路 SPI 挂多个芯片。算上外围元件 + 制板费也比原来低不少，而且还不用自己开发</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="荧光镜片组外壳迭代">荧光镜片组外壳迭代</h2>
+<p>同类机器一般用激光器做光源，虽然效果超棒但价格也很美丽。我们这边打算拿 5W LED 灯珠 + 透镜 + 窄带滤光片，反正又不是成像，能用就行，中间还需要加一片二向色镜滤掉 LED 反射信号，保留荧光信号分给 <strong><ruby>PD<rt>Photon Detector</rt></ruby></strong>。第一版原型已经验证了可行性，只不过信号强度比较有限，希望还能提升一点。</p>
+<p>按我的初中光学水平，聚焦嘛，几组透镜焦点对上就行。同时尽量缩短光传播的距离减少衰减。所以就需要焦距极短的透镜，聚光能力更强。不过我们仪器体积有限，上不了太大的镜片，只能用鼓形透镜，我们需求的型号又没有现货，第一版跟厂家定制把球形透镜削成鼓形，价格也是非常美丽。</p>
+<p>领导提出让我试一下不严格对齐焦点，优先压缩衰减距离，3D 打印个模型试试看效果。同时因为不聚焦了嘛，平凸透镜换更便宜的非球面透镜，滤光片也换了国产供应商进一步压缩成本。SolidWorks 走起。利用 SW 的型腔功能，可以先画镜片的装配，再从一个基体里把镜片的部分切掉。改模型的过程中还发现上一版光路中心偏移了 0.5mm LOL.</p>
+<p>因为探头尺寸小了好多，LED 电路板也得重新画，咱也不会 AD，就由另一个学 EE 的实习生照我新画的尺寸再出一版。别说，画板子门道还挺多。这 LED 有发热问题只能用铝基板，铝基板布线只能走单面，LED 功率比较大线宽又不能给太小，但因为压缩了尺寸，紧挨着 LED 的两排 M2 螺丝孔直接断绝了走线的可能。但 3D 打印件已经投出去了，只能填上一排螺丝孔走线。哎，这种活还是得既懂机械又懂电子的人来啊！</p>
+<p>用电源夹着测了下光功率，各通道比上一版提升 50%-100% 不等。</p>
+<h2 id="荧光模块采集程序">荧光模块采集程序</h2>
+<p>拿电源测还不够，终究得上我们自己的采集电路试试。探头阵列装在一块 LED 板上，另一个平面再固定一块 PD 板，两块板在交叉处留焊盘再焊上。因为探头阵列整体尺寸变了，不仅 LED 板，PD 板也要重画。PD 嘉立创不给焊而且单独在一面，只能自己用焊膏拿风枪从另一面吹，所以全部件都得手焊，因为体积极小选的封装也超小，焊起来是既费手又费眼睛。因为要尽量减少漏光，3D 打印外壳给 PD 留的定位公差比较小，真正吹 PD 的时候才知道手焊这种贴片元件定位准有多难……</p>
+<p>那个实习生那边焊着板子，我这边准备研究一下采集电路单片机的程序。因为采集电路有好几级放大，为了方便开发做了模块化设计，有单片机在的那块主控板可以通用，留了几路 SPI 从 FPC 排线接出来。但是板子打少了没有空的给我用，只好给了我一个更早的引脚不同的版本，而且同事居然把这版程序搞丢了…… 好在原理图还在，也不是不能重新写，只是之前只会 Arduino AVR 树莓派那些，STM32 还是第一次接触……</p>
+<p>简单看了看，有什么寄存器版，标准库版，HAL 版，看着就头大。电子工程师同事跟着正点原子学下来的。该说不说教程是挺详细，不过时间紧任务重，学到 SPI 那边怎么也得两三周。STM32 这方面。正好入职之前在看 Rust，听说嵌入式也能用，查了一下 STM32F103 的支持也不错，那为啥不试一下呢。直接 <a href="https://github.com/rust-embedded/cortex-m-quickstart" target="_blank" rel="noopener noreffer">quick-start</a> 走起。改下编译配置，瞬间就出来一个 semihosting 打印 helloworld。再从 <a href="https://docs.rs/stm32f1xx-hal/latest/stm32f1xx_hal/" target="_blank" rel="noopener noreffer">f1xx-hal</a> example 里抄个点灯，前后也就十来分钟。一看 SPI 也有例程可抄，不过得先研究一下我们 ADC 和 DAC 的手册。</p>
+<p>好家伙，前后一共没用了一天半，我这个采集测试程序直接能跑了，震惊同事一整天。Rust 在包管理这块真是吊打 c 语言生态啊。除了打印还是 semihosting 没换成串口，有阻塞和速度问题比较烦人。</p>
+<h2 id="荧光采集模块主控固件">荧光采集模块主控固件</h2>
+<p>紧接着决定整合另外一块板的功能，两个单片机变一个，电机和荧光一起控制，芯片也重新选了 F407，所以程序自然也得重新开始。单位有原子的 407 开发板，还是一样 cargo 导入 hal，点灯一气呵成。因为需要串口通信，还有实时性要求，又研究了下串口中断。一中断就打破了正常的控制流，随之带来潜在的并发问题。又因为 Rust 主打的线程安全，写中断要来回包好几层，一个变量光类型就恨不得半个窗口宽，实在有点丑陋，所以调研了几个 rust RTOS，结果没一个能用的。最后退而求其次选择了 <a href="https://crates.io/crates/cortex-m-rtic" target="_blank" rel="noopener noreffer">rtic</a> <del>1.0 了好耶！</del>。但测试了一下串口响应发现比 uC/OS 慢不少，加上调步进电机的 CAN 控制器又遇到了些问题，还有我走了之后 Rust 代码无人维护等等缺陷，最后还是花了大半个月学 uC/OS 和 STM32 hal 库。这段时间真是进步飞快，每天全身心地投在学习里，uC/OS 英文文档来回读了好几遍，结合原子/野火各方例程边学边实践，信号量、队列、内存管理等等概念虽然不能说理解了底层原理，但基本的使用还是不成问题的，还仔细学习了一下上下文切换的核心汇编代码。</p>
+<p>整理了一下业务逻辑，仿照内核搞了个任务分发器。串口中断处理完，先进任务分发器，根据消息决定要安排的任务和优先级（不一定回到被打断的任务）。同时还搞了个低优先级的串口发送任务用于回复上位机。我觉得逻辑还蛮清楚的，可同事说这样适合任务复杂的场景，我们这块用不到，却也没说具体怎么调整……</p>
+<p>因为花了很多时间学习，真正业务代码开发就变得非常紧张，加上电机 CAN 驱动器居然有 BUG，停止状态位居然有可能不准，需要额外的定时任务轮询电机状态…… 连续加班半个月<del>我就是个月薪 3000 的实习生啊喂</del>终于赶出了个可用的版本，然后发烧病了三天。等我下周再看到同事改过的代码后，我算是理解了所谓“不用这么复杂”的意思：</p>
+<ul>
+<li>跳过分发器任务间直接通信，优先级逻辑要在代码里到处跳才能搞明白</li>
+<li>重复逻辑直接复制粘贴绝不循环：8 个信号量 8 个任务 8 个队列，串口任务里 8 个 switch case。反正业务定死了就这么多绝不写成数组</li>
+</ul>
+<p>行吧，反正他改过了，那就算他接手了，领导给我派别的任务了</p>
+<h2 id="cqt-数据拟合--可视化">C++/Qt 数据拟合 + 可视化</h2>
+<p>别说，PCR S 形扩增曲线这个事儿我高中还是学过的。反倒是同事们都是 90 年左右出生，高中的时候 PCR 还没进课本，入职培训听的一愣一愣的。软工同事 GitHub 找了个 GSL 库曲线拟合的 C++ wrapper <del>GPL 代码真的合适么</del>，虽然初始猜测给的很离谱，但双曲正切还是拟出来了而且效果不错。</p>
+<p>核酸检测结果需要计算 <strong><ruby>CT<rt>Cycle Threshold</rt></ruby></strong> 值，我们希望软件能够自动计算。流程大概是先拟合，然后定基线范围，按基线平均值 + k 倍基线标准差画一根水平线，取该线和曲线交点 x 值作为 CT 值。基本原理并不难，但实际应用时有各种问题。</p>
+<ul>
+<li>
+<p>拟合异常：</p>
+<p>至少开发阶段，不扩增的情况很常见，甚至有时候曲线还能往下掉，这时候拟合就会很离谱。用拟合前一个预判断 + 拟合后参数校验即可</p>
+</li>
+<li>
+<p>各通道基线对齐：</p>
+<p>这个其实好说，拟出来参数之后重新算下 y 偏移就行</p>
+</li>
+<li>
+<p>通道串扰：</p>
+<p>这个比较复杂，需求临近实习结束才提出来，所以我只给出了线代的公式和实现的想法。理论上各通道都是线性的，可以提前用已知强度的荧光溶液标定出各通道的补偿矩阵，实际数据扣除基线后用逆矩阵转换一下即可。如果拟合成功，只需要对各通道的拟合参数应用该矩阵即可。</p>
+</li>
+</ul>
+<p>C++ Qt 虽然也是第一次接触，不过也就掉了一次内存泄漏和一次 <code>std::array</code> 的坑。此外画图的部分沿用了之前同事找的开源控件，还做了一些小小的魔改来适配我们的项目。C++ 业务逻辑写多了，才能体会到 Rust Enum 的设计精妙之处。比方说拟合失败，Rust 里面返回 <code>Result&lt;T,E&gt;</code> 或者 <code>Option&lt;T&gt;</code> 就很符合语义。但在 C++ 里想做到同样的事情就得要么手动实现 tagged union，要么传指向堆内存的可空指针给调用者检查，要么就得用异常。Tagged Union 得给同事们讲明白，传指针项目里从来没这么用过，搞不好又是内存泄漏，试了一下异常结果 Linux 工控机上怎么调编译选项也不支持。还好结果都是 float，只好传进引用然后用 NAN 表示失败了……</p>
+<h2 id="总结">总结</h2>
+<p>虽然说是托关系找的实习，但也确实投入了相当多的实际开发，获得了很多机电软方面的实践经验。第一份实习竟然就得到了如此全面的锻炼！工作环境也相当不错，标配人体工学椅，小零食饮料以及咖啡机，采购报销虽然要自己垫钱但回款也很及时，同事领导也都很友善。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/zh-cn/tags/rust/">Rust</a>,&nbsp;<a href="/zh-cn/tags/c/c&#43;&#43;/">C/C&#43;&#43;</a>,&nbsp;<a href="/zh-cn/tags/rtos/">RTOS</a>,&nbsp;<a href="/zh-cn/tags/solidworks/">SolidWorks</a>,&nbsp;<a href="/zh-cn/tags/pcb/">PCB</a>,&nbsp;<a href="/zh-cn/tags/embedded/">Embedded</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/hello-embedded-rust/" class="prev" rel="prev" title="初探 STM32 嵌入式 Rust"><i class="fas fa-angle-left fa-fw"></i>初探 STM32 嵌入式 Rust</a>
+            <a href="/zh-cn/balancing-bot/" class="next" rel="next" title="平衡小车">平衡小车<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://ezekieldaun.github.io" target="_blank">Ezekiel</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/zh-cn/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
