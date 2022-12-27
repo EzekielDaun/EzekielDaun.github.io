@@ -11,7 +11,6 @@
 <meta property="og:url" content="https://ezekieldaun.github.io/zh-cn/balancing-bot/" /><meta property="og:image" content="https://ezekieldaun.github.io/zh-cn/balancing-bot/featuredImage.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-12-28T15:34:52-08:00" />
 <meta property="article:modified_time" content="2021-12-28T15:34:52-08:00" /><meta property="og:site_name" content="Ez的博客" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://ezekieldaun.github.io/zh-cn/balancing-bot/featuredImage.jpg"/>
 <meta name="twitter:title" content="平衡小车"/>
@@ -213,9 +212,9 @@ I2C 协议的六轴陀螺仪加速度计。MPU6050 有内置的运动处理器 D
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">wiringPiSetup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">wiringPiSetup</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* Some code */</span>
-</span></span><span class="line"><span class="cl">    <span class="n">wiringPiISR</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">INT_EDGE_BOTH</span><span class="p">,</span> <span class="n">myISR</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">wiringPiISR</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">INT_EDGE_BOTH</span><span class="p">,</span> <span class="n">myISR</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* Some code */</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -395,23 +394,23 @@ I2C 协议的六轴陀螺仪加速度计。MPU6050 有内置的运动处理器 D
 <pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;motor.h&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">motorInit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">wiringPiSetup</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">wiringPiSetup</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* set interrupt response */</span>
-</span></span><span class="line"><span class="cl">    <span class="n">wiringPiISR</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT1</span><span class="p">,</span> <span class="n">INT_EDGE_BOTH</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">readEnc1A</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">wiringPiISR</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT2</span><span class="p">,</span> <span class="n">INT_EDGE_BOTH</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">readEnc1B</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">wiringPiISR</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT1</span><span class="p">,</span> <span class="n">INT_EDGE_BOTH</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">readEnc2A</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">wiringPiISR</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT2</span><span class="p">,</span> <span class="n">INT_EDGE_BOTH</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">readEnc2B</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">wiringPiISR</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT1</span><span class="p">,</span> <span class="n">INT_EDGE_BOTH</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">readEnc1A</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">wiringPiISR</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT2</span><span class="p">,</span> <span class="n">INT_EDGE_BOTH</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">readEnc1B</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">wiringPiISR</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT1</span><span class="p">,</span> <span class="n">INT_EDGE_BOTH</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">readEnc2A</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">wiringPiISR</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT2</span><span class="p">,</span> <span class="n">INT_EDGE_BOTH</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">readEnc2B</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* set pin mode */</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR1</span><span class="p">,</span> <span class="n">PWM_OUTPUT</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR1_IN1</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR1_IN2</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT1</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT2</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR2</span><span class="p">,</span> <span class="n">PWM_OUTPUT</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR2_IN1</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR2_IN2</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT1</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT2</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR1</span><span class="p">,</span> <span class="n">PWM_OUTPUT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR1_IN1</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR1_IN2</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT1</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT2</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR2</span><span class="p">,</span> <span class="n">PWM_OUTPUT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR2_IN1</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR2_IN2</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT1</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pinMode</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT2</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -419,20 +418,20 @@ I2C 协议的六轴陀螺仪加速度计。MPU6050 有内置的运动处理器 D
 </span></span><span class="line"><span class="cl">  <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">motor</span><span class="p">(</span><span class="n">Motor</span> <span class="o">*</span><span class="n">pmotor</span><span class="p">,</span> <span class="kt">int</span> <span class="n">power</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">digitalWrite</span><span class="p">(</span><span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">PIN_IN1</span><span class="p">,</span> <span class="p">((</span><span class="n">power</span> <span class="o">*</span> <span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">DIR</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">  <span class="n">digitalWrite</span><span class="p">(</span><span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">PIN_IN2</span><span class="p">,</span> <span class="p">((</span><span class="n">power</span> <span class="o">*</span> <span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">DIR</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">  <span class="n">pwmWrite</span><span class="p">(</span><span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">PIN</span><span class="p">,</span> <span class="n">abs</span><span class="p">(</span><span class="n">power</span><span class="p">)</span> <span class="o">+</span> <span class="n">START_POWER</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">digitalWrite</span><span class="p">(</span><span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">PIN_IN1</span><span class="p">,</span> <span class="p">((</span><span class="n">power</span> <span class="o">*</span> <span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">DIR</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">digitalWrite</span><span class="p">(</span><span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">PIN_IN2</span><span class="p">,</span> <span class="p">((</span><span class="n">power</span> <span class="o">*</span> <span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">DIR</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">pwmWrite</span><span class="p">(</span><span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">PIN</span><span class="p">,</span> <span class="nf">abs</span><span class="p">(</span><span class="n">power</span><span class="p">)</span> <span class="o">+</span> <span class="n">START_POWER</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">readSpd</span><span class="p">(</span><span class="n">Motor</span> <span class="o">*</span><span class="n">pmotor</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="kt">long</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">lastPos</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">usleep</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">usleep</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span><span class="n">pmotor</span><span class="o">-&gt;</span><span class="n">lastPos</span><span class="p">)</span> <span class="o">-</span> <span class="n">pos</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">readEnc1A</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="n">leftWheel</span><span class="p">.</span><span class="n">lastPos</span><span class="p">)</span> <span class="o">-=</span>
 </span></span><span class="line"><span class="cl">      <span class="n">leftWheel</span><span class="p">.</span><span class="n">DIR</span> <span class="o">*</span>
-</span></span><span class="line"><span class="cl">      <span class="p">(((</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT1</span><span class="p">)</span> <span class="o">==</span> <span class="n">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT2</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(((</span><span class="nf">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT1</span><span class="p">)</span> <span class="o">==</span> <span class="nf">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT2</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span>
 </span></span><span class="line"><span class="cl">       <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="cm">/* equivalent to
 </span></span></span><span class="line"><span class="cl"><span class="cm">  (motor1.lastPos) += motor1.DIR * ((digitalRead(PIN_MOTOR1_OUT1) ==
@@ -442,19 +441,19 @@ I2C 协议的六轴陀螺仪加速度计。MPU6050 有内置的运动处理器 D
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">readEnc1B</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="n">leftWheel</span><span class="p">.</span><span class="n">lastPos</span><span class="p">)</span> <span class="o">+=</span>
 </span></span><span class="line"><span class="cl">      <span class="n">leftWheel</span><span class="p">.</span><span class="n">DIR</span> <span class="o">*</span>
-</span></span><span class="line"><span class="cl">      <span class="p">(((</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT1</span><span class="p">)</span> <span class="o">==</span> <span class="n">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT2</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(((</span><span class="nf">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT1</span><span class="p">)</span> <span class="o">==</span> <span class="nf">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR1_OUT2</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span>
 </span></span><span class="line"><span class="cl">       <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">readEnc2A</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="n">rightWheel</span><span class="p">.</span><span class="n">lastPos</span><span class="p">)</span> <span class="o">-=</span>
 </span></span><span class="line"><span class="cl">      <span class="n">rightWheel</span><span class="p">.</span><span class="n">DIR</span> <span class="o">*</span>
-</span></span><span class="line"><span class="cl">      <span class="p">(((</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT1</span><span class="p">)</span> <span class="o">==</span> <span class="n">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT2</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(((</span><span class="nf">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT1</span><span class="p">)</span> <span class="o">==</span> <span class="nf">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT2</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span>
 </span></span><span class="line"><span class="cl">       <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">readEnc2B</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="n">rightWheel</span><span class="p">.</span><span class="n">lastPos</span><span class="p">)</span> <span class="o">+=</span>
 </span></span><span class="line"><span class="cl">      <span class="n">rightWheel</span><span class="p">.</span><span class="n">DIR</span> <span class="o">*</span>
-</span></span><span class="line"><span class="cl">      <span class="p">(((</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT1</span><span class="p">)</span> <span class="o">==</span> <span class="n">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT2</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(((</span><span class="nf">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT1</span><span class="p">)</span> <span class="o">==</span> <span class="nf">digitalRead</span><span class="p">(</span><span class="n">PIN_MOTOR2_OUT2</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span>
 </span></span><span class="line"><span class="cl">       <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
@@ -531,44 +530,44 @@ I2C 协议的六轴陀螺仪加速度计。MPU6050 有内置的运动处理器 D
 </span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">usrInput</span> <span class="o">=</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">motorInit</span><span class="p">())</span> <span class="p">{</span> <span class="c1">// PIN Definition
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">motorInit</span><span class="p">())</span> <span class="p">{</span> <span class="c1">// PIN Definition
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="cm">/* set high priority  */</span>
-</span></span><span class="line"><span class="cl">    <span class="n">piHiPri</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pthread_t</span> <span class="n">th_usr_interrupt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">piHiPri</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">pthread_t</span> <span class="n">th_usr_interrupt</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="o">*</span><span class="n">th_usr_interrupt_arg</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">usrInput</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">th_usr_interrupt</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">usrInterrupt</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">th_usr_interrupt</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">usrInterrupt</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                       <span class="n">th_usr_interrupt_arg</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">t0</span> <span class="o">=</span> <span class="n">millis</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">t0</span> <span class="o">=</span> <span class="nf">millis</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">usrInput</span> <span class="o">!=</span> <span class="sc">&#39;q&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">leftWheel</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="o">&amp;</span><span class="n">leftWheel</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">rightWheel</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rightWheel</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%lli|%lli</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">leftWheel</span><span class="p">.</span><span class="n">lastPos</span><span class="p">,</span> <span class="n">rightWheel</span><span class="p">.</span><span class="n">lastPos</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">leftWheel</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="o">&amp;</span><span class="n">leftWheel</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">rightWheel</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rightWheel</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%lli|%lli</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">leftWheel</span><span class="p">.</span><span class="n">lastPos</span><span class="p">,</span> <span class="n">rightWheel</span><span class="p">.</span><span class="n">lastPos</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pthread_detach</span><span class="p">(</span><span class="n">th_usr_interrupt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pthread_detach</span><span class="p">(</span><span class="n">th_usr_interrupt</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="cm">/* turn off all outputs */</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pwmWrite</span><span class="p">(</span><span class="n">PIN_MOTOR1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pwmWrite</span><span class="p">(</span><span class="n">PIN_MOTOR2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MOTOR1_IN1</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MOTOR1_IN2</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MOTOR2_IN1</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MOTOR2_IN2</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pwmWrite</span><span class="p">(</span><span class="n">PIN_MOTOR1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pwmWrite</span><span class="p">(</span><span class="n">PIN_MOTOR2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">digitalWrite</span><span class="p">(</span><span class="n">PIN_MOTOR1_IN1</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">digitalWrite</span><span class="p">(</span><span class="n">PIN_MOTOR1_IN2</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">digitalWrite</span><span class="p">(</span><span class="n">PIN_MOTOR2_IN1</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">digitalWrite</span><span class="p">(</span><span class="n">PIN_MOTOR2_IN2</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Done!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Done!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cm">/*------------ threads --------------*/</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="nf">usrInterrupt</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Type in &#39;q&#39; to quit.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Type in &#39;q&#39; to quit.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">arg</span> <span class="o">!=</span> <span class="sc">&#39;q&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="n">arg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">scanf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="n">arg</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
@@ -654,7 +653,7 @@ $$</p>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.102.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://ezekieldaun.github.io" target="_blank">Ezekiel</a></span></div>
         </div>
     </footer></div>
