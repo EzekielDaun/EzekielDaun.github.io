@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Categories - Category - Ez&#39;s blog</title>
+        <link>https://ezekieldaun.github.io/categories/</link>
+        <description>Categories - Category - Ez&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
+            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Tue, 28 Dec 2021 15:34:52 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>tech</title>
+    <link>https://ezekieldaun.github.io/categories/tech/</link>
+    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate>
+    <author>Author</author>
+    <guid>https://ezekieldaun.github.io/categories/tech/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>misc</title>
+    <link>https://ezekieldaun.github.io/categories/misc/</link>
+    <pubDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://ezekieldaun.github.io/categories/misc/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
+</rss>

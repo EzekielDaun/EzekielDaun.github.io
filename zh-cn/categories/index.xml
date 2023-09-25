@@ -1,0 +1,36 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Categories - 分类 - Ez的博客</title>
+        <link>https://ezekieldaun.github.io/zh-cn/categories/</link>
+        <description>Categories - 分类 - Ez的博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
+            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Sun, 24 Sep 2023 11:06:21 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/zh-cn/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>misc</title>
+    <link>https://ezekieldaun.github.io/zh-cn/categories/misc/</link>
+    <pubDate>Sun, 24 Sep 2023 11:06:21 -0800</pubDate>
+    <author>作者</author>
+    <guid>https://ezekieldaun.github.io/zh-cn/categories/misc/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>learn</title>
+    <link>https://ezekieldaun.github.io/zh-cn/categories/learn/</link>
+    <pubDate>Wed, 13 Apr 2022 15:49:02 -0700</pubDate>
+    <author>作者</author>
+    <guid>https://ezekieldaun.github.io/zh-cn/categories/learn/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>tech</title>
+    <link>https://ezekieldaun.github.io/zh-cn/categories/tech/</link>
+    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate>
+    <author>作者</author>
+    <guid>https://ezekieldaun.github.io/zh-cn/categories/tech/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>work</title>
+    <link>https://ezekieldaun.github.io/zh-cn/categories/work/</link>
+    <pubDate>Tue, 28 Dec 2021 15:34:14 -0800</pubDate>
+    <author>作者</author>
+    <guid>https://ezekieldaun.github.io/zh-cn/categories/work/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
+</rss>
