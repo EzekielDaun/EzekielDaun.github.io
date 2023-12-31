@@ -4,14 +4,7 @@
         <link>https://ezekieldaun.github.io/zh-cn/posts/</link>
         <description>所有文章 | Ez的博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
-            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Sun, 24 Sep 2023 11:06:21 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/zh-cn/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>失恋？</title>
-    <link>https://ezekieldaun.github.io/zh-cn/lovelorn/</link>
-    <pubDate>Sun, 24 Sep 2023 11:06:21 -0800</pubDate>
-    <author>作者</author>
-    <guid>https://ezekieldaun.github.io/zh-cn/lovelorn/</guid>
-    <description><![CDATA[找喜欢的女孩表白，她说她有男朋友了。多方讨论觉得真实性存疑，转入持久战。周末两天心如刀绞，憋了一段文字出来。本来想周一送给她，被狗头军师拦了]]></description>
-</item><item>
+            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Sat, 13 May 2023 10:56:41 -0700</lastBuildDate><atom:link href="https://ezekieldaun.github.io/zh-cn/posts/" rel="self" type="application/rss+xml" /><item>
     <title>魔兽，再也不见</title>
     <link>https://ezekieldaun.github.io/zh-cn/wow-again/</link>
     <pubDate>Sat, 13 May 2023 10:56:41 -0700</pubDate>
@@ -74,5 +67,12 @@
     <author>作者</author>
     <guid>https://ezekieldaun.github.io/zh-cn/hello-embedded-rust/</guid>
     <description><![CDATA[这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结 资料 The Book: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法 Discovery: 写博客时发现这本]]></description>
+</item><item>
+    <title>你好 世界</title>
+    <link>https://ezekieldaun.github.io/zh-cn/hello-world/</link>
+    <pubDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://ezekieldaun.github.io/zh-cn/hello-world/</guid>
+    <description><![CDATA[记录一下我的博客历程 Notion 搞一个博客的想法由来已久，2017 年接触到 notion，文章可以开启外链，当博客用完全没问题。然而国内访问不稳定，以及]]></description>
 </item></channel>
 </rss>
