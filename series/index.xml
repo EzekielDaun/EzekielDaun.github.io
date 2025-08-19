@@ -1,8 +1,1 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Series - 系列 - Ez的博客</title>
-        <link>https://ezekieldaun.github.io/series/</link>
-        <description>Series - 系列 - Ez的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
-            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><atom:link href="https://ezekieldaun.github.io/series/" rel="self" type="application/rss+xml" /></channel>
-</rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Series - 系列 - Ez的博客</title><link>https://ezekieldaun.github.io/series/</link><description>Series - 系列 - Ez的博客</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor><webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><atom:link href="https://ezekieldaun.github.io/series/" rel="self" type="application/rss+xml"/></channel></rss>

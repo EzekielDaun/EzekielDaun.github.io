@@ -1,31 +1,10 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Ez&#39;s blog</title>
-        <link>https://ezekieldaun.github.io/en/</link>
-        <description>Ezekiel&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
-            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Tue, 28 Dec 2021 15:34:52 -0800</lastBuildDate>
-            <atom:link href="https://ezekieldaun.github.io/en/index.xml" rel="self" type="application/rss+xml" />
-        <item>
-    <title>Balancing Bot</title>
-    <link>https://ezekieldaun.github.io/en/balancing-bot/</link>
-    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate><author>
-        <name>Ezekiel</name>
-    </author><guid>https://ezekieldaun.github.io/en/balancing-bot/</guid>
-    <description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Ez's blog</title><link>https://ezekieldaun.github.io/en/</link><description>Ezekiel's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor><webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Tue, 28 Dec 2021 15:34:52 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/en/index.xml" rel="self" type="application/rss+xml"/><item><title>Balancing Bot</title><link>https://ezekieldaun.github.io/en/balancing-bot/</link><pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate><author><name>Ezekiel</name></author><guid>https://ezekieldaun.github.io/en/balancing-bot/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/balancing-bot/featuredImage.jpg" referrerpolicy="no-referrer">
             </div><p>In this post, I am going to share my experience in developing a balancing bot. As I haven&rsquo;t formally learned any courses about the control system, I could not guarantee the correctness of all the points.</p>
 <h2 id="the-cascade-pid-controller-for-the-bot" class="headerLink">
     <a href="#the-cascade-pid-controller-for-the-bot" class="header-mark"></a>The Cascade PID Controller for the Bot</h2><h3 id="pid" class="headerLink">
     <a href="#pid" class="header-mark"></a>PID</h3><p>There are too much explanation about the PID <a href="https://en.wikipedia.org/wiki/PID_controller" target="_blank" rel="noopener noreferrer">controller</a>. So I will just share my own understanding.</p>
-<p>You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop. The ruler can vibrate because it has some elasticity, while this vibration becomes weaker and weaker since there is some sort of damping. A spring with a damper could solve most problems, and this is actually what a PD controller does. The second-order ODEs could explain:</p>]]></description>
-</item><item>
-    <title>A First Step in STM32 Embedded Rust</title>
-    <link>https://ezekieldaun.github.io/en/hello-embedded-rust/</link>
-    <pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate><author>
-        <name>Ezekiel</name>
-    </author><guid>https://ezekieldaun.github.io/en/hello-embedded-rust/</guid>
-    <description><![CDATA[<div class="featured-image">
+<p>You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop. The ruler can vibrate because it has some elasticity, while this vibration becomes weaker and weaker since there is some sort of damping. A spring with a damper could solve most problems, and this is actually what a PD controller does. The second-order ODEs could explain:</p>]]></description></item><item><title>A First Step in STM32 Embedded Rust</title><link>https://ezekieldaun.github.io/en/hello-embedded-rust/</link><pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate><author><name>Ezekiel</name></author><guid>https://ezekieldaun.github.io/en/hello-embedded-rust/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/hello-embedded-rust/hello.jpg" referrerpolicy="no-referrer">
             </div><p>A brief summary for recent learning about embedded rust in internship and projects.</p>
 <h2 id="resources" class="headerLink">
@@ -38,17 +17,8 @@
 </ul>
 <h2 id="environment" class="headerLink">
     <a href="#environment" class="header-mark"></a>Environment</h2><h3 id="rust-toolchain" class="headerLink">
-    <a href="#rust-toolchain" class="header-mark"></a>Rust Toolchain</h3><p>Here I installed the nightly version of msvc toolchain using rustup.</p>]]></description>
-</item><item>
-    <title>Hello World</title>
-    <link>https://ezekieldaun.github.io/en/hello-world/</link>
-    <pubDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</pubDate><author>
-        <name>Ezekiel</name>
-    </author><guid>https://ezekieldaun.github.io/en/hello-world/</guid>
-    <description><![CDATA[<p>My blog journey.</p>
+    <a href="#rust-toolchain" class="header-mark"></a>Rust Toolchain</h3><p>Here I installed the nightly version of msvc toolchain using rustup.</p>]]></description></item><item><title>Hello World</title><link>https://ezekieldaun.github.io/en/hello-world/</link><pubDate>Mon, 08 Nov 2021 19:38:33 +0800</pubDate><author><name>Ezekiel</name></author><guid>https://ezekieldaun.github.io/en/hello-world/</guid><description><![CDATA[<p>My blog journey.</p>
 <h2 id="notion" class="headerLink">
     <a href="#notion" class="header-mark"></a>Notion</h2><p>It has been a long time since I thought about having a blog. In 2017 I met notion, where pages could be shared as a link which is definitely OK for a blog. However connecting from China is sometimes unstable and — the appearance. Now I am using notion’s database as a cross-platform bookmark and sometimes a to-do list.</p>
 <h2 id="pelican" class="headerLink">
-    <a href="#pelican" class="header-mark"></a>Pelican</h2><p>In 2019, I met Github Pages and static web frameworks, and chose Pelican because I&rsquo;m familiar with Python. Discontinuously developed until summer 2020, learned a lot web-front knowledge. The result was just acceptable. Although there were a few posts, I always had no motivation to update because of the appearance. At that time I got in touch with themes like Hexo Next<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, Hugo Meme<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> that based on other platforms. And I knew what to expect in my blog:</p>]]></description>
-</item></channel>
-</rss>
+    <a href="#pelican" class="header-mark"></a>Pelican</h2><p>In 2019, I met Github Pages and static web frameworks, and chose Pelican because I&rsquo;m familiar with Python. Discontinuously developed until summer 2020, learned a lot web-front knowledge. The result was just acceptable. Although there were a few posts, I always had no motivation to update because of the appearance. At that time I got in touch with themes like Hexo Next<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, Hugo Meme<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> that based on other platforms. And I knew what to expect in my blog:</p>]]></description></item></channel></rss>

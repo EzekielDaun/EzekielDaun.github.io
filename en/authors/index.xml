@@ -1,8 +1,1 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Authors - Author - Ez&#39;s blog</title>
-        <link>https://ezekieldaun.github.io/en/authors/</link>
-        <description>Authors - Author - Ez&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
-            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><atom:link href="https://ezekieldaun.github.io/en/authors/" rel="self" type="application/rss+xml" /></channel>
-</rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Authors - Author - Ez's blog</title><link>https://ezekieldaun.github.io/en/authors/</link><description>Authors - Author - Ez's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor><webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><atom:link href="https://ezekieldaun.github.io/en/authors/" rel="self" type="application/rss+xml"/></channel></rss>

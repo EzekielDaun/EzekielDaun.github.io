@@ -1,15 +1,1 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>PCB - 标签 - Ez的博客</title>
-        <link>https://ezekieldaun.github.io/tags/pcb/</link>
-        <description>PCB - 标签 - Ez的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
-            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Tue, 28 Dec 2021 15:34:14 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/tags/pcb/" rel="self" type="application/rss+xml" /><item>
-    <title>第一份实习</title>
-    <link>https://ezekieldaun.github.io/my-first-intern/</link>
-    <pubDate>Tue, 28 Dec 2021 15:34:14 -0800</pubDate><author>
-        <name>Ezekiel</name>
-    </author><guid>https://ezekieldaun.github.io/my-first-intern/</guid>
-    <description><![CDATA[<p>2021 年大二结束后的暑假，托关系找了份实习。一家医疗器械公司，主营体外检测仪器和配套试剂。安排我到他们做快速荧光 PCR 的项目里。说起来也蛮有趣，我一个臭机械本科生，六个月里竟然前后干了机械电子软件三种工作（大约各两个月）。流水账式地记录下几个主要内容。</p>]]></description>
-</item></channel>
-</rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>PCB - 标签 - Ez的博客</title><link>https://ezekieldaun.github.io/tags/pcb/</link><description>PCB - 标签 - Ez的博客</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor><webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Tue, 28 Dec 2021 15:34:14 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/tags/pcb/" rel="self" type="application/rss+xml"/><item><title>第一份实习</title><link>https://ezekieldaun.github.io/my-first-intern/</link><pubDate>Tue, 28 Dec 2021 15:34:14 -0800</pubDate><author><name>Ezekiel</name></author><guid>https://ezekieldaun.github.io/my-first-intern/</guid><description>&lt;p>2021 年大二结束后的暑假，托关系找了份实习。一家医疗器械公司，主营体外检测仪器和配套试剂。安排我到他们做快速荧光 PCR 的项目里。说起来也蛮有趣，我一个臭机械本科生，六个月里竟然前后干了机械电子软件三种工作（大约各两个月）。流水账式地记录下几个主要内容。&lt;/p></description></item></channel></rss>

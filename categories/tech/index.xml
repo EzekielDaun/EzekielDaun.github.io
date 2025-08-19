@@ -1,28 +1,9 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Tech - 分类 - Ez的博客</title>
-        <link>https://ezekieldaun.github.io/categories/tech/</link>
-        <description>Tech - 分类 - Ez的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
-            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Tue, 28 Dec 2021 15:34:52 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/categories/tech/" rel="self" type="application/rss+xml" /><item>
-    <title>平衡小车</title>
-    <link>https://ezekieldaun.github.io/balancing-bot/</link>
-    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate><author>
-        <name>Ezekiel</name>
-    </author><guid>https://ezekieldaun.github.io/balancing-bot/</guid>
-    <description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Tech - 分类 - Ez的博客</title><link>https://ezekieldaun.github.io/categories/tech/</link><description>Tech - 分类 - Ez的博客</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor><webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Tue, 28 Dec 2021 15:34:52 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/categories/tech/" rel="self" type="application/rss+xml"/><item><title>平衡小车</title><link>https://ezekieldaun.github.io/balancing-bot/</link><pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate><author><name>Ezekiel</name></author><guid>https://ezekieldaun.github.io/balancing-bot/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/balancing-bot/featuredImage.jpg" referrerpolicy="no-referrer">
             </div><p>大三才做出来平衡小车实在是太菜了&hellip;分享一下过程和学习笔记。写这篇时还没有学过任何控制相关的课程，如有错误请见谅</p>
 <h2 id="平衡小车-pid-原理" class="headerLink">
     <a href="#%e5%b9%b3%e8%a1%a1%e5%b0%8f%e8%bd%a6-pid-%e5%8e%9f%e7%90%86" class="header-mark"></a>平衡小车 PID 原理</h2><h3 id="pid" class="headerLink">
-    <a href="#pid" class="header-mark"></a>PID</h3><p>网上有太多 PID 解析了，这里不多赘述，讲一下我的理解</p>]]></description>
-</item><item>
-    <title>初探 STM32 嵌入式 Rust</title>
-    <link>https://ezekieldaun.github.io/hello-embedded-rust/</link>
-    <pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate><author>
-        <name>Ezekiel</name>
-    </author><guid>https://ezekieldaun.github.io/hello-embedded-rust/</guid>
-    <description><![CDATA[<div class="featured-image">
+    <a href="#pid" class="header-mark"></a>PID</h3><p>网上有太多 PID 解析了，这里不多赘述，讲一下我的理解</p>]]></description></item><item><title>初探 STM32 嵌入式 Rust</title><link>https://ezekieldaun.github.io/hello-embedded-rust/</link><pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate><author><name>Ezekiel</name></author><guid>https://ezekieldaun.github.io/hello-embedded-rust/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/hello-embedded-rust/hello.jpg" referrerpolicy="no-referrer">
             </div><p>这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结</p>
 <h2 id="资料" class="headerLink">
@@ -35,6 +16,4 @@
 </ul>
 <h2 id="环境搭建" class="headerLink">
     <a href="#%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba" class="header-mark"></a>环境搭建</h2><h3 id="rust-工具链" class="headerLink">
-    <a href="#rust-%e5%b7%a5%e5%85%b7%e9%93%be" class="header-mark"></a>Rust 工具链</h3><p>这里使用 rustup 安装了 msvc 工具链的 rust</p>]]></description>
-</item></channel>
-</rss>
+    <a href="#rust-%e5%b7%a5%e5%85%b7%e9%93%be" class="header-mark"></a>Rust 工具链</h3><p>这里使用 rustup 安装了 msvc 工具链的 rust</p>]]></description></item></channel></rss>

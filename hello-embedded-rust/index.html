@@ -1,991 +1,313 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noodp" /><title>初探 STM32 嵌入式 Rust - Ez的博客</title><meta name="Description" content="Ezekiel&#39;s blog"><meta property="og:url" content="https://ezekieldaun.github.io/hello-embedded-rust/">
-  <meta property="og:site_name" content="Ez的博客">
-  <meta property="og:title" content="初探 STM32 嵌入式 Rust">
-  <meta property="og:description" content="这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结
-资料 The Book: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法 Discovery: 写博客时发现这本书有了使用 micro:bit 的新版, 我读的是使用 STM32F3Discovery 的旧版 The Embedded Rust Book: 有嵌入式开发经验可以跳过 discovery 直接看这本。我买了 F3 板子所以直接跑在板子上没有用 QEMU RTIC: 一个裸机多任务框架，更好地共享 Rust 变量。我看的时候是 v0.5，现在已经出到 1.0 了，可喜可贺。 ferrous-systems’s blog: 这家公司的博客介绍了许多 Rust 在嵌入式开发中的技巧，获益匪浅。尤其是实现了一个 async/await executor 环境搭建 Rust 工具链这里使用 rustup 安装了 msvc 工具链的 rust">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2021-12-27T18:48:13-08:00">
-    <meta property="article:modified_time" content="2021-12-27T18:48:13-08:00">
-    <meta property="article:tag" content="Rust">
-    <meta property="article:tag" content="Embedded">
-    <meta property="og:image" content="https://ezekieldaun.github.io/logo.png">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://ezekieldaun.github.io/logo.png">
-  <meta name="twitter:title" content="初探 STM32 嵌入式 Rust">
-  <meta name="twitter:description" content="这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结
-资料 The Book: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法 Discovery: 写博客时发现这本书有了使用 micro:bit 的新版, 我读的是使用 STM32F3Discovery 的旧版 The Embedded Rust Book: 有嵌入式开发经验可以跳过 discovery 直接看这本。我买了 F3 板子所以直接跑在板子上没有用 QEMU RTIC: 一个裸机多任务框架，更好地共享 Rust 变量。我看的时候是 v0.5，现在已经出到 1.0 了，可喜可贺。 ferrous-systems’s blog: 这家公司的博客介绍了许多 Rust 在嵌入式开发中的技巧，获益匪浅。尤其是实现了一个 async/await executor 环境搭建 Rust 工具链这里使用 rustup 安装了 msvc 工具链的 rust">
-<meta name="application-name" content="DoIt">
-<meta name="apple-mobile-web-app-title" content="DoIt">
-
-<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-<link rel="canonical" href="https://ezekieldaun.github.io/hello-embedded-rust/" /><link rel="prev" href="https://ezekieldaun.github.io/hello-world/" /><link rel="next" href="https://ezekieldaun.github.io/my-first-intern/" />
-<link rel="stylesheet" href="/css/main.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">{"@context": "https://schema.org","@type": "BlogPosting",
-        "headline": "初探 STM32 嵌入式 Rust",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https://ezekieldaun.github.io/hello-embedded-rust/"
-        },"image": [{
-                            "@type": "ImageObject",
-                            "url": "https://ezekieldaun.github.io/hello-embedded-rust/hello.jpg",
-                            "width":  2771 ,
-                            "height":  1279 
-                        }],"genre": "posts","keywords":["Rust","Embedded"],"wordcount":  2578 ,
-        "url": "https://ezekieldaun.github.io/hello-embedded-rust/","datePublished": "2021-12-27T18:48:13-08:00","dateModified": "2021-12-27T18:48:13-08:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Ezekiel",
-                "url": "https://ezekieldaun.github.io"
-            },"description": ""
-    }</script></head>
-
-
-<body data-instant-intensity="viewport" class="tw-flex tw-min-h-screen tw-flex-col"><script>
-    function setTheme(theme) {
-      document.body.setAttribute('theme', theme); 
-      document.documentElement.className = theme;
-      document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');
-      if (theme === 'light') {
-        document.documentElement.classList.remove('tw-dark')
-      } else {
-        document.documentElement.classList.add('tw-dark')
-      }
-      window.theme = theme;   
-      window.isDark = window.theme !== 'light' 
-    }
-    function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
-    function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
-    if (window.localStorage && localStorage.getItem('theme')) {
-        let theme = localStorage.getItem('theme');
-        if (theme === 'light' || theme === 'dark') {
-        setTheme(theme);
-        } else {
-            if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                setTheme('dark');
-            } else {
-                setTheme('light');
-            }
-        }
-      } else { 
-        if ('auto' === 'light' || 'auto' === 'dark') 
-            setTheme('auto'), saveTheme('auto'); 
-        else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');
-    }
-    let metaColors = {'light': '#f8f8f8','dark': '#161b22'}
-    getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
-    window.switchThemeEventSet = new Set()
-</script><div id="back-to-top"></div>
-    <div id="mask"></div><header class="desktop print:!tw-hidden" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="Ez的博客">Ez</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item"
-                    href="/posts/" > 文章 </a><a class="menu-item"
-                    href="/tags/" > 标签 </a><a class="menu-item"
-                    href="/categories/" > 分类 </a><span class="menu-item delimiter"></span><button class="menu-item language" aria-label="选择语言">简体中文<svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
-                    <select class="language-select" aria-label="选择语言" id="language-select-desktop"
-                        onchange="location = this.value;"><option value="/en/hello-embedded-rust/" >English</option><option value="/hello-embedded-rust/"  selected>简体中文</option></select>
-                </button><span class="menu-item search" id="search-desktop">
-                    <input type="text"
-                        placeholder="搜索文章标题或内容..."
-                        id="search-input-desktop">
-                    <button class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                        <svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-                    </button>
-                    <button class="search-button search-clear" id="search-clear-desktop" title="清空">
-                        <svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"/></svg>
-                    </button>
-                    <span class="search-button search-loading tw-animate-spin" id="search-loading-desktop">
-                        <svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>
-                    </span>
-                </span><button class="menu-item theme-select" aria-label="切换主题">
-                    <svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
-                    <select class="color-theme-select" id="theme-select-desktop" aria-label="切换主题">
-                        <option value="light">浅色</option>
-                        <option value="dark">深色</option>
-                        <option value="auto">跟随系统</option>
-                    </select>
-                </button></div>
-        </div>
-    </div>
-</header><header class="mobile print:!tw-hidden" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="Ez的博客">Ez</a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                <div class="search mobile" id="search-mobile">
-                    <input type="text"
-                        placeholder="搜索文章标题或内容..."
-                        id="search-input-mobile">
-                    <button class="search-button search-toggle tw-h-10" id="search-toggle-mobile" title="搜索">
-                        <svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-                    </button>
-                    <button class="search-button search-clear tw-h-fit" id="search-clear-mobile" title="清空">
-                        <svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"/></svg>
-                    </button>
-                    <span class="search-button search-loading tw-animate-spin" id="search-loading-mobile">
-                        <svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>
-                    </span>
-                </div>
-                <button class="search-cancel" id="search-cancel-mobile">
-                    取消
-                </button>
-            </div><a class="menu-item" href="/posts/" title="" >文章</a><a class="menu-item" href="/tags/" title="" >标签</a><a class="menu-item" href="/categories/" title="" >分类</a><button class="menu-item theme-select tw-w-full" aria-label="切换主题">
-                <svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
-                <select class="color-theme-select" id="theme-select-mobile" aria-label="切换主题">
-                    <option value="light">浅色</option>
-                    <option value="dark">深色</option>
-                    <option value="auto">跟随系统</option>
-                </select>
-            </button><button class="menu-item tw-w-full" title="">简体中文<svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
-                <select class="language-select" title="" onchange="location = this.value;"><option value="/en/hello-embedded-rust/" >English</option><option value="/hello-embedded-rust/"  selected>简体中文</option></select>
-            </button></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div><main class="tw-mx-4 tw-flex-1"><div class="toc print:!tw-hidden" id="toc-auto">
-        <h2 class="toc-title">目录</h2>
-        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#资料">资料</a></li>
-    <li><a href="#环境搭建">环境搭建</a>
-      <ul>
-        <li><a href="#rust-工具链">Rust 工具链</a></li>
-        <li><a href="#调试工具">调试工具</a></li>
-      </ul>
-    </li>
-    <li><a href="#hello-world">Hello World</a></li>
-    <li><a href="#pac--hal">PAC &amp; HAL</a></li>
-    <li><a href="#起手式-裸机">起手式 (裸机)</a></li>
-    <li><a href="#safe-全局变量">safe 全局变量</a></li>
-    <li><a href="#rtic">RTIC</a></li>
-    <li><a href="#内存分配器">内存分配器</a></li>
-    <li><a href="#rtos">RTOS</a></li>
-    <li><a href="#常用-crate">常用 crate</a></li>
-    <li><a href="#总结">总结</a></li>
-  </ul>
-</nav></div>
-    </div><dialog id="toc-dialog" class="tw-max-w-full tw-w-full tw-max-h-full tw-h-full tw-ml-16">
-        <div class="toc tw-mx-4 tw-max-w-full">
-            <h2 class="tw-mx-0 tw-my-6 tw-uppercase tw-text-2xl">目录</h2>
-            <div class="toc-content"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#资料">资料</a></li>
-    <li><a href="#环境搭建">环境搭建</a>
-      <ul>
-        <li><a href="#rust-工具链">Rust 工具链</a></li>
-        <li><a href="#调试工具">调试工具</a></li>
-      </ul>
-    </li>
-    <li><a href="#hello-world">Hello World</a></li>
-    <li><a href="#pac--hal">PAC &amp; HAL</a></li>
-    <li><a href="#起手式-裸机">起手式 (裸机)</a></li>
-    <li><a href="#safe-全局变量">safe 全局变量</a></li>
-    <li><a href="#rtic">RTIC</a></li>
-    <li><a href="#内存分配器">内存分配器</a></li>
-    <li><a href="#rtos">RTOS</a></li>
-    <li><a href="#常用-crate">常用 crate</a></li>
-    <li><a href="#总结">总结</a></li>
-  </ul>
-</nav></div>
-        </div>
-    </dialog><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single print:!tw-w-full print:!tw-max-w-none print:!tw-m-0 print:!tw-p-0"><h1 class="single-title" data-pagefind-meta="date:2021-12-27" data-pagefind-body>初探 STM32 嵌入式 Rust</h1><div class="post-meta">
-            <div class="post-meta-line">
-                <span class="post-author"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="https://ezekieldaun.github.io" title="Author" target="_blank" rel="noopener noreferrer author" class="author">Ezekiel</a>
-                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/tech/"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Tech</a></span></div>
-            <div class="post-meta-line"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;<time datetime="2021-12-27">2021-12-27</time>&nbsp;<svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1 0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7 0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174L402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7l-43.2-43.2c-4.1-4.1-10.8-4.1-14.8 0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg>&nbsp;<time datetime="2021-12-27">2021-12-27</time>&nbsp;<svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;约 2578 字&nbsp;
-                    <svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;预计阅读 12 分钟&nbsp;</div>
-        </div><div class="featured-image"><img  loading="eager" src='/hello-embedded-rust/hello.jpg' srcset="/hello-embedded-rust/hello_hu_907faed47b5978b4.webp 800w, /hello-embedded-rust/hello_hu_19fefc9c11106623.webp 1200w, /hello-embedded-rust/hello_hu_74809e17ecc5cdaa.webp 1600w"   height="1279" width="2771"></div><div class="details toc print:!tw-block" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span class="details-icon"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#资料">资料</a></li>
-    <li><a href="#环境搭建">环境搭建</a>
-      <ul>
-        <li><a href="#rust-工具链">Rust 工具链</a></li>
-        <li><a href="#调试工具">调试工具</a></li>
-      </ul>
-    </li>
-    <li><a href="#hello-world">Hello World</a></li>
-    <li><a href="#pac--hal">PAC &amp; HAL</a></li>
-    <li><a href="#起手式-裸机">起手式 (裸机)</a></li>
-    <li><a href="#safe-全局变量">safe 全局变量</a></li>
-    <li><a href="#rtic">RTIC</a></li>
-    <li><a href="#内存分配器">内存分配器</a></li>
-    <li><a href="#rtos">RTOS</a></li>
-    <li><a href="#常用-crate">常用 crate</a></li>
-    <li><a href="#总结">总结</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content" data-pagefind-body><div class="details admonition warning open">
-    <div class="details-summary admonition-title">
-        <span class="icon"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></svg></span>警告<span class="details-icon"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
-    </div>
-    <div class="details-content">
-        <div class="admonition-content">本文最后更新于 <span class="timeago" datetime="2021-12-27T18:48:13" title="December 27, 2021">2021-12-27</span>，文中内容可能已过时。</div></div></div><p>这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结</p>
-<h2 id="资料" class="headerLink">
-    <a href="#%e8%b5%84%e6%96%99" class="header-mark"></a>资料</h2><ul>
-<li><a href="https://doc.rust-lang.org/book/" target="_blank" rel="noopener noreferrer">The Book</a>: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法</li>
-<li><a href="https://docs.rust-embedded.org/discovery/" target="_blank" rel="noopener noreferrer">Discovery</a>: 写博客时发现这本书有了使用 micro:bit 的<a href="https://docs.rust-embedded.org/discovery/microbit/" target="_blank" rel="noopener noreferrer">新版</a>, 我读的是使用 STM32F3Discovery 的<a href="https://docs.rust-embedded.org/discovery/f3discovery/" target="_blank" rel="noopener noreferrer">旧版</a></li>
-<li><a href="https://docs.rust-embedded.org/book/" target="_blank" rel="noopener noreferrer">The Embedded Rust Book</a>: 有嵌入式开发经验可以跳过 discovery 直接看这本。我买了 F3 板子所以直接跑在板子上没有用 QEMU</li>
-<li><a href="https://rtic.rs" target="_blank" rel="noopener noreferrer">RTIC</a>: 一个裸机多任务框架，更好地共享 Rust 变量。我看的时候是 v0.5，现在已经出到 1.0 了，可喜可贺。</li>
-<li><a href="https://ferrous-systems.com/blog/all/" target="_blank" rel="noopener noreferrer">ferrous-systems&rsquo;s blog</a>: 这家公司的博客介绍了许多 Rust 在嵌入式开发中的技巧，获益匪浅。尤其是实现了一个 <a href="https://github.com/ferrous-systems/async-on-embedded" target="_blank" rel="noopener noreferrer">async/await executor</a></li>
-</ul>
-<h2 id="环境搭建" class="headerLink">
-    <a href="#%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba" class="header-mark"></a>环境搭建</h2><h3 id="rust-工具链" class="headerLink">
-    <a href="#rust-%e5%b7%a5%e5%85%b7%e9%93%be" class="header-mark"></a>Rust 工具链</h3><p>这里使用 rustup 安装了 msvc 工具链的 rust</p>
-<p>按需下载对应平台的 core，否则无法编译：</p>
-<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
-  <div class="
-    
-    tw-flex 
-    tw-flex-row
-    tw-flex-1 
-    tw-justify-between 
-    tw-w-full tw-bg-bgColor-secondary
-    ">      
-    <button 
-      class="
-        code-block-button
-        tw-mx-2 
-        tw-flex
-        tw-flex-row
-        tw-flex-1"
-      aria-hidden="true">
-          <div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div>
-          <p class="tw-select-none !tw-my-1">shell</p>
-      </button>
-
-   <div class="tw-flex">
-      <button 
-        class="
-          line-number-button
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.show-line-numbers]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle line numbers"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
-
-      <button 
-        class="
-          wrap-code-button
-          tw-select-none 
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.is-wrap]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle code wrap"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
-      
-      <button 
-        class="
-          copy-code-button
-          tw-select-none
-          tw-mx-2 
-          tw-hidden
-          group-[.is-open]:tw-block
-          hover:tw-text-fgColor-link 
-          print:!tw-hidden"
-        title="Copy code">
-          <span class="copy-icon tw-block"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
-          <span class="check-icon tw-hidden"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
-      </button>
-        
-      <button 
-        class="
-          tw-select-none 
-          tw-mx-2 
-          tw-block 
-          group-[.is-open]:tw-hidden 
-          print:!tw-hidden" 
-        disabled
-        aria-hidden="true"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
-    </div>
-  </div>
-  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-1" 
-    class="
-      chroma 
-      !tw-block 
-      tw-p-0
-      tw-m-0
-      tw-transition-[max-height] 
-      tw-duration-500 
-      tw-ease-in-out 
-      group-[.is-closed]:!tw-max-h-0 
-      group-[.is-wrap]:tw-text-wrap
-      tw-overflow-y-hidden
-      tw-overflow-x-auto
-      tw-scrollbar-thin
-      "><span class="line"><span class="cl">rustup target add thumbv6m-none-eabi        <span class="c1">#  Cortex-M0 and Cortex-M0+</span>
-</span></span><span class="line"><span class="cl">rustup target add thumbv7m-none-eabi        <span class="c1">#  Cortex-M3</span>
-</span></span><span class="line"><span class="cl">rustup target add thumbv7em-none-eabi       <span class="c1">#  Cortex-M4 and Cortex-M7 (no FPU)</span>
-</span></span><span class="line"><span class="cl">rustup target add thumbv7em-none-eabihf     <span class="c1">#  Cortex-M4F and Cortex-M7F (with FPU)</span></span></span></code></pre>
-</div>
-<h3 id="调试工具" class="headerLink">
-    <a href="#%e8%b0%83%e8%af%95%e5%b7%a5%e5%85%b7" class="header-mark"></a>调试工具</h3><p>我使用包管理器 <a href="https://github.com/ScoopInstaller/Scoop" target="_blank" rel="noopener noreferrer">scoop</a>, 以下工具<code>scoop install</code> 即可</p>
-<ul>
-<li>arm-none-eabi-gdb</li>
-<li>openocd</li>
-</ul>
-<p>此外，如果使用 ST-LINK，需要手动安装驱动</p>
-<p><a href="https://zhuanlan.zhihu.com/p/51872048" target="_blank" rel="noopener noreferrer">这篇文章</a>末尾提供了使用 vscode 调试的方法，我觉得 gdb 命令行就够用了，因此没有尝试</p>
-<h2 id="hello-world" class="headerLink">
-    <a href="#hello-world" class="header-mark"></a>Hello World</h2><p>仅限 cortex-m 内核，其他平台未研究</p>
-<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
-  <div class="
-    
-    tw-flex 
-    tw-flex-row
-    tw-flex-1 
-    tw-justify-between 
-    tw-w-full tw-bg-bgColor-secondary
-    ">      
-    <button 
-      class="
-        code-block-button
-        tw-mx-2 
-        tw-flex
-        tw-flex-row
-        tw-flex-1"
-      aria-hidden="true">
-          <div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div>
-          <p class="tw-select-none !tw-my-1">shell</p>
-      </button>
-
-   <div class="tw-flex">
-      <button 
-        class="
-          line-number-button
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.show-line-numbers]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle line numbers"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
-
-      <button 
-        class="
-          wrap-code-button
-          tw-select-none 
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.is-wrap]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle code wrap"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
-      
-      <button 
-        class="
-          copy-code-button
-          tw-select-none
-          tw-mx-2 
-          tw-hidden
-          group-[.is-open]:tw-block
-          hover:tw-text-fgColor-link 
-          print:!tw-hidden"
-        title="Copy code">
-          <span class="copy-icon tw-block"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
-          <span class="check-icon tw-hidden"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
-      </button>
-        
-      <button 
-        class="
-          tw-select-none 
-          tw-mx-2 
-          tw-block 
-          group-[.is-open]:tw-hidden 
-          print:!tw-hidden" 
-        disabled
-        aria-hidden="true"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
-    </div>
-  </div>
-  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-2" 
-    class="
-      chroma 
-      !tw-block 
-      tw-p-0
-      tw-m-0
-      tw-transition-[max-height] 
-      tw-duration-500 
-      tw-ease-in-out 
-      group-[.is-closed]:!tw-max-h-0 
-      group-[.is-wrap]:tw-text-wrap
-      tw-overflow-y-hidden
-      tw-overflow-x-auto
-      tw-scrollbar-thin
-      "><span class="line"><span class="cl">cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart</span></span></code></pre>
-</div>
-<ol>
-<li>修改 .cargo/config.toml</li>
-<li>修改 memory.x 一般 STM32 FLASH 起始地址在 0x08000000, RAM 在 0x20000000. 芯片手册里如果有多段 RAM，取第一段的大小</li>
-<li>修改 openocd.cfg，可用的配置文件可以在 openocd 的安装目录下找到</li>
-<li>在项目目录下执行<code>openocd</code>, 不要关闭这个终端</li>
-<li>另起一个终端，执行<code>cargo run</code>, 观察是否收到输出</li>
-</ol>
-<h2 id="pac--hal" class="headerLink">
-    <a href="#pac--hal" class="header-mark"></a>PAC &amp; HAL</h2><p><strong><ruby>PAC<rt>Peripheral Access Crate</rt></ruby></strong> 一般由 <a href="https://crates.io/crates/svd2rust" target="_blank" rel="noopener noreferrer">svd2rust</a> 根据 ARM 厂商提供的 <strong><ruby>SVD<rt>CMSIS System View Description</rt></ruby></strong> 文件自动生成，提供了寄存器操作的基本包装，API 用法如：</p>
-<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
-  <div class="
-    
-    tw-flex 
-    tw-flex-row
-    tw-flex-1 
-    tw-justify-between 
-    tw-w-full tw-bg-bgColor-secondary
-    ">      
-    <button 
-      class="
-        code-block-button
-        tw-mx-2 
-        tw-flex
-        tw-flex-row
-        tw-flex-1"
-      aria-hidden="true">
-          <div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div>
-          <p class="tw-select-none !tw-my-1">rust</p>
-      </button>
-
-   <div class="tw-flex">
-      <button 
-        class="
-          line-number-button
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.show-line-numbers]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle line numbers"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
-
-      <button 
-        class="
-          wrap-code-button
-          tw-select-none 
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.is-wrap]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle code wrap"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
-      
-      <button 
-        class="
-          copy-code-button
-          tw-select-none
-          tw-mx-2 
-          tw-hidden
-          group-[.is-open]:tw-block
-          hover:tw-text-fgColor-link 
-          print:!tw-hidden"
-        title="Copy code">
-          <span class="copy-icon tw-block"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
-          <span class="check-icon tw-hidden"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
-      </button>
-        
-      <button 
-        class="
-          tw-select-none 
-          tw-mx-2 
-          tw-block 
-          group-[.is-open]:tw-hidden 
-          print:!tw-hidden" 
-        disabled
-        aria-hidden="true"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
-    </div>
-  </div>
-  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-3" 
-    class="
-      chroma 
-      !tw-block 
-      tw-p-0
-      tw-m-0
-      tw-transition-[max-height] 
-      tw-duration-500 
-      tw-ease-in-out 
-      group-[.is-closed]:!tw-max-h-0 
-      group-[.is-wrap]:tw-text-wrap
-      tw-overflow-y-hidden
-      tw-overflow-x-auto
-      tw-scrollbar-thin
-      "><span class="line"><span class="cl"><span class="n">pwm</span><span class="p">.</span><span class="n">ctl</span><span class="p">.</span><span class="n">modify</span><span class="p">(</span><span class="o">|</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="o">|</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">globalsync0</span><span class="p">().</span><span class="n">clear_bit</span><span class="p">());</span></span></span></code></pre>
-</div>
-<p><strong><ruby>HAL<rt>Hardware Abstract Layer</rt></ruby></strong> 在 PAC 基础上遵循 <a href="https://crates.io/crates/embedded-hal" target="_blank" rel="noopener noreferrer">embedded-hal</a> 编写。但至少 STM32 各系列的实现略有区别，导致同样的外设在 f1, f4 系列上的代码可能大不一样，各芯片的 driver crate 也不一定都能使用。部分外设如 FSMC，因为 hal 没有编写相关部分，几乎只能靠手动配置寄存器并引入 unsafe 块才能使用</p>
-<h2 id="起手式-裸机" class="headerLink">
-    <a href="#%e8%b5%b7%e6%89%8b%e5%bc%8f-%e8%a3%b8%e6%9c%ba" class="header-mark"></a>起手式 (裸机)</h2><div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
-  <div class="
-    
-    tw-flex 
-    tw-flex-row
-    tw-flex-1 
-    tw-justify-between 
-    tw-w-full tw-bg-bgColor-secondary
-    ">      
-    <button 
-      class="
-        code-block-button
-        tw-mx-2 
-        tw-flex
-        tw-flex-row
-        tw-flex-1"
-      aria-hidden="true">
-          <div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div>
-          <p class="tw-select-none !tw-my-1">rust</p>
-      </button>
-
-   <div class="tw-flex">
-      <button 
-        class="
-          line-number-button
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.show-line-numbers]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle line numbers"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
-
-      <button 
-        class="
-          wrap-code-button
-          tw-select-none 
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.is-wrap]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle code wrap"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
-      
-      <button 
-        class="
-          copy-code-button
-          tw-select-none
-          tw-mx-2 
-          tw-hidden
-          group-[.is-open]:tw-block
-          hover:tw-text-fgColor-link 
-          print:!tw-hidden"
-        title="Copy code">
-          <span class="copy-icon tw-block"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
-          <span class="check-icon tw-hidden"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
-      </button>
-        
-      <button 
-        class="
-          tw-select-none 
-          tw-mx-2 
-          tw-block 
-          group-[.is-open]:tw-hidden 
-          print:!tw-hidden" 
-        disabled
-        aria-hidden="true"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
-    </div>
-  </div>
-  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-4" 
-    class="
-      chroma 
-      !tw-block 
-      tw-p-0
-      tw-m-0
-      tw-transition-[max-height] 
-      tw-duration-500 
-      tw-ease-in-out 
-      group-[.is-closed]:!tw-max-h-0 
-      group-[.is-wrap]:tw-text-wrap
-      tw-overflow-y-hidden
-      tw-overflow-x-auto
-      tw-scrollbar-thin
-      "><span class="line"><span class="cl"><span class="cp">#![no_main]</span><span class="w"> </span><span class="cm">/* main 使用 entry 宏引入 */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">#![no_std]</span><span class="w"> </span><span class="cm">/* 不使用 std 因为不可用 */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">panic_semihosting</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">_</span><span class="p">;</span><span class="w"> </span><span class="cm">/* 选择 panic 处理方式，不接调试器 semihosting 会卡死 */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use panic_halt as _;
-</span></span></span><span class="line"><span class="cl"><span class="c1">// use panic_abort as _; /* 需要 nightly 工具链 */
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use cortex_m::asm; /* 如果需要直接使用汇编指令 */
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">use</span><span class="w"> </span><span class="n">cortex_m_rt</span>::<span class="n">entry</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use cortex_m_semihosting::hprintln; /* semihosting 下的 println！宏，方便调试 */
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// use core::fmt::Write; /* 如果使用串口调试，使用 write！宏向串口 tx 输出 */
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">hal</span>::<span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">delay</span>::<span class="n">Delay</span><span class="p">,</span><span class="w"> </span><span class="cm">/* 常用的延时 */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">pac</span><span class="p">,</span><span class="w"> </span><span class="cm">/* hal 包装过的 pac */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">prelude</span>::<span class="o">*</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">};</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">stm32f1xx_hal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">hal</span><span class="p">;</span><span class="w"> </span><span class="cm">/* 导入一个 hal */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">#[entry]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="o">!</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">cp</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="cm">/* dp:device peripherals，指 MCU 厂商扩展的外设 */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">pac</span>::<span class="n">Peripherals</span>::<span class="n">take</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="cm">/* cp: core peripherals，指 ARM 自带的外设 */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">cortex_m</span>::<span class="n">Peripherals</span>::<span class="n">take</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* 配置时钟 */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">flash</span><span class="p">,</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">.</span><span class="no">FLASH</span><span class="p">.</span><span class="n">constrain</span><span class="p">(),</span><span class="w"> </span><span class="n">dp</span><span class="p">.</span><span class="no">RCC</span><span class="p">.</span><span class="n">constrain</span><span class="p">());</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">clocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">cfgr</span><span class="p">.</span><span class="n">use_hse</span><span class="p">(</span><span class="mf">8.</span><span class="n">mhz</span><span class="p">()).</span><span class="n">freeze</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">flash</span><span class="p">.</span><span class="n">acr</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* 初始化 delay 对象，这里用系统时钟 SYST */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Delay</span>::<span class="n">new</span><span class="p">(</span><span class="n">cp</span><span class="p">.</span><span class="no">SYST</span><span class="p">,</span><span class="w"> </span><span class="n">clocks</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* gpio 抽象，各 hal 略有不同 */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">gpioa</span><span class="p">,</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">gpiob</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dp</span><span class="p">.</span><span class="no">GPIOA</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">apb2</span><span class="p">),</span><span class="w"> </span><span class="n">dp</span><span class="p">.</span><span class="no">GPIOB</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">rcc</span><span class="p">.</span><span class="n">apb2</span><span class="p">));</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">loop</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="cm">/* do something */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">```</span></span></span></code></pre>
-</div>
-<h2 id="safe-全局变量" class="headerLink">
-    <a href="#safe-%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f" class="header-mark"></a>safe 全局变量</h2><p>我们都知道操作 <code>static mut</code> 是 unsafe 的，大量的编程规范要求尽量减少使用全局变量。但嵌入式环境下往往无法避免。一个更好的方法是规划好变量的作用范围后使用 <a href="https://rtic.rs/" target="_blank" rel="noopener noreferrer">RTIC</a>. 不过这里先讲一下简单的做法和原理</p>
-<ul>
-<li>
-<p><a href="https://doc.rust-lang.org/std/sync/atomic/index.html" target="_blank" rel="noopener noreferrer"><code>Atomic</code></a> 是平台支持下最优雅的做法，简洁，安全。缺点是不能进行有复杂逻辑的操作，且仅支持几种基本数据类型，不过一般需求下够用了。</p>
-</li>
-<li>
-<p><code>Mutex&lt;RefCell&lt;T&gt;&gt;</code> 配合临界区使用。需要<code>use cortex_m::interrupt::{self, Mutex};</code>. 可以包装更复杂的数据类型，包括外设。但会引入大量语法噪音。<a href="https://docs.rust-embedded.org/book/concurrency/index.html#sharing-peripherals" target="_blank" rel="noopener noreferrer">使用方法</a>大致为：</p>
-<ol>
-<li>声明一个 <code>static FOO:Mutex&lt;RefCell&lt;Option&lt;T&gt;&gt;&gt; = Mutex::new(RefCell::new(None));</code></li>
-<li>在 main 中初始化外设并在临界区中使用 <code>interrupt::free(|cs| FOO.borrow(cs).replace(Some(T)));</code> 移动所有权给全局变量 <code>FOO</code></li>
-<li>使用时同样需要进入临界区后，使用 <code>FOO.borrow(cs).borrow()</code> 获取<code>RefCell</code>后再 <code>as_ref()</code> 才能得到内部的 T</li>
-</ol>
-<p>我几乎从不使用这种方法，心累手也累，复杂项目直接上 RTIC 完事儿</p>
-</li>
-</ul>
-<p>这部分相当让人抓狂，许多在 C 语言中可以直接写的部分要包上好多层，即便我知道它是安全的。</p>
-<h2 id="rtic" class="headerLink">
-    <a href="#rtic" class="header-mark"></a>RTIC</h2><p>我很想管 RTIC 叫抢占式调度框架，如果搭配内存分配器，用起来和抢占式的 RTOS 没啥区别。然而它其实只是个前后台系统，靠设置中断优先级来管理任务，并不具有上下文切换的能力。用它的原因就在于它包装了上述复杂的 <code>Mutex&lt;RefCell&lt;Option&lt;T&gt;&gt;&gt;</code>, 并可以将空闲的硬中断注册为可以有参数和容量的多个软中断。</p>
-<p>然而，缺点来自于它使用了大量的宏，导致无论 <strong><ruby>RLS<rt>Rust Language Server</rt></ruby></strong> 还是 <strong><ruby>RA<rt>Rust Analyzer</rt></ruby></strong> 都不能很好的支持自动补全和类型。有些报错会一直显示却不影响正常编译&hellip; 真正编不过时又找不到报错的原因。因此我经常先在裸机上搭好一些外设驱动框架，调试好类型后再复制进 RTIC 项目。</p>
-<h2 id="内存分配器" class="headerLink">
-    <a href="#%e5%86%85%e5%ad%98%e5%88%86%e9%85%8d%e5%99%a8" class="header-mark"></a>内存分配器</h2><p><a href="https://crates.io/crates/alloc-cortex-m" target="_blank" rel="noopener noreferrer">alloc-cortex-m</a>: 需要 nightly 工具链，<a href="https://github.com/rust-embedded/alloc-cortex-m/blob/master/examples/global_alloc.rs" target="_blank" rel="noopener noreferrer">用法</a></p>
-<p>使用内存分配器后，可以像有 std 一样使用方便地使用 <code>vec!</code> 等。可以先通过 FSMC 配置好外部 RAM 后将其内存起始地址指向 RAM</p>
-<h2 id="rtos" class="headerLink">
-    <a href="#rtos" class="header-mark"></a>RTOS</h2><p>我尝试过<a href="https://www.drone-os.com/" target="_blank" rel="noopener noreferrer">drone</a>, WSL 和 Linux 物理机都试过，然而连 hello world 都没能跑起来&hellip; 它似乎也没在更新了</p>
-<p>另外还有<a href="https://book.tockos.org/" target="_blank" rel="noopener noreferrer">Tock OS</a>, 但外设驱动需要自行编写，官方的 ST <a href="https://www.tockos.org/hardware/" target="_blank" rel="noopener noreferrer">demo</a> 只有 f3disco 和两个 f4nucleo，并没有尝试过</p>
-<p>RTOS 方面估计很难超越 μCOS 和 FreeRTOS，大量芯片驱动都有现成的 C 代码，Rust 这边还只能用爱发电. OS 能否和现有的 hal 框架兼容还是个问题</p>
-<h2 id="常用-crate" class="headerLink">
-    <a href="#%e5%b8%b8%e7%94%a8-crate" class="header-mark"></a>常用 crate</h2><ul>
-<li><a href="https://crates.io/crates/heapless" target="_blank" rel="noopener noreferrer">heapless</a>: 提供了静态内存分配的常用数据类型
-<ul>
-<li>HistoryBuffer: 可用于平滑滤波</li>
-<li>spsc::Queue: 消息队列</li>
-<li>String: 方便输出调试信息</li>
-</ul>
-</li>
-<li><a href="https://crates.io/crates/bitbang-hal" target="_blank" rel="noopener noreferrer">bitbang-hal</a>: 提供了软件模拟的 I2C, USART, SPI</li>
-<li><a href="https://crates.io/crates/nb" target="_blank" rel="noopener noreferrer">nb</a>: 虽然名字叫做 non-block 但更多用 block！宏来等待外设工作完成，例如：
-<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
-  <div class="
-    
-    tw-flex 
-    tw-flex-row
-    tw-flex-1 
-    tw-justify-between 
-    tw-w-full tw-bg-bgColor-secondary
-    ">      
-    <button 
-      class="
-        code-block-button
-        tw-mx-2 
-        tw-flex
-        tw-flex-row
-        tw-flex-1"
-      aria-hidden="true">
-          <div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div>
-          <p class="tw-select-none !tw-my-1">rust</p>
-      </button>
-
-   <div class="tw-flex">
-      <button 
-        class="
-          line-number-button
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.show-line-numbers]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle line numbers"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
-
-      <button 
-        class="
-          wrap-code-button
-          tw-select-none 
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.is-wrap]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle code wrap"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
-      
-      <button 
-        class="
-          copy-code-button
-          tw-select-none
-          tw-mx-2 
-          tw-hidden
-          group-[.is-open]:tw-block
-          hover:tw-text-fgColor-link 
-          print:!tw-hidden"
-        title="Copy code">
-          <span class="copy-icon tw-block"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
-          <span class="check-icon tw-hidden"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
-      </button>
-        
-      <button 
-        class="
-          tw-select-none 
-          tw-mx-2 
-          tw-block 
-          group-[.is-open]:tw-hidden 
-          print:!tw-hidden" 
-        disabled
-        aria-hidden="true"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
-    </div>
-  </div>
-  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-5" 
-    class="
-      chroma 
-      !tw-block 
-      tw-p-0
-      tw-m-0
-      tw-transition-[max-height] 
-      tw-duration-500 
-      tw-ease-in-out 
-      group-[.is-closed]:!tw-max-h-0 
-      group-[.is-wrap]:tw-text-wrap
-      tw-overflow-y-hidden
-      tw-overflow-x-auto
-      tw-scrollbar-thin
-      "><span class="line"><span class="cl"><span class="fm">block!</span><span class="p">(</span><span class="n">Serial</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte</span><span class="p">))</span><span class="o">?</span><span class="p">;</span></span></span></code></pre>
-</div>
-</li>
-<li><a href="https://crates.io/crates/micromath" target="_blank" rel="noopener noreferrer">micromath</a>: 提供了嵌入式环境下可能缺失的某些 F32 操作</li>
-</ul>
-<h2 id="总结" class="headerLink">
-    <a href="#%e6%80%bb%e7%bb%93" class="header-mark"></a>总结</h2><p>个人项目的话，Embedded Rust 只能说差强人意。小芯片 debug 编译二进制太大，没法调试。语法噪音也是相当烦人。我利用几个芯片的 crate 写了个<a href="https://github.com/EzekielDaun/rs-balancing-bot" target="_blank" rel="noopener noreferrer">平衡车</a>玩，过段时间会专门介绍</p>
-<p>实习中用 rust 写了一些小板子的验证 demo，逻辑简单的话用 hal 分分钟就能起个项目。也用 RTIC 尝试过复杂项目，有这么几个问题：</p>
-<ol>
-<li>本质仍然是前后台，复杂任务调度比较烧脑</li>
-<li>运行速度比 μCOSⅢ 慢不少，写了个简单的串口环回，能慢将近一半。或许是我时钟没配好&hellip;也可能人家商业公司在关中断这块儿确实优化的好。尝试了两天，还是改用 μCOS 了，因为即便我这个实习生写出来也以后没人接手维护&hellip;</li>
-</ol>
-<p>Rust 合理的 trait 抽象加上 embedded-hal 这套统一的规范，使得各种库的编写成为可能。我的平衡车项目几乎纯靠调库就能完成，可见这套抽象的威力。这也是 STM32 的标准库和 HAL 库 之所以火遍中国。然而现实很骨感，一是性能损失，这种抽象多少会带来一些冗余代码，当然 LLVM 能不能优化我就不懂了; 二是虽然有 embedded-hal 规定了一些 trait，但 trait 之外的部分各不相同，就比如 ST 系列，FSMC 几乎没有，F1XXHAL 和 F4XXHAL 许多 api 完全不同&hellip; 最后一点纯属猜测，C++ 也有虚函数，也完全可以定义一套接口规范，为何 ARM 厂商不用 C++ 呢？虚表实现有性能损失，那编译器也可以用其他实现呀，反正芯片厂的编译器都是魔改过的&hellip;这么多年 C++ 都没在嵌入式铺开，Rust 只能说悬</p>
-<p>Rust 是个好语言，但在嵌入式方面生态似乎是更主要的问题。没有解决大痛点的话业界根本没有动力抛弃多年积累重新开始。</p>
-</div>
-
-        
-
-
-<h2>相关内容</h2>
-<div class="related-container">
-    <div class="related-item-container">
-            <div class="related-image">
-                <a href="/balancing-bot/"><img   src='/balancing-bot/featuredImage.jpg'    height="200" width="400"></a>
-            </div><h2 class="related-title">
-                <a href="/balancing-bot/">平衡小车</a>
-            </h2>
-        </div>
-    <div class="related-item-container">
-            <h2 class="related-title">
-                <a href="/my-first-intern/">第一份实习</a>
-            </h2>
-        </div>
-    
-
-</div>
-
-<div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-12-27</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
-        <div class="post-info-line print:!tw-hidden">
-            <div class="post-info-md"></div>
-            <div class="post-info-share"></div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.941 225.941L286.059 14.059A48 48 0 0 0 252.118 0H48C21.49 0 0 21.49 0 48v204.118a48 48 0 0 0 14.059 33.941l211.882 211.882c18.744 18.745 49.136 18.746 67.882 0l204.118-204.118c18.745-18.745 18.745-49.137 0-67.882zM112 160c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm513.941 133.823L421.823 497.941c-18.745 18.745-49.137 18.745-67.882 0l-.36-.36L527.64 323.522c16.999-16.999 26.36-39.6 26.36-63.64s-9.362-46.641-26.36-63.64L331.397 0h48.721a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882z"/></svg>&nbsp;<a href="/tags/rust/">Rust</a>,&nbsp;<a href="/tags/embedded/">Embedded</a></section>
-        <section class="print:!tw-hidden">
-            <span><button class="tw-text-fgColor-link-muted hover:tw-text-fgColor-link-muted-hover" onclick="window.history.back();">返回</button></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav print:tw-hidden"><a href="/hello-world/" class="prev" rel="prev" title="你好 世界"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"/></svg>你好 世界</a>
-            <a href="/my-first-intern/" class="next" rel="next" title="第一份实习">第一份实习<svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></a></div>
-</div>
-</article></main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">
-                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer" title="Hugo 0.148.2">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreferrer" title="DoIt 0.4.2"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1 0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7 0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174L402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7l-43.2-43.2c-4.1-4.1-10.8-4.1-14.8 0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg> DoIt</a>
-                </div><div class="footer-line"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 448c-110.532 0-200-89.451-200-200 0-110.531 89.451-200 200-200 110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200zm107.351-101.064c-9.614 9.712-45.53 41.396-104.065 41.396-82.43 0-140.484-61.425-140.484-141.567 0-79.152 60.275-139.401 139.762-139.401 55.531 0 88.738 26.62 97.593 34.779a11.965 11.965 0 0 1 1.936 15.322l-18.155 28.113c-3.841 5.95-11.966 7.282-17.499 2.921-8.595-6.776-31.814-22.538-61.708-22.538-48.303 0-77.916 35.33-77.916 80.082 0 41.589 26.888 83.692 78.277 83.692 32.657 0 56.843-19.039 65.726-27.225 5.27-4.857 13.596-4.039 17.82 1.738l19.865 27.17a11.947 11.947 0 0 1-1.152 15.518z"/></svg>2020 - 2025<span class="author">&nbsp;<a href="https://ezekieldaun.github.io" target="_blank" rel="noopener noreferrer">Ezekiel</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-            <div class="footer-line"></div>
-            <div class="footer-line">
-            </div>
-        </div></footer><div class="print:!tw-hidden tw-flex tw-flex-col tw-fixed tw-right-4 tw-bottom-4 tw-gap-2"><a href="#back-to-top" id="back-to-top-button" class="tw-transition-opacity tw-opacity-0 tw-block tw-bg-bgColor-secondary tw-rounded-full" style="padding: 0.6rem; line-height: 1.3rem; font-size: 1rem;" title="回到顶部">
-      <svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg>
-  </a>
-
-  <button id="toc-drawer-button" class="tw-block tw-bg-bgColor-secondary tw-rounded-full md:tw-hidden" style="padding: 0.6rem; line-height: 1.3rem; font-size: 1rem;">
-      <svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>
-  </button></div>
-<div id="cookieconsent-container"></div><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/lightgallery/lightgallery.min.css">
-        <noscript><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"></noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
-        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css">
-<script>window.config={"autocomplete.min.js":"/lib/autocomplete/autocomplete.min.js","comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"fuse.min.js":"/lib/fuse/fuse.min.js","lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"table":{"sort":true}};</script><script
-    src="/lib/tablesort/tablesort.min.js"
-    
-  ></script><script
-    src="/lib/lightgallery/lightgallery.min.js"
-    
-      defer
-    
-  ></script><script
-    src="/lib/lightgallery/lg-thumbnail.min.js"
-    
-      defer
-    
-  ></script><script
-    src="/lib/lightgallery/lg-zoom.min.js"
-    
-      defer
-    
-  ></script><script
-    src="/lib/katex/katex.min.js"
-    
-      defer
-    
-  ></script><script
-    src="/lib/katex/auto-render.min.js"
-    
-      defer
-    
-  ></script><script
-    src="/lib/katex/copy-tex.min.js"
-    
-      defer
-    
-  ></script><script
-    src="/lib/katex/mhchem.min.js"
-    
-      defer
-    
-  ></script><script
-    src="/js/katex.min.js"
-    
-      defer
-    
-  ></script><script
-    src="/lib/cookieconsent/cookieconsent.min.js"
-    
-      defer
-    
-  ></script><script
-    src="/js/cookieconsent.min.js"
-    
-      defer
-    
-  ></script><script
-    src="/js/theme.min.js"
-    
-      defer
-    
-  ></script>
-
-<script type="speculationrules">
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>初探 STM32 嵌入式 Rust - Ez的博客</title><meta name=Description content="Ezekiel's blog"><meta property="og:url" content="https://ezekieldaun.github.io/hello-embedded-rust/"><meta property="og:site_name" content="Ez的博客"><meta property="og:title" content="初探 STM32 嵌入式 Rust"><meta property="og:description" content="这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结
+资料 The Book: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法 Discovery: 写博客时发现这本书有了使用 micro:bit 的新版, 我读的是使用 STM32F3Discovery 的旧版 The Embedded Rust Book: 有嵌入式开发经验可以跳过 discovery 直接看这本。我买了 F3 板子所以直接跑在板子上没有用 QEMU RTIC: 一个裸机多任务框架，更好地共享 Rust 变量。我看的时候是 v0.5，现在已经出到 1.0 了，可喜可贺。 ferrous-systems’s blog: 这家公司的博客介绍了许多 Rust 在嵌入式开发中的技巧，获益匪浅。尤其是实现了一个 async/await executor 环境搭建 Rust 工具链这里使用 rustup 安装了 msvc 工具链的 rust"><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-12-27T18:48:13-08:00"><meta property="article:modified_time" content="2021-12-27T18:48:13-08:00"><meta property="article:tag" content="Rust"><meta property="article:tag" content="Embedded"><meta property="og:image" content="https://ezekieldaun.github.io/logo.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://ezekieldaun.github.io/logo.png"><meta name=twitter:title content="初探 STM32 嵌入式 Rust"><meta name=twitter:description content="这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结
+资料 The Book: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法 Discovery: 写博客时发现这本书有了使用 micro:bit 的新版, 我读的是使用 STM32F3Discovery 的旧版 The Embedded Rust Book: 有嵌入式开发经验可以跳过 discovery 直接看这本。我买了 F3 板子所以直接跑在板子上没有用 QEMU RTIC: 一个裸机多任务框架，更好地共享 Rust 变量。我看的时候是 v0.5，现在已经出到 1.0 了，可喜可贺。 ferrous-systems’s blog: 这家公司的博客介绍了许多 Rust 在嵌入式开发中的技巧，获益匪浅。尤其是实现了一个 async/await executor 环境搭建 Rust 工具链这里使用 rustup 安装了 msvc 工具链的 rust"><meta name=application-name content="DoIt"><meta name=apple-mobile-web-app-title content="DoIt"><meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://ezekieldaun.github.io/hello-embedded-rust/><link rel=prev href=https://ezekieldaun.github.io/hello-world/><link rel=next href=https://ezekieldaun.github.io/my-first-intern/><link rel=stylesheet href=/css/main.min.css><link rel=stylesheet href=/css/style.min.css><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"初探 STM32 嵌入式 Rust","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://ezekieldaun.github.io/hello-embedded-rust/"},"image":[{"@type":"ImageObject","url":"https://ezekieldaun.github.io/hello-embedded-rust/hello.jpg","width":2771,"height":1279}],"genre":"posts","keywords":["Rust","Embedded"],"wordcount":2578,"url":"https://ezekieldaun.github.io/hello-embedded-rust/","datePublished":"2021-12-27T18:48:13-08:00","dateModified":"2021-12-27T18:48:13-08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Ezekiel","url":"https://ezekieldaun.github.io"},"description":""}</script></head><body data-instant-intensity=viewport class="tw-flex tw-min-h-screen tw-flex-col"><script>function setTheme(e){document.body.setAttribute("theme",e),document.documentElement.className=e,document.documentElement.style.setProperty("color-scheme",e==="light"?"light":"dark"),e==="light"?document.documentElement.classList.remove("tw-dark"):document.documentElement.classList.add("tw-dark"),window.theme=e,window.isDark=window.theme!=="light"}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(e){const t=document.getElementsByTagName("meta");for(let n=0;n<t.length;n++)if(t[n].getAttribute("name")===e)return t[n];return""}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"?setTheme(e):setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}else"auto"==="light"||"auto"==="dark"?(setTheme("auto"),saveTheme("auto")):(saveTheme("auto"),setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));let metaColors={light:"#f8f8f8",dark:"#161b22"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")],window.switchThemeEventSet=new Set</script><div id=back-to-top></div><div id=mask></div><header class="desktop print:!tw-hidden" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=Ez的博客>Ez</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><span class="menu-item delimiter"></span><button class="menu-item language" aria-label=选择语言>简体中文<svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
+<select class=language-select aria-label=选择语言 id=language-select-desktop onchange="location=this.value"><option value=/en/hello-embedded-rust/>English</option><option value=/hello-embedded-rust/ selected>简体中文</option></select>
+</button><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<button class="search-button search-toggle" id=search-toggle-desktop title=搜索>
+<svg class="icon" viewBox="0 0 512 512"><path d="M505 442.7 405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9.0 208 0S0 93.1.0 208s93.1 208 208 208c48.3.0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9.0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7.0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7.0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</button>
+<button class="search-button search-clear" id=search-clear-desktop title=清空>
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3.0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3.0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3.0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3.0 17L312 256l65.6 65.1z"/></svg>
+</button>
+<span class="search-button search-loading tw-animate-spin" id=search-loading-desktop><svg class="icon" viewBox="0 0 512 512"><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49.0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156.0c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>
+</span></span><button class="menu-item theme-select" aria-label=切换主题>
+<svg class="icon" viewBox="0 0 512 512"><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705.0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
+<select class=color-theme-select id=theme-select-desktop aria-label=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=auto>跟随系统</option></select></button></div></div></div></header><header class="mobile print:!tw-hidden" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=Ez的博客>Ez</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<button class="search-button search-toggle tw-h-10" id=search-toggle-mobile title=搜索>
+<svg class="icon" viewBox="0 0 512 512"><path d="M505 442.7 405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9.0 208 0S0 93.1.0 208s93.1 208 208 208c48.3.0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9.0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7.0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7.0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</button>
+<button class="search-button search-clear tw-h-fit" id=search-clear-mobile title=清空>
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3.0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3.0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3.0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3.0 17L312 256l65.6 65.1z"/></svg>
+</button>
+<span class="search-button search-loading tw-animate-spin" id=search-loading-mobile><svg class="icon" viewBox="0 0 512 512"><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49.0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156.0c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg></span></div><button class=search-cancel id=search-cancel-mobile>
+取消</button></div><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><button class="menu-item theme-select tw-w-full" aria-label=切换主题>
+<svg class="icon" viewBox="0 0 512 512"><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705.0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
+<select class=color-theme-select id=theme-select-mobile aria-label=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=auto>跟随系统</option></select>
+</button><button class="menu-item tw-w-full" title>简体中文<svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
+<select class=language-select title onchange="location=this.value"><option value=/en/hello-embedded-rust/>English</option><option value=/hello-embedded-rust/ selected>简体中文</option></select></button></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class="tw-mx-4 tw-flex-1"><div class="toc print:!tw-hidden" id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto><nav id=TableOfContents><ul><li><a href=#资料>资料</a></li><li><a href=#环境搭建>环境搭建</a><ul><li><a href=#rust-工具链>Rust 工具链</a></li><li><a href=#调试工具>调试工具</a></li></ul></li><li><a href=#hello-world>Hello World</a></li><li><a href=#pac--hal>PAC & HAL</a></li><li><a href=#起手式-裸机>起手式 (裸机)</a></li><li><a href=#safe-全局变量>safe 全局变量</a></li><li><a href=#rtic>RTIC</a></li><li><a href=#内存分配器>内存分配器</a></li><li><a href=#rtos>RTOS</a></li><li><a href=#常用-crate>常用 crate</a></li><li><a href=#总结>总结</a></li></ul></nav></div></div><dialog id=toc-dialog class="tw-max-w-full tw-w-full tw-max-h-full tw-h-full tw-ml-16"><div class="toc tw-mx-4 tw-max-w-full"><h2 class="tw-mx-0 tw-my-6 tw-uppercase tw-text-2xl">目录</h2><div class=toc-content><nav id=TableOfContents><ul><li><a href=#资料>资料</a></li><li><a href=#环境搭建>环境搭建</a><ul><li><a href=#rust-工具链>Rust 工具链</a></li><li><a href=#调试工具>调试工具</a></li></ul></li><li><a href=#hello-world>Hello World</a></li><li><a href=#pac--hal>PAC & HAL</a></li><li><a href=#起手式-裸机>起手式 (裸机)</a></li><li><a href=#safe-全局变量>safe 全局变量</a></li><li><a href=#rtic>RTIC</a></li><li><a href=#内存分配器>内存分配器</a></li><li><a href=#rtos>RTOS</a></li><li><a href=#常用-crate>常用 crate</a></li><li><a href=#总结>总结</a></li></ul></nav></div></div></dialog><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single print:!tw-w-full print:!tw-max-w-none print:!tw-m-0 print:!tw-p-0"><h1 class=single-title data-pagefind-meta=date:2021-12-27 data-pagefind-body>初探 STM32 嵌入式 Rust</h1><div class=post-meta><div class=post-meta-line><span class=post-author><svg class="icon" viewBox="0 0 496 512"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6.0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7.0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4.0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9s28-2.7 40.9-6.9c2.3-.7 4.7-1.1 7.1-1.1 42.9.0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href=https://ezekieldaun.github.io title=Author target=_blank rel="noopener noreferrer author" class=author>Ezekiel</a>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/tech/><svg class="icon" viewBox="0 0 512 512"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49.0 112v288c0 26.51 21.49 48 48 48h416c26.51.0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Tech</a></span></div><div class=post-meta-line><svg class="icon" viewBox="0 0 448 512"><path d="M148 288h-40c-6.6.0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v52h48c26.5.0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3.0 6-2.7 6-6z"/></svg>&nbsp;<time datetime=2021-12-27>2021-12-27</time>&nbsp;<svg class="icon" viewBox="0 0 576 512"><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1.0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7.0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174 402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7-43.2-43.2c-4.1-4.1-10.8-4.1-14.8.0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg>&nbsp;<time datetime=2021-12-27>2021-12-27</time>&nbsp;<svg class="icon" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3.0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9.0l60.1 60.1c18.8 18.7 18.8 49.1.0 67.9zM284.2 99.8 21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3.0-17l-111-111c-4.8-4.7-12.4-4.7-17.1.0zM124.1 339.9c-5.5-5.5-5.5-14.3.0-19.8l154-154c5.5-5.5 14.3-5.5 19.8.0s5.5 14.3.0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8.0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;约 2578 字&nbsp;
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5.0-2e2-89.5-2e2-2e2S145.5 56 256 56s2e2 89.5 2e2 2e2-89.5 2e2-2e2 2e2zm61.8-104.4-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6.0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;预计阅读 12 分钟&nbsp;</div></div><div class=featured-image><img loading=eager src=/hello-embedded-rust/hello.jpg srcset="/hello-embedded-rust/hello_hu_907faed47b5978b4.webp 800w, /hello-embedded-rust/hello_hu_19fefc9c11106623.webp 1200w, /hello-embedded-rust/hello_hu_74809e17ecc5cdaa.webp 1600w" height=1279 width=2771></div><div class="details toc print:!tw-block" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
+<span class=details-icon><svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#资料>资料</a></li><li><a href=#环境搭建>环境搭建</a><ul><li><a href=#rust-工具链>Rust 工具链</a></li><li><a href=#调试工具>调试工具</a></li></ul></li><li><a href=#hello-world>Hello World</a></li><li><a href=#pac--hal>PAC & HAL</a></li><li><a href=#起手式-裸机>起手式 (裸机)</a></li><li><a href=#safe-全局变量>safe 全局变量</a></li><li><a href=#rtic>RTIC</a></li><li><a href=#内存分配器>内存分配器</a></li><li><a href=#rtos>RTOS</a></li><li><a href=#常用-crate>常用 crate</a></li><li><a href=#总结>总结</a></li></ul></nav></div></div><div class=content id=content data-pagefind-body><div class="details admonition warning open"><div class="details-summary admonition-title"><span class=icon><svg class="icon" viewBox="0 0 576 512"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937.0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154.0l239.94 416.028zM288 354c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></svg></span>警告<span class=details-icon><svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span></div><div class=details-content><div class=admonition-content>本文最后更新于 <span class=timeago datetime=2021-12-27T18:48:13 title="December 27, 2021">2021-12-27</span>，文中内容可能已过时。</div></div></div><p>这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结</p><h2 id=资料 class=headerLink><a href=#%e8%b5%84%e6%96%99 class=header-mark></a>资料</h2><ul><li><a href=https://doc.rust-lang.org/book/ target=_blank rel="noopener noreferrer">The Book</a>: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法</li><li><a href=https://docs.rust-embedded.org/discovery/ target=_blank rel="noopener noreferrer">Discovery</a>: 写博客时发现这本书有了使用 micro:bit 的<a href=https://docs.rust-embedded.org/discovery/microbit/ target=_blank rel="noopener noreferrer">新版</a>, 我读的是使用 STM32F3Discovery 的<a href=https://docs.rust-embedded.org/discovery/f3discovery/ target=_blank rel="noopener noreferrer">旧版</a></li><li><a href=https://docs.rust-embedded.org/book/ target=_blank rel="noopener noreferrer">The Embedded Rust Book</a>: 有嵌入式开发经验可以跳过 discovery 直接看这本。我买了 F3 板子所以直接跑在板子上没有用 QEMU</li><li><a href=https://rtic.rs target=_blank rel="noopener noreferrer">RTIC</a>: 一个裸机多任务框架，更好地共享 Rust 变量。我看的时候是 v0.5，现在已经出到 1.0 了，可喜可贺。</li><li><a href=https://ferrous-systems.com/blog/all/ target=_blank rel="noopener noreferrer">ferrous-systems&rsquo;s blog</a>: 这家公司的博客介绍了许多 Rust 在嵌入式开发中的技巧，获益匪浅。尤其是实现了一个 <a href=https://github.com/ferrous-systems/async-on-embedded target=_blank rel="noopener noreferrer">async/await executor</a></li></ul><h2 id=环境搭建 class=headerLink><a href=#%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba class=header-mark></a>环境搭建</h2><h3 id=rust-工具链 class=headerLink><a href=#rust-%e5%b7%a5%e5%85%b7%e9%93%be class=header-mark></a>Rust 工具链</h3><p>这里使用 rustup 安装了 msvc 工具链的 rust</p><p>按需下载对应平台的 core，否则无法编译：</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
+tw-flex
+tw-flex-row
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">shell</p></button><div class=tw-flex><button class="line-number-button
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.show-line-numbers]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.is-wrap]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+hover:tw-text-fgColor-link
+print:!tw-hidden" title="Copy code">
+<span class="copy-icon tw-block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw-hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-hidden
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-1 class="chroma
+!tw-block
+tw-p-0
+tw-m-0
+tw-transition-[max-height]
+tw-duration-500
+tw-ease-in-out
+group-[.is-closed]:!tw-max-h-0
+group-[.is-wrap]:tw-text-wrap
+tw-overflow-y-hidden
+tw-overflow-x-auto
+tw-scrollbar-thin"><span class=line><span class=cl>rustup target add thumbv6m-none-eabi        <span class=c1>#  Cortex-M0 and Cortex-M0+</span>
+</span></span><span class=line><span class=cl>rustup target add thumbv7m-none-eabi        <span class=c1>#  Cortex-M3</span>
+</span></span><span class=line><span class=cl>rustup target add thumbv7em-none-eabi       <span class=c1>#  Cortex-M4 and Cortex-M7 (no FPU)</span>
+</span></span><span class=line><span class=cl>rustup target add thumbv7em-none-eabihf     <span class=c1>#  Cortex-M4F and Cortex-M7F (with FPU)</span></span></span></code></pre></div><h3 id=调试工具 class=headerLink><a href=#%e8%b0%83%e8%af%95%e5%b7%a5%e5%85%b7 class=header-mark></a>调试工具</h3><p>我使用包管理器 <a href=https://github.com/ScoopInstaller/Scoop target=_blank rel="noopener noreferrer">scoop</a>, 以下工具<code>scoop install</code> 即可</p><ul><li>arm-none-eabi-gdb</li><li>openocd</li></ul><p>此外，如果使用 ST-LINK，需要手动安装驱动</p><p><a href=https://zhuanlan.zhihu.com/p/51872048 target=_blank rel="noopener noreferrer">这篇文章</a>末尾提供了使用 vscode 调试的方法，我觉得 gdb 命令行就够用了，因此没有尝试</p><h2 id=hello-world class=headerLink><a href=#hello-world class=header-mark></a>Hello World</h2><p>仅限 cortex-m 内核，其他平台未研究</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
+tw-flex
+tw-flex-row
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">shell</p></button><div class=tw-flex><button class="line-number-button
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.show-line-numbers]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.is-wrap]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+hover:tw-text-fgColor-link
+print:!tw-hidden" title="Copy code">
+<span class="copy-icon tw-block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw-hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-hidden
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-2 class="chroma
+!tw-block
+tw-p-0
+tw-m-0
+tw-transition-[max-height]
+tw-duration-500
+tw-ease-in-out
+group-[.is-closed]:!tw-max-h-0
+group-[.is-wrap]:tw-text-wrap
+tw-overflow-y-hidden
+tw-overflow-x-auto
+tw-scrollbar-thin"><span class=line><span class=cl>cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart</span></span></code></pre></div><ol><li>修改 .cargo/config.toml</li><li>修改 memory.x 一般 STM32 FLASH 起始地址在 0x08000000, RAM 在 0x20000000. 芯片手册里如果有多段 RAM，取第一段的大小</li><li>修改 openocd.cfg，可用的配置文件可以在 openocd 的安装目录下找到</li><li>在项目目录下执行<code>openocd</code>, 不要关闭这个终端</li><li>另起一个终端，执行<code>cargo run</code>, 观察是否收到输出</li></ol><h2 id=pac--hal class=headerLink><a href=#pac--hal class=header-mark></a>PAC & HAL</h2><p><strong><ruby>PAC<rt>Peripheral Access Crate</rt></ruby></strong> 一般由 <a href=https://crates.io/crates/svd2rust target=_blank rel="noopener noreferrer">svd2rust</a> 根据 ARM 厂商提供的 <strong><ruby>SVD<rt>CMSIS System View Description</rt></ruby></strong> 文件自动生成，提供了寄存器操作的基本包装，API 用法如：</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
+tw-flex
+tw-flex-row
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">rust</p></button><div class=tw-flex><button class="line-number-button
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.show-line-numbers]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.is-wrap]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+hover:tw-text-fgColor-link
+print:!tw-hidden" title="Copy code">
+<span class="copy-icon tw-block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw-hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-hidden
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-3 class="chroma
+!tw-block
+tw-p-0
+tw-m-0
+tw-transition-[max-height]
+tw-duration-500
+tw-ease-in-out
+group-[.is-closed]:!tw-max-h-0
+group-[.is-wrap]:tw-text-wrap
+tw-overflow-y-hidden
+tw-overflow-x-auto
+tw-scrollbar-thin"><span class=line><span class=cl><span class=n>pwm</span><span class=p>.</span><span class=n>ctl</span><span class=p>.</span><span class=n>modify</span><span class=p>(</span><span class=o>|</span><span class=n>r</span><span class=p>,</span><span class=w> </span><span class=n>w</span><span class=o>|</span><span class=w> </span><span class=n>w</span><span class=p>.</span><span class=n>globalsync0</span><span class=p>().</span><span class=n>clear_bit</span><span class=p>());</span></span></span></code></pre></div><p><strong><ruby>HAL<rt>Hardware Abstract Layer</rt></ruby></strong> 在 PAC 基础上遵循 <a href=https://crates.io/crates/embedded-hal target=_blank rel="noopener noreferrer">embedded-hal</a> 编写。但至少 STM32 各系列的实现略有区别，导致同样的外设在 f1, f4 系列上的代码可能大不一样，各芯片的 driver crate 也不一定都能使用。部分外设如 FSMC，因为 hal 没有编写相关部分，几乎只能靠手动配置寄存器并引入 unsafe 块才能使用</p><h2 id=起手式-裸机 class=headerLink><a href=#%e8%b5%b7%e6%89%8b%e5%bc%8f-%e8%a3%b8%e6%9c%ba class=header-mark></a>起手式 (裸机)</h2><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
+tw-flex
+tw-flex-row
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">rust</p></button><div class=tw-flex><button class="line-number-button
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.show-line-numbers]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.is-wrap]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+hover:tw-text-fgColor-link
+print:!tw-hidden" title="Copy code">
+<span class="copy-icon tw-block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw-hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-hidden
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-4 class="chroma
+!tw-block
+tw-p-0
+tw-m-0
+tw-transition-[max-height]
+tw-duration-500
+tw-ease-in-out
+group-[.is-closed]:!tw-max-h-0
+group-[.is-wrap]:tw-text-wrap
+tw-overflow-y-hidden
+tw-overflow-x-auto
+tw-scrollbar-thin"><span class=line><span class=cl><span class=cp>#![no_main]</span><span class=w> </span><span class=cm>/* main 使用 entry 宏引入 */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=cp>#![no_std]</span><span class=w> </span><span class=cm>/* 不使用 std 因为不可用 */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>use</span><span class=w> </span><span class=n>panic_semihosting</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>_</span><span class=p>;</span><span class=w> </span><span class=cm>/* 选择 panic 处理方式，不接调试器 semihosting 会卡死 */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// use panic_halt as _;
+</span></span></span><span class=line><span class=cl><span class=c1>// use panic_abort as _; /* 需要 nightly 工具链 */
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// use cortex_m::asm; /* 如果需要直接使用汇编指令 */
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>use</span><span class=w> </span><span class=n>cortex_m_rt</span>::<span class=n>entry</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// use cortex_m_semihosting::hprintln; /* semihosting 下的 println！宏，方便调试 */
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// use core::fmt::Write; /* 如果使用串口调试，使用 write！宏向串口 tx 输出 */
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>use</span><span class=w> </span><span class=n>hal</span>::<span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>delay</span>::<span class=n>Delay</span><span class=p>,</span><span class=w> </span><span class=cm>/* 常用的延时 */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>pac</span><span class=p>,</span><span class=w> </span><span class=cm>/* hal 包装过的 pac */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>prelude</span>::<span class=o>*</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>};</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>use</span><span class=w> </span><span class=n>stm32f1xx_hal</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>hal</span><span class=p>;</span><span class=w> </span><span class=cm>/* 导入一个 hal */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=cp>#[entry]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>fn</span> <span class=nf>main</span><span class=p>()</span><span class=w> </span>-&gt; <span class=o>!</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=p>(</span><span class=n>dp</span><span class=p>,</span><span class=w> </span><span class=n>cp</span><span class=p>)</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=cm>/* dp:device peripherals，指 MCU 厂商扩展的外设 */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>pac</span>::<span class=n>Peripherals</span>::<span class=n>take</span><span class=p>().</span><span class=n>unwrap</span><span class=p>(),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=cm>/* cp: core peripherals，指 ARM 自带的外设 */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>cortex_m</span>::<span class=n>Peripherals</span>::<span class=n>take</span><span class=p>().</span><span class=n>unwrap</span><span class=p>(),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=cm>/* 配置时钟 */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=p>(</span><span class=k>mut</span><span class=w> </span><span class=n>flash</span><span class=p>,</span><span class=w> </span><span class=k>mut</span><span class=w> </span><span class=n>rcc</span><span class=p>)</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>(</span><span class=n>dp</span><span class=p>.</span><span class=no>FLASH</span><span class=p>.</span><span class=n>constrain</span><span class=p>(),</span><span class=w> </span><span class=n>dp</span><span class=p>.</span><span class=no>RCC</span><span class=p>.</span><span class=n>constrain</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>clocks</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>rcc</span><span class=p>.</span><span class=n>cfgr</span><span class=p>.</span><span class=n>use_hse</span><span class=p>(</span><span class=mf>8.</span><span class=n>mhz</span><span class=p>()).</span><span class=n>freeze</span><span class=p>(</span><span class=o>&amp;</span><span class=k>mut</span><span class=w> </span><span class=n>flash</span><span class=p>.</span><span class=n>acr</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=cm>/* 初始化 delay 对象，这里用系统时钟 SYST */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=k>mut</span><span class=w> </span><span class=n>delay</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Delay</span>::<span class=n>new</span><span class=p>(</span><span class=n>cp</span><span class=p>.</span><span class=no>SYST</span><span class=p>,</span><span class=w> </span><span class=n>clocks</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=cm>/* gpio 抽象，各 hal 略有不同 */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=p>(</span><span class=k>mut</span><span class=w> </span><span class=n>gpioa</span><span class=p>,</span><span class=w> </span><span class=k>mut</span><span class=w> </span><span class=n>gpiob</span><span class=p>)</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>(</span><span class=n>dp</span><span class=p>.</span><span class=no>GPIOA</span><span class=p>.</span><span class=n>split</span><span class=p>(</span><span class=o>&amp;</span><span class=k>mut</span><span class=w> </span><span class=n>rcc</span><span class=p>.</span><span class=n>apb2</span><span class=p>),</span><span class=w> </span><span class=n>dp</span><span class=p>.</span><span class=no>GPIOB</span><span class=p>.</span><span class=n>split</span><span class=p>(</span><span class=o>&amp;</span><span class=k>mut</span><span class=w> </span><span class=n>rcc</span><span class=p>.</span><span class=n>apb2</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>loop</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=cm>/* do something */</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=err>```</span></span></span></code></pre></div><h2 id=safe-全局变量 class=headerLink><a href=#safe-%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f class=header-mark></a>safe 全局变量</h2><p>我们都知道操作 <code>static mut</code> 是 unsafe 的，大量的编程规范要求尽量减少使用全局变量。但嵌入式环境下往往无法避免。一个更好的方法是规划好变量的作用范围后使用 <a href=https://rtic.rs/ target=_blank rel="noopener noreferrer">RTIC</a>. 不过这里先讲一下简单的做法和原理</p><ul><li><p><a href=https://doc.rust-lang.org/std/sync/atomic/index.html target=_blank rel="noopener noreferrer"><code>Atomic</code></a> 是平台支持下最优雅的做法，简洁，安全。缺点是不能进行有复杂逻辑的操作，且仅支持几种基本数据类型，不过一般需求下够用了。</p></li><li><p><code>Mutex&lt;RefCell&lt;T>></code> 配合临界区使用。需要<code>use cortex_m::interrupt::{self, Mutex};</code>. 可以包装更复杂的数据类型，包括外设。但会引入大量语法噪音。<a href=https://docs.rust-embedded.org/book/concurrency/index.html#sharing-peripherals target=_blank rel="noopener noreferrer">使用方法</a>大致为：</p><ol><li>声明一个 <code>static FOO:Mutex&lt;RefCell&lt;Option&lt;T>>> = Mutex::new(RefCell::new(None));</code></li><li>在 main 中初始化外设并在临界区中使用 <code>interrupt::free(|cs| FOO.borrow(cs).replace(Some(T)));</code> 移动所有权给全局变量 <code>FOO</code></li><li>使用时同样需要进入临界区后，使用 <code>FOO.borrow(cs).borrow()</code> 获取<code>RefCell</code>后再 <code>as_ref()</code> 才能得到内部的 T</li></ol><p>我几乎从不使用这种方法，心累手也累，复杂项目直接上 RTIC 完事儿</p></li></ul><p>这部分相当让人抓狂，许多在 C 语言中可以直接写的部分要包上好多层，即便我知道它是安全的。</p><h2 id=rtic class=headerLink><a href=#rtic class=header-mark></a>RTIC</h2><p>我很想管 RTIC 叫抢占式调度框架，如果搭配内存分配器，用起来和抢占式的 RTOS 没啥区别。然而它其实只是个前后台系统，靠设置中断优先级来管理任务，并不具有上下文切换的能力。用它的原因就在于它包装了上述复杂的 <code>Mutex&lt;RefCell&lt;Option&lt;T>>></code>, 并可以将空闲的硬中断注册为可以有参数和容量的多个软中断。</p><p>然而，缺点来自于它使用了大量的宏，导致无论 <strong><ruby>RLS<rt>Rust Language Server</rt></ruby></strong> 还是 <strong><ruby>RA<rt>Rust Analyzer</rt></ruby></strong> 都不能很好的支持自动补全和类型。有些报错会一直显示却不影响正常编译&mldr; 真正编不过时又找不到报错的原因。因此我经常先在裸机上搭好一些外设驱动框架，调试好类型后再复制进 RTIC 项目。</p><h2 id=内存分配器 class=headerLink><a href=#%e5%86%85%e5%ad%98%e5%88%86%e9%85%8d%e5%99%a8 class=header-mark></a>内存分配器</h2><p><a href=https://crates.io/crates/alloc-cortex-m target=_blank rel="noopener noreferrer">alloc-cortex-m</a>: 需要 nightly 工具链，<a href=https://github.com/rust-embedded/alloc-cortex-m/blob/master/examples/global_alloc.rs target=_blank rel="noopener noreferrer">用法</a></p><p>使用内存分配器后，可以像有 std 一样使用方便地使用 <code>vec!</code> 等。可以先通过 FSMC 配置好外部 RAM 后将其内存起始地址指向 RAM</p><h2 id=rtos class=headerLink><a href=#rtos class=header-mark></a>RTOS</h2><p>我尝试过<a href=https://www.drone-os.com/ target=_blank rel="noopener noreferrer">drone</a>, WSL 和 Linux 物理机都试过，然而连 hello world 都没能跑起来&mldr; 它似乎也没在更新了</p><p>另外还有<a href=https://book.tockos.org/ target=_blank rel="noopener noreferrer">Tock OS</a>, 但外设驱动需要自行编写，官方的 ST <a href=https://www.tockos.org/hardware/ target=_blank rel="noopener noreferrer">demo</a> 只有 f3disco 和两个 f4nucleo，并没有尝试过</p><p>RTOS 方面估计很难超越 μCOS 和 FreeRTOS，大量芯片驱动都有现成的 C 代码，Rust 这边还只能用爱发电. OS 能否和现有的 hal 框架兼容还是个问题</p><h2 id=常用-crate class=headerLink><a href=#%e5%b8%b8%e7%94%a8-crate class=header-mark></a>常用 crate</h2><ul><li><a href=https://crates.io/crates/heapless target=_blank rel="noopener noreferrer">heapless</a>: 提供了静态内存分配的常用数据类型<ul><li>HistoryBuffer: 可用于平滑滤波</li><li>spsc::Queue: 消息队列</li><li>String: 方便输出调试信息</li></ul></li><li><a href=https://crates.io/crates/bitbang-hal target=_blank rel="noopener noreferrer">bitbang-hal</a>: 提供了软件模拟的 I2C, USART, SPI</li><li><a href=https://crates.io/crates/nb target=_blank rel="noopener noreferrer">nb</a>: 虽然名字叫做 non-block 但更多用 block！宏来等待外设工作完成，例如：<div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
+tw-flex
+tw-flex-row
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">rust</p></button><div class=tw-flex><button class="line-number-button
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.show-line-numbers]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+group-[.is-wrap]:tw-text-fgColor-link
+print:!tw-hidden" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw-select-none
+tw-mx-2
+tw-hidden
+group-[.is-open]:tw-block
+hover:tw-text-fgColor-link
+print:!tw-hidden" title="Copy code">
+<span class="copy-icon tw-block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw-hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-hidden
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-5 class="chroma
+!tw-block
+tw-p-0
+tw-m-0
+tw-transition-[max-height]
+tw-duration-500
+tw-ease-in-out
+group-[.is-closed]:!tw-max-h-0
+group-[.is-wrap]:tw-text-wrap
+tw-overflow-y-hidden
+tw-overflow-x-auto
+tw-scrollbar-thin"><span class=line><span class=cl><span class=fm>block!</span><span class=p>(</span><span class=n>Serial</span><span class=p>.</span><span class=n>write</span><span class=p>(</span><span class=n>byte</span><span class=p>))</span><span class=o>?</span><span class=p>;</span></span></span></code></pre></div></li><li><a href=https://crates.io/crates/micromath target=_blank rel="noopener noreferrer">micromath</a>: 提供了嵌入式环境下可能缺失的某些 F32 操作</li></ul><h2 id=总结 class=headerLink><a href=#%e6%80%bb%e7%bb%93 class=header-mark></a>总结</h2><p>个人项目的话，Embedded Rust 只能说差强人意。小芯片 debug 编译二进制太大，没法调试。语法噪音也是相当烦人。我利用几个芯片的 crate 写了个<a href=https://github.com/EzekielDaun/rs-balancing-bot target=_blank rel="noopener noreferrer">平衡车</a>玩，过段时间会专门介绍</p><p>实习中用 rust 写了一些小板子的验证 demo，逻辑简单的话用 hal 分分钟就能起个项目。也用 RTIC 尝试过复杂项目，有这么几个问题：</p><ol><li>本质仍然是前后台，复杂任务调度比较烧脑</li><li>运行速度比 μCOSⅢ 慢不少，写了个简单的串口环回，能慢将近一半。或许是我时钟没配好&mldr;也可能人家商业公司在关中断这块儿确实优化的好。尝试了两天，还是改用 μCOS 了，因为即便我这个实习生写出来也以后没人接手维护&mldr;</li></ol><p>Rust 合理的 trait 抽象加上 embedded-hal 这套统一的规范，使得各种库的编写成为可能。我的平衡车项目几乎纯靠调库就能完成，可见这套抽象的威力。这也是 STM32 的标准库和 HAL 库 之所以火遍中国。然而现实很骨感，一是性能损失，这种抽象多少会带来一些冗余代码，当然 LLVM 能不能优化我就不懂了; 二是虽然有 embedded-hal 规定了一些 trait，但 trait 之外的部分各不相同，就比如 ST 系列，FSMC 几乎没有，F1XXHAL 和 F4XXHAL 许多 api 完全不同&mldr; 最后一点纯属猜测，C++ 也有虚函数，也完全可以定义一套接口规范，为何 ARM 厂商不用 C++ 呢？虚表实现有性能损失，那编译器也可以用其他实现呀，反正芯片厂的编译器都是魔改过的&mldr;这么多年 C++ 都没在嵌入式铺开，Rust 只能说悬</p><p>Rust 是个好语言，但在嵌入式方面生态似乎是更主要的问题。没有解决大痛点的话业界根本没有动力抛弃多年积累重新开始。</p></div><h2>相关内容</h2><div class=related-container><div class=related-item-container><div class=related-image><a href=/balancing-bot/><img src=/balancing-bot/featuredImage.jpg height=200 width=400></a></div><h2 class=related-title><a href=/balancing-bot/>平衡小车</a></h2></div><div class=related-item-container><h2 class=related-title><a href=/my-first-intern/>第一份实习</a></h2></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2021-12-27</span></div><div class=post-info-license></div></div><div class="post-info-line print:!tw-hidden"><div class=post-info-md></div><div class=post-info-share></div></div></div><div class=post-info-more><section class=post-tags><svg class="icon" viewBox="0 0 640 512"><path d="M497.941 225.941 286.059 14.059A48 48 0 00252.118.0H48C21.49.0.0 21.49.0 48v204.118a48 48 0 0014.059 33.941l211.882 211.882c18.744 18.745 49.136 18.746 67.882.0l204.118-204.118c18.745-18.745 18.745-49.137.0-67.882zM112 160c-26.51.0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm513.941 133.823L421.823 497.941c-18.745 18.745-49.137 18.745-67.882.0l-.36-.36L527.64 323.522c16.999-16.999 26.36-39.6 26.36-63.64s-9.362-46.641-26.36-63.64L331.397.0h48.721a48 48 0 0133.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137.0 67.882z"/></svg>&nbsp;<a href=/tags/rust/>Rust</a>,&nbsp;<a href=/tags/embedded/>Embedded</a></section><section class=print:!tw-hidden><span><button class="tw-text-fgColor-link-muted hover:tw-text-fgColor-link-muted-hover" onclick=window.history.back()>返回</button></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class="post-nav print:tw-hidden"><a href=/hello-world/ class=prev rel=prev title="你好 世界"><svg class="icon" viewBox="0 0 256 512"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9.0l22.6 22.6c9.4 9.4 9.4 24.6.0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6.0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9.0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"/></svg>你好 世界</a>
+<a href=/my-first-intern/ class=next rel=next title=第一份实习>第一份实习<svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></a></div></div></article></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreferrer" title="Hugo 0.148.2">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreferrer" title="DoIt 0.4.2"><svg class="icon" viewBox="0 0 576 512"><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1.0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7.0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174 402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7-43.2-43.2c-4.1-4.1-10.8-4.1-14.8.0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg> DoIt</a></div><div class=footer-line><svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 448c-110.532.0-2e2-89.451-2e2-2e2.0-110.531 89.451-2e2 2e2-2e2 110.532.0 2e2 89.451 2e2 2e2.0 110.532-89.451 2e2-2e2 2e2zm107.351-101.064c-9.614 9.712-45.53 41.396-104.065 41.396-82.43.0-140.484-61.425-140.484-141.567.0-79.152 60.275-139.401 139.762-139.401 55.531.0 88.738 26.62 97.593 34.779a11.965 11.965.0 011.936 15.322l-18.155 28.113c-3.841 5.95-11.966 7.282-17.499 2.921-8.595-6.776-31.814-22.538-61.708-22.538-48.303.0-77.916 35.33-77.916 80.082.0 41.589 26.888 83.692 78.277 83.692 32.657.0 56.843-19.039 65.726-27.225 5.27-4.857 13.596-4.039 17.82 1.738l19.865 27.17a11.947 11.947.0 01-1.152 15.518z"/></svg>2020 - 2025<span class=author>&nbsp;<a href=https://ezekieldaun.github.io target=_blank rel="noopener noreferrer">Ezekiel</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div><div class=footer-line></div><div class=footer-line></div></div></footer><div class="print:!tw-hidden tw-flex tw-flex-col tw-fixed tw-right-4 tw-bottom-4 tw-gap-2"><a href=#back-to-top id=back-to-top-button class="tw-transition-opacity tw-opacity-0 tw-block tw-bg-bgColor-secondary tw-rounded-full" style=padding:.6rem;line-height:1.3rem;font-size:1rem title=回到顶部><svg class="icon" viewBox="0 0 448 512"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg>
+</a><button id=toc-drawer-button class="tw-block tw-bg-bgColor-secondary tw-rounded-full md:tw-hidden" style=padding:.6rem;line-height:1.3rem;font-size:1rem>
+<svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button></div><div id=cookieconsent-container></div><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/lightgallery/lightgallery.min.css><noscript><link rel=stylesheet href=/lib/lightgallery/lightgallery.min.css></noscript><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/katex/copy-tex.min.css><noscript><link rel=stylesheet href=/lib/katex/copy-tex.min.css></noscript><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script>window.config={"autocomplete.min.js":"/lib/autocomplete/autocomplete.min.js",comment:{},cookieconsent:{content:{dismiss:"同意",link:"了解更多",message:"本网站使用 Cookies 来改善您的浏览体验."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},"fuse.min.js":"/lib/fuse/fuse.min.js",lightGallery:{actualSize:!1,exThumbImage:"data-thumbnail",hideBarsDelay:2e3,selector:".lightgallery",speed:400,thumbContHeight:80,thumbWidth:80,thumbnail:!0},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{distance:100,findAllMatches:!1,fuseIndexURL:"/index.json",highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!1,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"没有找到结果",snippetLength:50,threshold:.3,type:"fuse",useExtendedSearch:!1},table:{sort:!0}}</script><script src=/lib/tablesort/tablesort.min.js></script><script src=/lib/lightgallery/lightgallery.min.js defer></script><script src=/lib/lightgallery/lg-thumbnail.min.js defer></script><script src=/lib/lightgallery/lg-zoom.min.js defer></script><script src=/lib/katex/katex.min.js defer></script><script src=/lib/katex/auto-render.min.js defer></script><script src=/lib/katex/copy-tex.min.js defer></script><script src=/lib/katex/mhchem.min.js defer></script><script src=/js/katex.min.js defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/js/cookieconsent.min.js defer></script><script src=/js/theme.min.js defer></script><script type=speculationrules>
   {
     "prerender": [
       {
@@ -994,7 +316,4 @@
       }
     ]
   }
-</script>
-</body>
-
-</html>
+</script></body></html>
