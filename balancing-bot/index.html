@@ -4,25 +4,34 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Balancing Bot - Ez&#39;s blog</title><meta name="Description" content="Ezekiel&#39;s blog"><meta property="og:title" content="Balancing Bot" />
-<meta property="og:description" content="In this post, I am going to share my experience in developing a balancing bot. As I haven&rsquo;t formally learned any courses about the control system, I could not guarantee the correctness of all the points.
+        <title>Balancing Bot - Ez&#39;s blog</title><meta name="Description" content="Ezekiel&#39;s blog"><meta property="og:url" content="https://ezekieldaun.github.io/balancing-bot/">
+  <meta property="og:site_name" content="Ez&#39;s blog">
+  <meta property="og:title" content="Balancing Bot">
+  <meta property="og:description" content="In this post, I am going to share my experience in developing a balancing bot. As I haven’t formally learned any courses about the control system, I could not guarantee the correctness of all the points.
 The Cascade PID Controller for the Bot PID There are too much explanation about the PID controller. So I will just share my own understanding.
-You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://ezekieldaun.github.io/balancing-bot/" /><meta property="og:image" content="https://ezekieldaun.github.io/balancing-bot/featuredImage.jpg" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-12-28T15:34:52-08:00" />
-<meta property="article:modified_time" content="2021-12-28T15:34:52-08:00" />
+You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop. The ruler can vibrate because it has some elasticity, while this vibration becomes weaker and weaker since there is some sort of damping. A spring with a damper could solve most problems, and this is actually what a PD controller does. The second-order ODEs could explain:">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-12-28T15:34:52-08:00">
+    <meta property="article:modified_time" content="2021-12-28T15:34:52-08:00">
+    <meta property="article:tag" content="Rust">
+    <meta property="article:tag" content="Embedded">
+    <meta property="og:image" content="https://ezekieldaun.github.io/balancing-bot/featuredImage.jpg">
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://ezekieldaun.github.io/balancing-bot/featuredImage.jpg" /><meta name="twitter:title" content="Balancing Bot"/>
-<meta name="twitter:description" content="In this post, I am going to share my experience in developing a balancing bot. As I haven&rsquo;t formally learned any courses about the control system, I could not guarantee the correctness of all the points.
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://ezekieldaun.github.io/balancing-bot/featuredImage.jpg">
+  <meta name="twitter:title" content="Balancing Bot">
+  <meta name="twitter:description" content="In this post, I am going to share my experience in developing a balancing bot. As I haven’t formally learned any courses about the control system, I could not guarantee the correctness of all the points.
 The Cascade PID Controller for the Bot PID There are too much explanation about the PID controller. So I will just share my own understanding.
-You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop."/>
+You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop. The ruler can vibrate because it has some elasticity, while this vibration becomes weaker and weaker since there is some sort of damping. A spring with a damper could solve most problems, and this is actually what a PD controller does. The second-order ODEs could explain:">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ezekieldaun.github.io/balancing-bot/" /><link rel="prev" href="https://ezekieldaun.github.io/hello-embedded-rust/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ezekieldaun.github.io/balancing-bot/" /><link rel="prev" href="https://ezekieldaun.github.io/hello-embedded-rust/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -36,16 +45,16 @@ You must have tried to play a song with a steel ruler, watching it vibrate, beco
                             "url": "https:\/\/ezekieldaun.github.io\/balancing-bot\/featuredImage.jpg",
                             "width":  4032 ,
                             "height":  3024 
-                        }],"genre": "posts","keywords": "Rust, Embedded","wordcount":  3211 ,
+                        }],"genre": "posts","keywords": "Rust, Embedded","wordcount":  3032 ,
         "url": "https:\/\/ezekieldaun.github.io\/balancing-bot\/","datePublished": "2021-12-28T15:34:52-08:00","dateModified": "2021-12-28T15:34:52-08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "Ezekiel"
+                "name": "xxxx"
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -53,23 +62,23 @@ You must have tried to play a song with a steel ruler, watching it vibrate, beco
             <a href="/" title="Ez&#39;s blog">EZ</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/balancing-bot/" selected>English</option><option value="/zh-cn/balancing-bot/">简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/balancing-bot/" selected>English</option><option value="/zh-cn/balancing-bot/">简体中文</option></select>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -86,39 +95,38 @@ You must have tried to play a song with a steel ruler, watching it vibrate, beco
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="Search..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
                 </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
                     <select class="language-select" onchange="location = this.value;"><option value="/balancing-bot/" selected>English</option><option value="/zh-cn/balancing-bot/">简体中文</option></select>
                 </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Balancing Bot</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://ezekieldaun.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Ezekiel</a></span>&nbsp;<span class="post-category">included in <a href="/categories/tech/"><i class="far fa-folder fa-fw"></i>tech</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-28">2021-12-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;3211 words&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;16 minutes&nbsp;</div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Balancing Bot</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/tech/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Tech</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-12-28">2021-12-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3032 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;15 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -126,10 +134,10 @@ You must have tried to play a song with a steel ruler, watching it vibrate, beco
         data-srcset="/balancing-bot/featuredImage.jpg, /balancing-bot/featuredImage.jpg 1.5x, /balancing-bot/featuredImage.jpg 2x"
         data-sizes="auto"
         alt="/balancing-bot/featuredImage.jpg"
-        title="/balancing-bot/featuredImage.jpg" /></div><div class="details toc" id="toc-static"  kept="">
+        title="/balancing-bot/featuredImage.jpg" /></div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -158,7 +166,7 @@ You must have tried to play a song with a steel ruler, watching it vibrate, beco
             </div><div class="content" id="content"><p>In this post, I am going to share my experience in developing a balancing bot. As I haven&rsquo;t formally learned any courses about the control system, I could not guarantee the correctness of all the points.</p>
 <h2 id="the-cascade-pid-controller-for-the-bot">The Cascade PID Controller for the Bot</h2>
 <h3 id="pid">PID</h3>
-<p>There are too much explanation about the PID <a href="https://en.wikipedia.org/wiki/PID_controller" target="_blank" rel="noopener noreffer">controller</a>. So I will just share my own understanding.</p>
+<p>There are too much explanation about the PID <a href="https://en.wikipedia.org/wiki/PID_controller" target="_blank" rel="noopener noreffer ">controller</a>. So I will just share my own understanding.</p>
 <p>You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop. The ruler can vibrate because it has some elasticity, while this vibration becomes weaker and weaker since there is some sort of damping. A spring with a damper could solve most problems, and this is actually what a PD controller does. The second-order ODEs could explain:</p>
 <p>$$
 my&rsquo;&rsquo;+cy&rsquo;+ky=f(t)
@@ -172,43 +180,29 @@ $$</p>
 <p>The tuning of two controllers could be a little harder. It&rsquo;s obvious that we need to tune the angle loop first because it directly controls the actuator. The ideal process is tuning the angle loop&rsquo;s P parameter first for a fast response, and then the angle loop&rsquo;s D parameter until the bot could stand for a while, finally the speed loop.</p>
 <h2 id="the-story-from-interrupt">The Story from Interrupt</h2>
 <h3 id="raspberrypi">RaspberryPi</h3>
-<p>I always think that Arduino is more like a toy, because of the lack of useful applications. But RPi, which has GPIO ports too, is also a more playable <strong>Linux</strong> PC! So I bought the cheapest RPi model 4B with 2 GB RAM to make this bot. I mainly use the C language and <a href="http://wiringpi.com" target="_blank" rel="noopener noreffer">Wiring Pi</a>. The other hardware and kits are from <a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-10676576509.5.2d6922d9W5CQkh&amp;id=45470143481" target="_blank" rel="noopener noreffer">taobao</a>. As a mechanical engineering student, I drew a acrylic board to position them. They were connected by jumping wires and a breadboard. Alright, let&rsquo;s drive them first:</p>
+<p>I always think that Arduino is more like a toy, because of the lack of useful applications. But RPi, which has GPIO ports too, is also a more playable <strong>Linux</strong> PC! So I bought the cheapest RPi model 4B with 2 GB RAM to make this bot. I mainly use the C language and <a href="http://wiringpi.com" target="_blank" rel="noopener noreffer ">Wiring Pi</a>. The other hardware and kits are from <a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-10676576509.5.2d6922d9W5CQkh&amp;id=45470143481" target="_blank" rel="noopener noreffer ">taobao</a>. As a mechanical engineering student, I drew a acrylic board to position them. They were connected by jumping wires and a breadboard. Alright, let&rsquo;s drive them first:</p>
 <ul>
 <li>DC Motor<br>
-The driver is the common L298N. In brief we use 2 pins for direction, and an extra PWM pin for the output voltage. It&rsquo;s very easy to use <a href="http://wiringpi.com" target="_blank" rel="noopener noreffer">WiringPi</a>&rsquo;s hardware PWM <a href="http://wiringpi.com/reference/core-functions/" target="_blank" rel="noopener noreffer">function</a> to drive RPi&rsquo;s pwm0 and pwm1.</li>
+The driver is the common L298N. In brief we use 2 pins for direction, and an extra PWM pin for the output voltage. It&rsquo;s very easy to use <a href="http://wiringpi.com" target="_blank" rel="noopener noreffer ">WiringPi</a>&rsquo;s hardware PWM <a href="http://wiringpi.com/reference/core-functions/" target="_blank" rel="noopener noreffer ">function</a> to drive RPi&rsquo;s pwm0 and pwm1.</li>
 <li>MPU6050<br>
-A six-DoF accelerometer and gyroscope, with integrated <strong><ruby>DMP<rt>Digital Motion Processor</rt></ruby></strong> that can output the fused orientation in quaternion, saving the load on MCU. However, it could not be used with common I2C instructions described in the manual. An official embedded motion driver provides the code for using DMP on MSP430. The core is passing a bunch of mysterious numbers through I2C to turn on the DMP function. I spent a lot of time looking for a RPi&rsquo;s DMP library and only got <a href="https://github.com/richardghirst/PiBits/tree/master/MPU6050-Pi-Demo" target="_blank" rel="noopener noreffer">this</a> library in C++. Although it&rsquo;s possible to port the motion driver to RPi, this might be too hard for me, a newbie at that time. Anyway, let&rsquo;s write some C in C++.</li>
+A six-DoF accelerometer and gyroscope, with integrated <strong><ruby>DMP<rt>Digital Motion Processor</rt></ruby></strong> that can output the fused orientation in quaternion, saving the load on MCU. However, it could not be used with common I2C instructions described in the manual. An official embedded motion driver provides the code for using DMP on MSP430. The core is passing a bunch of mysterious numbers through I2C to turn on the DMP function. I spent a lot of time looking for a RPi&rsquo;s DMP library and only got <a href="https://github.com/richardghirst/PiBits/tree/master/MPU6050-Pi-Demo" target="_blank" rel="noopener noreffer ">this</a> library in C++. Although it&rsquo;s possible to port the motion driver to RPi, this might be too hard for me, a newbie at that time. Anyway, let&rsquo;s write some C in C++.</li>
 <li>Encoder<br>
 It generates two square waves with 90° phase latency, with a fixed number of rising/falling edges in each round. When there is an edge in one wave, by reading the voltage level of the other wave, the direction could be determined. Magic! It often works with interrupts on RPi.</li>
 </ul>
 <p>WiringPi wraps up convenient functions to register interrupt handlers:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">wiringPiISR</span> <span class="p">(</span><span class="kt">int</span> <span class="n">pin</span><span class="p">,</span> <span class="kt">int</span> <span class="n">edgeType</span><span class="p">,</span>  <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">function</span><span class="p">)(</span><span class="kt">void</span><span class="p">))</span> <span class="p">;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Pass in the function pointer, the registered function could then be called when the interrupt occurs. Notice that this function pointer takes void and returns void. How could it communicate to other codes? The answer is global variable:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="n">COUNT</span><span class="p">;</span>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-C">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">wiringPiISR</span> <span class="p">(</span><span class="kt">int</span> <span class="n">pin</span><span class="p">,</span> <span class="kt">int</span> <span class="n">edgeType</span><span class="p">,</span>  <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">function</span><span class="p">)(</span><span class="kt">void</span><span class="p">))</span> <span class="p">;</span></span></span></code></pre></div></div>
+<p>Pass in the function pointer, the registered function could then be called when the interrupt occurs. Notice that this function pointer takes void and returns void. How could it communicate to other codes? The answer is global variable:</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-C">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="n">COUNT</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">myISR</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">myISR</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
@@ -220,58 +214,16 @@ It generates two square waves with 90° phase latency, with a fixed number of ri
 </span></span><span class="line"><span class="cl">    <span class="cm">/* Some code */</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">wiringPiISR</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">INT_EDGE_BOTH</span><span class="p">,</span> <span class="n">myISR</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* Some code */</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Therefore, when the interrupt occurs, <code>COUNT</code> would increment. Since the encoder counts very fast, I declared the type of <code>COUNT</code> as <code>long long</code> (64 Bits on RPi). <del>No!!!!</del></p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Therefore, when the interrupt occurs, <code>COUNT</code> would increment. Since the encoder counts very fast, I declared the type of <code>COUNT</code> as <code>long long</code> (64 Bits on RPi). <del>No!!!!</del></p>
 <p>Here we go. I successfully drive the motor and encoder!<del>Actually?</del> And we can elegantly press <code>q</code> in SSH to quit. Everything goes well and there is only the control part to do. I&rsquo;ll put my C code at this stage:</p>
 <p>motor.h</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-C">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdbool.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
@@ -311,91 +263,14 @@ It generates two square waves with 90° phase latency, with a fixed number of ri
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">readEnc2B</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">Motor</span> <span class="n">leftWheel</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">Motor</span> <span class="n">rightWheel</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>motor.c</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;motor.h&#34;</span><span class="cp">
+</span></span><span class="line"><span class="cl"><span class="n">Motor</span> <span class="n">rightWheel</span><span class="p">;</span></span></span></code></pre></div></div>
+<p>motor.c</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-C">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;motor.h&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">motorInit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">wiringPiSetup</span><span class="p">())</span> <span class="p">{</span>
@@ -470,63 +345,14 @@ It generates two square waves with 90° phase latency, with a fixed number of ri
 </span></span><span class="line"><span class="cl">    <span class="n">PIN_MOTOR2</span><span class="p">,</span>      <span class="n">PIN_MOTOR2_IN1</span><span class="p">,</span>  <span class="n">PIN_MOTOR2_IN2</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">PIN_MOTOR2_OUT1</span><span class="p">,</span> <span class="n">PIN_MOTOR2_OUT2</span><span class="p">,</span> <span class="p">.</span><span class="n">DIR</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">motor</span><span class="p">,</span>           <span class="n">readSpd</span><span class="p">,</span>         <span class="p">.</span><span class="n">lastPos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>main.c</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;motor.h&#34;</span><span class="cp">
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>main.c</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-C">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;motor.h&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="nf">usrInterrupt</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">);</span>
@@ -573,41 +399,38 @@ It generates two square waves with 90° phase latency, with a fixed number of ri
 </span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">arg</span> <span class="o">!=</span> <span class="sc">&#39;q&#39;</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">scanf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="n">arg</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Because of the DMP problem that I mentioned before, I was planning to migrate to C++. After reading some <a href="https://www.runoob.com/cplusplus/cpp-tutorial.html" target="_blank" rel="noopener noreffer">tutorials</a>, I was feeling good to have a <code>C with class</code> level in C++. After all, I could treat a class as a struct, right?</p>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>Because of the DMP problem that I mentioned before, I was planning to migrate to C++. After reading some <a href="https://www.runoob.com/cplusplus/cpp-tutorial.html" target="_blank" rel="noopener noreffer ">tutorials</a>, I was feeling good to have a <code>C with class</code> level in C++. After all, I could treat a class as a struct, right?</p>
 <p>The total structure is: 4 IRQ handlers setting encoder counter global variables; a speed measuring thread that loops with a fixed time interval and writes the different in encoder counters to the speed global variables; the main thread would do one step of PID control if receive a data from MPU6050.</p>
 <p>So, I defined a <code>Motor</code> class, with member <code>short pin_x</code> for motor driver, <code>long long pos</code> for encoder counter, <code>int spd</code> for saving the measured speed, member function <code>void Motor::run(int pow)</code>, as well as <code>void Motor::enc(int phase)</code> to be called by the interrupt handler. To wrap up all the details, I make all members that could be private <code>private</code><del>wtf!?</del>. And <code>Base</code> class with two <code>Motor</code>s and an <code>MPU6050</code>. Because <code>Motor</code> nearly has its all members private, I also defined the <code>Base</code> as a friend class of <code>Motor</code>, as well as a lot of friend functions to make WiringPi be able to register interrupts in <code>main()</code>, to make speed measuring thread be able to access the <code>Motor</code>s, etc. To be safe, I use <code>int piHiPri (int priority)</code> to make the speed measuring thread the highest priority. Since the interrupt handler was declared as <code>(void*) f(void)</code>, I have to make 4 different wrapper functions to wrap up the actual handler member functions.</p>
 <p>Eventually, it passed the compiler. WTF!? The speed readings from the encoder could sometimes jump up to some super large numbers, even if the motor is actually not running. The weirdest is that I could not even be able to <strong>stably reproduce</strong> that! I was greatly exhausted by that. Since the speed measurement is the very first thing in the speed loop, I couldn&rsquo;t have any progress until it is addressed. I couldn&rsquo;t have any idea about that because, in theory, this should have no difference from the previous C version. Finally, after doing tests and trials for the whole day, I gave up.</p>
 <p>But I vaguely felt that I may wrap too many abstractions.</p>
 <h3 id="rust-and-concurrent-programming">Rust and Concurrent Programming</h3>
-<p>My short winter break came to an end, and I failed in my first trial to make this bot. Later, in my free time besides online courses, I coincidentally met the Rust programming language. I felt good having a quick glance at <a href="https://doc.rust-lang.org/stable/book/" target="_blank" rel="noopener noreffer">the book</a> and spent about three weeks thoroughly reading it. Its special <code>Ownership</code> and <code>Borrow Checker</code> impressed me very much.</p>
+<p>My short winter break came to an end, and I failed in my first trial to make this bot. Later, in my free time besides online courses, I coincidentally met the Rust programming language. I felt good having a quick glance at <a href="https://doc.rust-lang.org/stable/book/" target="_blank" rel="noopener noreffer ">the book</a> and spent about three weeks thoroughly reading it. Its special <code>Ownership</code> and <code>Borrow Checker</code> impressed me very much.</p>
 <p>They define:</p>
 <blockquote>
 <ul>
 <li>At any given time, you can have either <strong>one mutable reference</strong> or <strong>any number of immutable references</strong>.</li>
 <li>References must always be valid.</li>
-</ul>
-</blockquote>
+</ul></blockquote>
 <p>The second point is easy to understand. In C/C++, never use a freed pointer. But the first one&hellip; Wait, how did I implement my speed measuring thread?</p>
-<p>Let&rsquo;s give an end to this problem: <strong><a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" rel="noopener noreffer">race condition</a></strong>. My Raspbian is a 32-bit version, where a <code>long long int</code> is a 64-bit signed integer. In other words, almost all operations towards it could not be completed in a single assembly instruction. Therefore, when the speed measuring thread partly change the counter but not complete yet, it might be preempted by the scheduler to the main thread. Now reading(loading) this counter in main could generate a race condition. The reason that the C version worked is that it only prints the counter without spawning another thread. The IRQ handler runs really fast and could never be preempted by other threads, while the interrupt frequency isn&rsquo;t that high to frequently preempt the reading process in the main thread. <del>When I check the makefiles, I found the C version was compiled with -O3 while the C++ version had no optimization option at all</del></p>
+<p>Let&rsquo;s give an end to this problem: <strong><a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" rel="noopener noreffer ">race condition</a></strong>. My Raspbian is a 32-bit version, where a <code>long long int</code> is a 64-bit signed integer. In other words, almost all operations towards it could not be completed in a single assembly instruction. Therefore, when the speed measuring thread partly change the counter but not complete yet, it might be preempted by the scheduler to the main thread. Now reading(loading) this counter in main could generate a race condition. The reason that the C version worked is that it only prints the counter without spawning another thread. The IRQ handler runs really fast and could never be preempted by other threads, while the interrupt frequency isn&rsquo;t that high to frequently preempt the reading process in the main thread. <del>When I check the makefiles, I found the C version was compiled with -O3 while the C++ version had no optimization option at all</del></p>
 <p>So, what are the proper ways to do that?</p>
 <ol>
 <li>Atomic Operations<br>
-An atomic operation will never be preempted. The bad thing is that it depends on your CPU instruction set and the compiler, and usually, it can only operate data type no longer than the CPU&rsquo;s word size. For <code>Ordering</code>, if we only need it to be atomic (usually in single-thread application) without considering the <a href="https://en.wikipedia.org/wiki/Consistency_model" target="_blank" rel="noopener noreffer">memory consistency</a>, just choose <code>Ordering::Relax</code>, which is also the best choice for a counter. In multi-thread models, you first need to understand your memory model, then choose the <a href="https://doc.rust-lang.org/std/sync/atomic/enum.Ordering.html" target="_blank" rel="noopener noreffer">ordering</a>. Usually the most strict is <code>Ordering::SeqCst</code>.</li>
+An atomic operation will never be preempted. The bad thing is that it depends on your CPU instruction set and the compiler, and usually, it can only operate data type no longer than the CPU&rsquo;s word size. For <code>Ordering</code>, if we only need it to be atomic (usually in single-thread application) without considering the <a href="https://en.wikipedia.org/wiki/Consistency_model" target="_blank" rel="noopener noreffer ">memory consistency</a>, just choose <code>Ordering::Relax</code>, which is also the best choice for a counter. In multi-thread models, you first need to understand your memory model, then choose the <a href="https://doc.rust-lang.org/std/sync/atomic/enum.Ordering.html" target="_blank" rel="noopener noreffer ">ordering</a>. Usually the most strict is <code>Ordering::SeqCst</code>.</li>
 <li>Mutex\RwLock (for normal threads\tasks)<br>
-For sharing resources between multiple threads with an OS/RTOS, these two locks are recommended. See details in <a href="https://doc.rust-lang.org/book/ch16-03-shared-state.html" target="_blank" rel="noopener noreffer">the book</a>. Once failed in pending the lock, the thread could give up their time slice back to the scheduler for other threads.</li>
+For sharing resources between multiple threads with an OS/RTOS, these two locks are recommended. See details in <a href="https://doc.rust-lang.org/book/ch16-03-shared-state.html" target="_blank" rel="noopener noreffer ">the book</a>. Once failed in pending the lock, the thread could give up their time slice back to the scheduler for other threads.</li>
 <li>Critical Section(IRQ Handler)<br>
-Since interrupts can always preempt the running thread unless you allow an IRQ handler to check the resource&rsquo;s availability first and not to handle when the resource is occupied, the above locks in normal threads will not actually work. Some CPUs could temporarily disable all the interrupts, so that the running thread would not be preempted. If using Rust, <code>Mutex</code>, <code>RefCell</code> etc. are needed to pass compiling, see <a href="https://docs.rust-embedded.org/book/concurrency/index.html#sharing-peripherals" target="_blank" rel="noopener noreffer">the embedded rust book</a>.</li>
+Since interrupts can always preempt the running thread unless you allow an IRQ handler to check the resource&rsquo;s availability first and not to handle when the resource is occupied, the above locks in normal threads will not actually work. Some CPUs could temporarily disable all the interrupts, so that the running thread would not be preempted. If using Rust, <code>Mutex</code>, <code>RefCell</code> etc. are needed to pass compiling, see <a href="https://docs.rust-embedded.org/book/concurrency/index.html#sharing-peripherals" target="_blank" rel="noopener noreffer ">the embedded rust book</a>.</li>
 <li>Buffer<br>
 Another clever way is to use the memory to communicate. A probable implementation for a ring buffer could have an array and head&amp;tail pointers. We could let the tx to have the ownership of the head, rx to have the tail. Increment the corresponding pointer after each operation. As long as the array is long enough and the the rx could handle faster than tx in average, we won&rsquo;t miss any messages.</li>
 </ol>
 <p>If I were to redesign the speed measuring login in RPi, I would use an <code>AtomicI32</code> in IRQ for the encoder counter, a <code>RwLock&lt;RefCell&lt;_&gt;&gt;</code> for the speed global variable. To make no race conditions.</p>
-<p>However, in my later internship, I learned STM32, a common model is F103C8T6@72MHz, which is definitely enough for a balancing bot. Compared with the RPi4B, which requires a 5V3A power supply and I deliberately bought a <a href="https://www.waveshare.com/product/modules/others/power-relays/ups-hat.htm" target="_blank" rel="noopener noreffer">battery extension board</a> for it, making it super bulky. The STM32 has a <strong><ruby>QEI<rt>Quadrature Encoder Interface</rt></ruby></strong> option in Timer peripherals that allows us to read the speed by a timer interrupt invoked &ldquo;read and reset&rdquo; operation. However when I implemented this in Rust, I spent an additional timer for software virtual I2C, which makes it no free timers for that interrupt&hellip; Finally I have to measure speed in the main loop with delay function.</p>
+<p>However, in my later internship, I learned STM32, a common model is F103C8T6@72MHz, which is definitely enough for a balancing bot. Compared with the RPi4B, which requires a 5V3A power supply and I deliberately bought a <a href="https://www.waveshare.com/product/modules/others/power-relays/ups-hat.htm" target="_blank" rel="noopener noreffer ">battery extension board</a> for it, making it super bulky. The STM32 has a <strong><ruby>QEI<rt>Quadrature Encoder Interface</rt></ruby></strong> option in Timer peripherals that allows us to read the speed by a timer interrupt invoked &ldquo;read and reset&rdquo; operation. However when I implemented this in Rust, I spent an additional timer for software virtual I2C, which makes it no free timers for that interrupt&hellip; Finally I have to measure speed in the main loop with delay function.</p>
 <h2 id="sensor-fusion">Sensor Fusion</h2>
-<p>Remember the DMP in MPU6050? Since I didn&rsquo;t found a workable DMP library (called crate in Rust) in Rust, I used the raw data from the sensor. To get the angle, just simply compare the direction of the acceleration with gravity. The MPU6050 crate has already implemented this function <a href="https://docs.rs/mpu6050/0.1.5/mpu6050/struct.Mpu6050.html#method.get_acc_angles" target="_blank" rel="noopener noreffer">get_acc_angles(&amp;mut self) -&gt; Result&lt;Vector2<f32>, Mpu6050Error<E>&gt;</a>.</p>
-<p>Combined with the <a href="https://crates.io/crates/pid_control" target="_blank" rel="noopener noreffer">PID crate</a> with the angle data as P input, gyro data as D input, I got my code compiled in less than an hour. I have to praise Rust that in 99% cases, a code passed compiling could <strong>directly run</strong> without critical bugs. I tilted the bot and it responded well as expected, which prove that the polarities of each parameter are all correct. But I struggled in tuning for three days without any progress&hellip; Even the most basic position loop works really bad. The best I tried could merely stand for around 10s. I tried to fix the wheels to make it a simply reversed pendulum and see what would happen. WTF!? It failed to be stable as well&hellip;There must be some critical problems&hellip;</p>
+<p>Remember the DMP in MPU6050? Since I didn&rsquo;t found a workable DMP library (called crate in Rust) in Rust, I used the raw data from the sensor. To get the angle, just simply compare the direction of the acceleration with gravity. The MPU6050 crate has already implemented this function <a href="https://docs.rs/mpu6050/0.1.5/mpu6050/struct.Mpu6050.html#method.get_acc_angles" target="_blank" rel="noopener noreffer ">get_acc_angles(&amp;mut self) -&gt; Result&lt;Vector2<f32>, Mpu6050Error<E>&gt;</a>.</p>
+<p>Combined with the <a href="https://crates.io/crates/pid_control" target="_blank" rel="noopener noreffer ">PID crate</a> with the angle data as P input, gyro data as D input, I got my code compiled in less than an hour. I have to praise Rust that in 99% cases, a code passed compiling could <strong>directly run</strong> without critical bugs. I tilted the bot and it responded well as expected, which prove that the polarities of each parameter are all correct. But I struggled in tuning for three days without any progress&hellip; Even the most basic position loop works really bad. The best I tried could merely stand for around 10s. I tried to fix the wheels to make it a simply reversed pendulum and see what would happen. WTF!? It failed to be stable as well&hellip;There must be some critical problems&hellip;</p>
 <p>I logged all the data and found the calculated angle a very noisy signal. But it was still unstable even I manually smoothed it&hellip;</p>
 <p>Well, I have to admit that it actually make sense. Because the bot is moving, there have to be an additional acceleration adding to the gravity, which makes the calculated angle unreliable.</p>
 <p>So how to get the angle? Here are some answers:</p>
@@ -622,27 +445,25 @@ $$</p>
 <p>We can also dynamically adjust the weight. For example, when the accelerometer has a large reading, the gyro should be more reliable; when the gyro has a small reading, the accelerometer should be more reliable.</p>
 <p>At first, I was planning to use Rust on STM32 to implement a complementary filter. Because as mentioned before, I had run up all the timers and had to use delay in the main loop, the practice showed that the actual delay time would vary, which made it hard to decide the $dt$ to be multiplied. I don&rsquo;t want this project to be even harder, so finally I decided to return to C, with off-the-shelf DMP driver on STM32.</p>
 <h3 id="kalman-filter">Kalman Filter</h3>
-<p>The most famous filter in the control theorem. However, I was not able to understand it at this time. I tried the existing rust crate <a href="https://crates.io/crates/adskalman" target="_blank" rel="noopener noreffer">adskalman</a> but failed because the binaries are too large to flash.</p>
+<p>The most famous filter in the control theorem. However, I was not able to understand it at this time. I tried the existing rust crate <a href="https://crates.io/crates/adskalman" target="_blank" rel="noopener noreffer ">adskalman</a> but failed because the binaries are too large to flash.</p>
 <p>I wish sometime in future I could complete this section.</p>
 <h2 id="summary">Summary</h2>
 <p>The final bot with C and DMP is shown in the following picture. I&rsquo;m not going to put the final code as it was done in limited time with very bad quality.</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="example.gif"
-        data-srcset="/balancing-bot/example.gif, example.gif 1.5x, /balancing-bot/example.gif 2x"
+        data-src="/balancing-bot/example.gif"
+        data-srcset="/balancing-bot/example.gif, /balancing-bot/example.gif 1.5x, /balancing-bot/example.gif 2x"
         data-sizes="auto"
         alt="/balancing-bot/example.gif"
-        title="The Bot" /></p>
+        title="The Bot" width="640" height="360" /></p>
 <p>It wouldn&rsquo;t be hard to build a balancing bot as long as you understand the theory behind it. Actually, the most time-spending part was dealing with hardware and learning concurrent programming with a non-linear control flow. If I had chosen Arduino first, with tons of online Arduino resources, I may not meet Rust and STM32. Looking back on this long journey from RPi, I sincerely appreciate myself for getting these interesting experiences and knowledge.</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>Updated on 2021-12-28</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
+            </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
@@ -652,25 +473,28 @@ $$</p>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/rust/">Rust</a>,&nbsp;<a href="/tags/embedded/">Embedded</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/rust/">Rust</a>,&nbsp;<a href="/tags/embedded/">Embedded</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/hello-embedded-rust/" class="prev" rel="prev" title="A First Step in STM32 Embedded Rust"><i class="fas fa-angle-left fa-fw"></i>A First Step in STM32 Embedded Rust</a></div>
+    <div class="post-nav"><a href="/hello-embedded-rust/" class="prev" rel="prev" title="A First Step in STM32 Embedded Rust"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>A First Step in STM32 Embedded Rust</a></div>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.121.2">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://ezekieldaun.github.io" target="_blank">Ezekiel</a></span></div>
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2020 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span></div>
         </div>
     </footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script src="/js/theme.min.js"></script></body>
 </html>

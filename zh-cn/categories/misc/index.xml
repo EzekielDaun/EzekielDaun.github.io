@@ -1,50 +1,68 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>misc - 分类 - Ez的博客</title>
+        <title>Misc - 分类 - Ez的博客</title>
         <link>https://ezekieldaun.github.io/zh-cn/categories/misc/</link>
-        <description>misc - 分类 - Ez的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
-            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Sat, 13 May 2023 10:56:41 -0700</lastBuildDate><atom:link href="https://ezekieldaun.github.io/zh-cn/categories/misc/" rel="self" type="application/rss+xml" /><item>
+        <description>Misc - 分类 - Ez的博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 13 May 2023 10:56:41 -0700</lastBuildDate><atom:link href="https://ezekieldaun.github.io/zh-cn/categories/misc/" rel="self" type="application/rss+xml" /><item>
     <title>魔兽，再也不见</title>
     <link>https://ezekieldaun.github.io/zh-cn/wow-again/</link>
     <pubDate>Sat, 13 May 2023 10:56:41 -0700</pubDate>
-    <author>作者</author>
+    <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/wow-again/</guid>
-    <description><![CDATA[再会魔兽 年初暴雪关国服，互联网上一片怀旧之声，反倒勾起了我回坑的心思。以前中学时只愁没空玩，正巧一月底闲得发慌，何不试试美服呢。 重逢 怀旧服踩]]></description>
-</item><item>
+    <description><![CDATA[<h1 id="再会魔兽">再会魔兽</h1>
+<p>年初<a href="./../byebye-blizzard/" rel="">暴雪关国服</a>，互联网上一片怀旧之声，反倒勾起了我回坑的心思。以前中学时只愁没空玩，正巧一月底闲得发慌，何不试试美服呢。</p>
+<h2 id="重逢">重逢</h2>
+<h3 id="怀旧服踩坑">怀旧服踩坑</h3>
+<p>早有耳闻正式服已面目全非，于是冲了张月卡便先选择了 WLK 怀旧服，体验一下所谓经典版本。谁料我这个 5.1 鬼蟹时代入坑的“新世代“玩家根本玩不下去：只能任务升级，拉两只就打不过，几步就得喝水。三天只升到了 16 级。卡在黑海岸进洞杀怪任务，遂转战正式服。</p>]]></description>
+</item>
+<item>
     <title>Bye Bye Blizzard</title>
     <link>https://ezekieldaun.github.io/zh-cn/byebye-blizzard/</link>
     <pubDate>Fri, 20 Jan 2023 22:20:48 -0800</pubDate>
-    <author>作者</author>
+    <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/byebye-blizzard/</guid>
-    <description><![CDATA[写在暴雪国服关服之时 一个月前就知道了这个消息，不由得感叹爷青结。但今天看了王师傅的视频1才意识到，哦，原来已经十年了了啊。虽然最近一次认真玩]]></description>
-</item><item>
+    <description><![CDATA[<h1 id="写在暴雪国服关服之时">写在暴雪国服关服之时</h1>
+<p>一个月前就知道了这个消息，不由得感叹爷青结。但今天看了王师傅的视频<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>才意识到，哦，原来已经十年了了啊。虽然最近一次认真玩还是三年前 sc2 美服神族打到 钻石 1 3600，人族 3300 钻二，但这次，我的青春大概真的结束了。</p>]]></description>
+</item>
+<item>
     <title>再见 2022</title>
     <link>https://ezekieldaun.github.io/zh-cn/byebye-2022/</link>
     <pubDate>Thu, 29 Dec 2022 18:46:21 -0800</pubDate>
-    <author>作者</author>
+    <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/byebye-2022/</guid>
-    <description><![CDATA[暑假结束的时候本来想写点东西，写到一半不知怎么搁置了。思路已然断了，不过还是放在这里。年底的东西另续在后面。 暑假杂感 四个月的暑假转瞬即逝，兜]]></description>
-</item><item>
+    <description><![CDATA[<p>暑假结束的时候本来想写点东西，写到一半不知怎么搁置了。思路已然断了，不过还是放在这里。年底的东西另续在后面。</p>
+<h1 id="暑假杂感">暑假杂感</h1>
+<p>四个月的暑假转瞬即逝，兜兜转转，又是一年开学季。或许是我此前并未留意，这四个月来，仿佛每周都在发生着或大或小，国内或国外的重磅新闻。</p>]]></description>
+</item>
+<item>
     <title>UBC 硅光芯片 CO-OP</title>
     <link>https://ezekieldaun.github.io/zh-cn/ubc-biosensor-intern1/</link>
     <pubDate>Thu, 25 Aug 2022 19:26:56 -0700</pubDate>
-    <author>作者</author>
+    <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/ubc-biosensor-intern1/</guid>
-    <description><![CDATA[UBC Silicon Photonics Biosensor 2022 年 5-8 月，在 UBC 开始了第一份 CO-OP。你说我一个 ME 学生，怎么就拿了 ECE 的 offer 去给 Biosensor 写代码呢？ 入职前就给了两大页 Google doc 的参考资料，要么就是论]]></description>
-</item><item>
+    <description><![CDATA[<h1 id="ubc-silicon-photonics-biosensor">UBC Silicon Photonics Biosensor</h1>
+<p>2022 年 5-8 月，在 UBC 开始了第一份 CO-OP。你说我一个 ME 学生，怎么就拿了 ECE 的 offer 去给 Biosensor 写代码呢？</p>
+<p>入职前就给了两大页 Google doc 的参考资料，要么就是论文要么就是公开课。太多了我就看了前两个视频。正式入职以后上来就甩了三篇论文让看，一周后讨论……一篇文献综述过一遍硅光芯片的基本原理背景知识和发展情况，一篇跟我工作有关的曲线拟合和数据处理，一篇完全看不懂的反应速率分析。同时因为要进生物实验室，上了一周实验室安全课。又花了两周过了一遍实验室设备和软件的使用，搭搭环境，演示了一遍完整的实验流程。前后这么一折腾一个多月就过去了。（我还晚入职了半个月……）</p>]]></description>
+</item>
+<item>
     <title>第六次搬家</title>
     <link>https://ezekieldaun.github.io/zh-cn/the-sixth-move/</link>
     <pubDate>Sat, 25 Jun 2022 14:25:00 -0700</pubDate>
-    <author>作者</author>
+    <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/the-sixth-move/</guid>
-    <description><![CDATA[这两年因各种变故搬了五次家。这次搬进宿舍，希望能安稳地住到毕业。 在北京长大，从小上学走读，唯一经历过的搬家是二年级从院里的营职房搬到团职房，]]></description>
-</item><item>
+    <description><![CDATA[<p>这两年因各种变故搬了五次家。这次搬进宿舍，希望能安稳地住到毕业。</p>
+<hr>
+<p>在北京长大，从小上学走读，唯一经历过的搬家是二年级从院里的营职房搬到团职房，记忆是换了大房子有了自己的房间很开心、要求把墙刷成最淡的蓝色、被姥姥带去家具市场挑了猫和老鼠的窗帘、不理解为什么沙发也可以是硬硬的红木长条板凳加个海绵垫……</p>]]></description>
+</item>
+<item>
     <title>你好 世界</title>
     <link>https://ezekieldaun.github.io/zh-cn/hello-world/</link>
     <pubDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/hello-world/</guid>
-    <description><![CDATA[记录一下我的博客历程 Notion 搞一个博客的想法由来已久，2017 年接触到 notion，文章可以开启外链，当博客用完全没问题。然而国内访问不稳定，以及]]></description>
-</item></channel>
+    <description><![CDATA[<p>记录一下我的博客历程</p>
+<h2 id="notion">Notion</h2>
+<p>搞一个博客的想法由来已久，2017 年接触到 notion，文章可以开启外链，当博客用完全没问题。然而国内访问不稳定，以及——不好看，于是迟迟没有动手。目前主要把 notion 的 database 作为跨平台收藏夹、偶尔写一些较重的 todo list 便于跨平台访问。</p>]]></description>
+</item>
+</channel>
 </rss>
