@@ -9,11 +9,9 @@
     <pubDate>Mon, 08 Nov 2021 19:38:33 &#43;0800</pubDate>
     <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/hello-world/</guid>
-    <description><![CDATA[<p>My blog journey.</p>
-<h2 id="notion">Notion</h2>
-<p>It has been a long time since I thought about having a blog. In 2017 I met notion, where pages could be shared as a link which is definitely OK for a blog. However connecting from China is sometimes unstable and — the appearance. Now I am using notion’s database as a cross-platform bookmark and sometimes a to-do list.</p>
-<h2 id="pelican">Pelican</h2>
-<p>In 2019, I met Github Pages and static web frameworks, and chose Pelican because I&rsquo;m familiar with Python. Discontinuously developed until summer 2020, learned a lot web-front knowledge. The result was just acceptable. Although there were a few posts, I always had no motivation to update because of the appearance. At that time I got in touch with themes like Hexo Next<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, Hugo Meme<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> that based on other platforms. And I knew what to expect in my blog:</p>]]></description>
+    <description><![CDATA[My blog journey.
+Notion It has been a long time since I thought about having a blog. In 2017 I met notion, where pages could be shared as a link which is definitely OK for a blog. However connecting from China is sometimes unstable and — the appearance. Now I am using notion’s database as a cross-platform bookmark and sometimes a to-do list.
+Pelican In 2019, I met Github Pages and static web frameworks, and chose Pelican because I&rsquo;m familiar with Python.]]></description>
 </item>
 </channel>
 </rss>

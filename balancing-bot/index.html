@@ -9,7 +9,7 @@
   <meta property="og:title" content="Balancing Bot">
   <meta property="og:description" content="In this post, I am going to share my experience in developing a balancing bot. As I haven’t formally learned any courses about the control system, I could not guarantee the correctness of all the points.
 The Cascade PID Controller for the Bot PID There are too much explanation about the PID controller. So I will just share my own understanding.
-You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop. The ruler can vibrate because it has some elasticity, while this vibration becomes weaker and weaker since there is some sort of damping. A spring with a damper could solve most problems, and this is actually what a PD controller does. The second-order ODEs could explain:">
+You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -24,7 +24,7 @@ You must have tried to play a song with a steel ruler, watching it vibrate, beco
   <meta name="twitter:title" content="Balancing Bot">
   <meta name="twitter:description" content="In this post, I am going to share my experience in developing a balancing bot. As I haven’t formally learned any courses about the control system, I could not guarantee the correctness of all the points.
 The Cascade PID Controller for the Bot PID There are too much explanation about the PID controller. So I will just share my own understanding.
-You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop. The ruler can vibrate because it has some elasticity, while this vibration becomes weaker and weaker since there is some sort of damping. A spring with a damper could solve most problems, and this is actually what a PD controller does. The second-order ODEs could explain:">
+You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop.">
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -412,7 +412,8 @@ It generates two square waves with 90° phase latency, with a fixed number of ri
 <ul>
 <li>At any given time, you can have either <strong>one mutable reference</strong> or <strong>any number of immutable references</strong>.</li>
 <li>References must always be valid.</li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <p>The second point is easy to understand. In C/C++, never use a freed pointer. But the first one&hellip; Wait, how did I implement my speed measuring thread?</p>
 <p>Let&rsquo;s give an end to this problem: <strong><a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" rel="noopener noreffer ">race condition</a></strong>. My Raspbian is a 32-bit version, where a <code>long long int</code> is a 64-bit signed integer. In other words, almost all operations towards it could not be completed in a single assembly instruction. Therefore, when the speed measuring thread partly change the counter but not complete yet, it might be preempted by the scheduler to the main thread. Now reading(loading) this counter in main could generate a race condition. The reason that the C version worked is that it only prints the counter without spawning another thread. The IRQ handler runs really fast and could never be preempted by other threads, while the interrupt frequency isn&rsquo;t that high to frequently preempt the reading process in the main thread. <del>When I check the makefiles, I found the C version was compiled with -O3 while the C++ version had no optimization option at all</del></p>
 <p>So, what are the proper ways to do that?</p>
@@ -483,7 +484,7 @@ $$</p>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.128.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2020 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span></div>
         </div>
     </footer></div>

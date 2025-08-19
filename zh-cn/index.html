@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-	<meta name="generator" content="Hugo 0.145.0">
+	<meta name="generator" content="Hugo 0.128.0">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
@@ -110,56 +110,27 @@
         title="/images/avatar.png" /></a></div><h1 class="home-title">Ez Blog</h1><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/EzekielDaun" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="https://linkedin.com/in/yifei-liu120/" title="LinkedIn" target="_blank" rel="noopener noreffer me"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="mailto:liuyifei0905@gmail.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a><a href="/zh-cn/index.xml" title="RSS" target="_blank" rel="noopener noreffer me"><i class="fas fa-rss fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/zh-cn/zsh-addons/">Zsh 配置</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-01-06">2024-01-06</time></span></div><div class="content"><h1 id="zsh-配置">Zsh 配置</h1>
-<p>修 Mac 抹掉了所有数据。一通重新配置，记录一下终端以及 zsh 相关的内容。</p>
-<h2 id="homebrew">Homebrew</h2>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-bash">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install zsh zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting</span></span></code></pre></div></div>
-<p>记得去 <code>.zshrc</code> 中启用。</p>
-<h2 id="zshrc">.zshrc</h2>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-.zshrc">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-.zshrc" data-lang=".zshrc"><span class="line"><span class="cl"><span class="nv">ZSH_THEME</span><span class="o">=</span><span class="s2">&#34;agnoster&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">plugins</span><span class="o">=(</span>git brew fzf vscode python rust zoxide<span class="o">)</span></span></span></code></pre></div></div></div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-01-06">2024-01-06</time></span></div><div class="content">Zsh 配置 修 Mac 抹掉了所有数据。一通重新配置，记录一下终端以及 zsh 相关的内容。 Homebrew brew install zsh zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting 记得去 .zshrc 中启用。 .zshrc ZSH_THEME=&#34;agnoster&#34; plugins=(git brew fzf vscode python rust zoxide)</div><div class="post-footer">
         <a href="/zh-cn/zsh-addons/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/zh-cn/wow-again/">魔兽，再也不见</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2023-05-13">2023-05-13</time></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/misc/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Misc</a></span></div><div class="content"><h1 id="再会魔兽">再会魔兽</h1>
-<p>年初<a href="./../byebye-blizzard/" rel="">暴雪关国服</a>，互联网上一片怀旧之声，反倒勾起了我回坑的心思。以前中学时只愁没空玩，正巧一月底闲得发慌，何不试试美服呢。</p>
-<h2 id="重逢">重逢</h2>
-<h3 id="怀旧服踩坑">怀旧服踩坑</h3>
-<p>早有耳闻正式服已面目全非，于是冲了张月卡便先选择了 WLK 怀旧服，体验一下所谓经典版本。谁料我这个 5.1 鬼蟹时代入坑的“新世代“玩家根本玩不下去：只能任务升级，拉两只就打不过，几步就得喝水。三天只升到了 16 级。卡在黑海岸进洞杀怪任务，遂转战正式服。</p></div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2023-05-13">2023-05-13</time></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/misc/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Misc</a></span></div><div class="content">再会魔兽 年初暴雪关国服，互联网上一片怀旧之声，反倒勾起了我回坑的心思。以前中学时只愁没空玩，正巧一月底闲得发慌，何不试试美服呢。 重逢 怀旧服踩</div><div class="post-footer">
         <a href="/zh-cn/wow-again/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/zh-cn/byebye-blizzard/">Bye Bye Blizzard</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2023-01-20">2023-01-20</time></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/misc/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Misc</a></span></div><div class="content"><h1 id="写在暴雪国服关服之时">写在暴雪国服关服之时</h1>
-<p>一个月前就知道了这个消息，不由得感叹爷青结。但今天看了王师傅的视频<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>才意识到，哦，原来已经十年了了啊。虽然最近一次认真玩还是三年前 sc2 美服神族打到 钻石 1 3600，人族 3300 钻二，但这次，我的青春大概真的结束了。</p></div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2023-01-20">2023-01-20</time></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/misc/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Misc</a></span></div><div class="content">写在暴雪国服关服之时 一个月前就知道了这个消息，不由得感叹爷青结。但今天看了王师傅的视频1才意识到，哦，原来已经十年了了啊。虽然最近一次认真玩</div><div class="post-footer">
         <a href="/zh-cn/byebye-blizzard/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/zh-cn/byebye-2022/">再见 2022</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-12-29">2022-12-29</time></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/misc/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Misc</a></span></div><div class="content"><p>暑假结束的时候本来想写点东西，写到一半不知怎么搁置了。思路已然断了，不过还是放在这里。年底的东西另续在后面。</p>
-<h1 id="暑假杂感">暑假杂感</h1>
-<p>四个月的暑假转瞬即逝，兜兜转转，又是一年开学季。或许是我此前并未留意，这四个月来，仿佛每周都在发生着或大或小，国内或国外的重磅新闻。</p></div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-12-29">2022-12-29</time></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/misc/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Misc</a></span></div><div class="content">暑假结束的时候本来想写点东西，写到一半不知怎么搁置了。思路已然断了，不过还是放在这里。年底的东西另续在后面。 暑假杂感 四个月的暑假转瞬即逝，兜</div><div class="post-footer">
         <a href="/zh-cn/byebye-2022/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/zh-cn/ubc-biosensor-intern1/">UBC 硅光芯片 CO-OP</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-08-25">2022-08-25</time></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/misc/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Misc</a></span></div><div class="content"><h1 id="ubc-silicon-photonics-biosensor">UBC Silicon Photonics Biosensor</h1>
-<p>2022 年 5-8 月，在 UBC 开始了第一份 CO-OP。你说我一个 ME 学生，怎么就拿了 ECE 的 offer 去给 Biosensor 写代码呢？</p>
-<p>入职前就给了两大页 Google doc 的参考资料，要么就是论文要么就是公开课。太多了我就看了前两个视频。正式入职以后上来就甩了三篇论文让看，一周后讨论……一篇文献综述过一遍硅光芯片的基本原理背景知识和发展情况，一篇跟我工作有关的曲线拟合和数据处理，一篇完全看不懂的反应速率分析。同时因为要进生物实验室，上了一周实验室安全课。又花了两周过了一遍实验室设备和软件的使用，搭搭环境，演示了一遍完整的实验流程。前后这么一折腾一个多月就过去了。（我还晚入职了半个月……）</p></div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-08-25">2022-08-25</time></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/misc/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Misc</a></span></div><div class="content">UBC Silicon Photonics Biosensor 2022 年 5-8 月，在 UBC 开始了第一份 CO-OP。你说我一个 ME 学生，怎么就拿了 ECE 的 offer 去给 Biosensor 写代码呢？ 入职前就给了两大页 Google doc 的参考资料，要么就是论</div><div class="post-footer">
         <a href="/zh-cn/ubc-biosensor-intern1/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/zh-cn/the-sixth-move/">第六次搬家</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-06-25">2022-06-25</time></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/misc/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Misc</a></span></div><div class="content"><p>这两年因各种变故搬了五次家。这次搬进宿舍，希望能安稳地住到毕业。</p>
-<hr>
-<p>在北京长大，从小上学走读，唯一经历过的搬家是二年级从院里的营职房搬到团职房，记忆是换了大房子有了自己的房间很开心、要求把墙刷成最淡的蓝色、被姥姥带去家具市场挑了猫和老鼠的窗帘、不理解为什么沙发也可以是硬硬的红木长条板凳加个海绵垫……</p></div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-06-25">2022-06-25</time></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/misc/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Misc</a></span></div><div class="content">这两年因各种变故搬了五次家。这次搬进宿舍，希望能安稳地住到毕业。 在北京长大，从小上学走读，唯一经历过的搬家是二年级从院里的营职房搬到团职房，</div><div class="post-footer">
         <a href="/zh-cn/the-sixth-move/">阅读全文</a></div>
 </article><ul class="pagination"><li class="page-item active">
                     <span class="page-link">
@@ -171,7 +142,7 @@
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.128.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2020 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">xxxx</a></span></div>
         </div>
     </footer></div>

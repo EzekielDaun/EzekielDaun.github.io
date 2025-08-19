@@ -11,25 +11,7 @@
     <pubDate>Sat, 06 Jan 2024 21:07:27 -0800</pubDate>
     <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/zsh-addons/</guid>
-    <description><![CDATA[<h1 id="zsh-配置">Zsh 配置</h1>
-<p>修 Mac 抹掉了所有数据。一通重新配置，记录一下终端以及 zsh 相关的内容。</p>
-<h2 id="homebrew">Homebrew</h2>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-bash">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install zsh zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting</span></span></code></pre></div></div>
-<p>记得去 <code>.zshrc</code> 中启用。</p>
-<h2 id="zshrc">.zshrc</h2>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-.zshrc">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-.zshrc" data-lang=".zshrc"><span class="line"><span class="cl"><span class="nv">ZSH_THEME</span><span class="o">=</span><span class="s2">&#34;agnoster&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">plugins</span><span class="o">=(</span>git brew fzf vscode python rust zoxide<span class="o">)</span></span></span></code></pre></div></div>]]></description>
+    <description><![CDATA[Zsh 配置 修 Mac 抹掉了所有数据。一通重新配置，记录一下终端以及 zsh 相关的内容。 Homebrew brew install zsh zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting 记得去 .zshrc 中启用。 .zshrc ZSH_THEME=&#34;agnoster&#34; plugins=(git brew fzf vscode python rust zoxide)]]></description>
 </item>
 <item>
     <title>魔兽，再也不见</title>
@@ -37,11 +19,7 @@
     <pubDate>Sat, 13 May 2023 10:56:41 -0700</pubDate>
     <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/wow-again/</guid>
-    <description><![CDATA[<h1 id="再会魔兽">再会魔兽</h1>
-<p>年初<a href="./../byebye-blizzard/" rel="">暴雪关国服</a>，互联网上一片怀旧之声，反倒勾起了我回坑的心思。以前中学时只愁没空玩，正巧一月底闲得发慌，何不试试美服呢。</p>
-<h2 id="重逢">重逢</h2>
-<h3 id="怀旧服踩坑">怀旧服踩坑</h3>
-<p>早有耳闻正式服已面目全非，于是冲了张月卡便先选择了 WLK 怀旧服，体验一下所谓经典版本。谁料我这个 5.1 鬼蟹时代入坑的“新世代“玩家根本玩不下去：只能任务升级，拉两只就打不过，几步就得喝水。三天只升到了 16 级。卡在黑海岸进洞杀怪任务，遂转战正式服。</p>]]></description>
+    <description><![CDATA[再会魔兽 年初暴雪关国服，互联网上一片怀旧之声，反倒勾起了我回坑的心思。以前中学时只愁没空玩，正巧一月底闲得发慌，何不试试美服呢。 重逢 怀旧服踩]]></description>
 </item>
 <item>
     <title>Bye Bye Blizzard</title>
@@ -49,8 +27,7 @@
     <pubDate>Fri, 20 Jan 2023 22:20:48 -0800</pubDate>
     <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/byebye-blizzard/</guid>
-    <description><![CDATA[<h1 id="写在暴雪国服关服之时">写在暴雪国服关服之时</h1>
-<p>一个月前就知道了这个消息，不由得感叹爷青结。但今天看了王师傅的视频<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>才意识到，哦，原来已经十年了了啊。虽然最近一次认真玩还是三年前 sc2 美服神族打到 钻石 1 3600，人族 3300 钻二，但这次，我的青春大概真的结束了。</p>]]></description>
+    <description><![CDATA[写在暴雪国服关服之时 一个月前就知道了这个消息，不由得感叹爷青结。但今天看了王师傅的视频1才意识到，哦，原来已经十年了了啊。虽然最近一次认真玩]]></description>
 </item>
 <item>
     <title>再见 2022</title>
@@ -58,9 +35,7 @@
     <pubDate>Thu, 29 Dec 2022 18:46:21 -0800</pubDate>
     <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/byebye-2022/</guid>
-    <description><![CDATA[<p>暑假结束的时候本来想写点东西，写到一半不知怎么搁置了。思路已然断了，不过还是放在这里。年底的东西另续在后面。</p>
-<h1 id="暑假杂感">暑假杂感</h1>
-<p>四个月的暑假转瞬即逝，兜兜转转，又是一年开学季。或许是我此前并未留意，这四个月来，仿佛每周都在发生着或大或小，国内或国外的重磅新闻。</p>]]></description>
+    <description><![CDATA[暑假结束的时候本来想写点东西，写到一半不知怎么搁置了。思路已然断了，不过还是放在这里。年底的东西另续在后面。 暑假杂感 四个月的暑假转瞬即逝，兜]]></description>
 </item>
 <item>
     <title>UBC 硅光芯片 CO-OP</title>
@@ -68,9 +43,7 @@
     <pubDate>Thu, 25 Aug 2022 19:26:56 -0700</pubDate>
     <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/ubc-biosensor-intern1/</guid>
-    <description><![CDATA[<h1 id="ubc-silicon-photonics-biosensor">UBC Silicon Photonics Biosensor</h1>
-<p>2022 年 5-8 月，在 UBC 开始了第一份 CO-OP。你说我一个 ME 学生，怎么就拿了 ECE 的 offer 去给 Biosensor 写代码呢？</p>
-<p>入职前就给了两大页 Google doc 的参考资料，要么就是论文要么就是公开课。太多了我就看了前两个视频。正式入职以后上来就甩了三篇论文让看，一周后讨论……一篇文献综述过一遍硅光芯片的基本原理背景知识和发展情况，一篇跟我工作有关的曲线拟合和数据处理，一篇完全看不懂的反应速率分析。同时因为要进生物实验室，上了一周实验室安全课。又花了两周过了一遍实验室设备和软件的使用，搭搭环境，演示了一遍完整的实验流程。前后这么一折腾一个多月就过去了。（我还晚入职了半个月……）</p>]]></description>
+    <description><![CDATA[UBC Silicon Photonics Biosensor 2022 年 5-8 月，在 UBC 开始了第一份 CO-OP。你说我一个 ME 学生，怎么就拿了 ECE 的 offer 去给 Biosensor 写代码呢？ 入职前就给了两大页 Google doc 的参考资料，要么就是论]]></description>
 </item>
 <item>
     <title>第六次搬家</title>
@@ -78,9 +51,7 @@
     <pubDate>Sat, 25 Jun 2022 14:25:00 -0700</pubDate>
     <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/the-sixth-move/</guid>
-    <description><![CDATA[<p>这两年因各种变故搬了五次家。这次搬进宿舍，希望能安稳地住到毕业。</p>
-<hr>
-<p>在北京长大，从小上学走读，唯一经历过的搬家是二年级从院里的营职房搬到团职房，记忆是换了大房子有了自己的房间很开心、要求把墙刷成最淡的蓝色、被姥姥带去家具市场挑了猫和老鼠的窗帘、不理解为什么沙发也可以是硬硬的红木长条板凳加个海绵垫……</p>]]></description>
+    <description><![CDATA[这两年因各种变故搬了五次家。这次搬进宿舍，希望能安稳地住到毕业。 在北京长大，从小上学走读，唯一经历过的搬家是二年级从院里的营职房搬到团职房，]]></description>
 </item>
 <item>
     <title>我的 UBC 课程总结</title>
@@ -88,9 +59,7 @@
     <pubDate>Wed, 13 Apr 2022 15:49:02 -0700</pubDate>
     <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/course-summary/</guid>
-    <description><![CDATA[<p>简要总结下本科课程</p>
-<h2 id="first-year">First Year</h2>
-<p>大一，可以说就是把国内高中的东西拿英文重新上一遍，压力很小，几乎每天都有时间健身。两个工程导论课还算有意思，小组讨论的形式很锻炼口语。</p>]]></description>
+    <description><![CDATA[简要总结下本科课程 First Year 大一，可以说就是把国内高中的东西拿英文重新上一遍，压力很小，几乎每天都有时间健身。两个工程导论课还算有意思，小组讨论的]]></description>
 </item>
 <item>
     <title>平衡小车</title>
@@ -98,10 +67,7 @@
     <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate>
     <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/balancing-bot/</guid>
-    <description><![CDATA[<p>大三才做出来平衡小车实在是太菜了&hellip;分享一下过程和学习笔记。写这篇时还没有学过任何控制相关的课程，如有错误请见谅</p>
-<h2 id="平衡小车-pid-原理">平衡小车 PID 原理</h2>
-<h3 id="pid">PID</h3>
-<p>网上有太多 PID 解析了，这里不多赘述，讲一下我的理解</p>]]></description>
+    <description><![CDATA[大三才做出来平衡小车实在是太菜了&hellip;分享一下过程和学习笔记。写这篇时还没有学过任何控制相关的课程，如有错误请见谅 平衡小车 PID 原理 PID]]></description>
 </item>
 <item>
     <title>第一份实习</title>
@@ -109,7 +75,7 @@
     <pubDate>Tue, 28 Dec 2021 15:34:14 -0800</pubDate>
     <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/my-first-intern/</guid>
-    <description><![CDATA[<p>2021 年大二结束后的暑假，托关系找了份实习。一家医疗器械公司，主营体外检测仪器和配套试剂。安排我到他们做快速荧光 PCR 的项目里。说起来也蛮有趣，我一个臭机械本科生，六个月里竟然前后干了机械电子软件三种工作（大约各两个月）。流水账式地记录下几个主要内容。</p>]]></description>
+    <description><![CDATA[2021 年大二结束后的暑假，托关系找了份实习。一家医疗器械公司，主营体外检测仪器和配套试剂。安排我到他们做快速荧光 PCR 的项目里。说起来也蛮有趣，我一]]></description>
 </item>
 <item>
     <title>初探 STM32 嵌入式 Rust</title>
@@ -117,18 +83,7 @@
     <pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate>
     <author>xxxx</author>
     <guid>https://ezekieldaun.github.io/zh-cn/hello-embedded-rust/</guid>
-    <description><![CDATA[<p>这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结</p>
-<h2 id="资料">资料</h2>
-<ul>
-<li><a href="https://doc.rust-lang.org/book/" target="_blank" rel="noopener noreffer ">The Book</a>: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法</li>
-<li><a href="https://docs.rust-embedded.org/discovery/" target="_blank" rel="noopener noreffer ">Discovery</a>: 写博客时发现这本书有了使用 micro:bit 的<a href="https://docs.rust-embedded.org/discovery/microbit/" target="_blank" rel="noopener noreffer ">新版</a>, 我读的是使用 STM32F3Discovery 的<a href="https://docs.rust-embedded.org/discovery/f3discovery/" target="_blank" rel="noopener noreffer ">旧版</a></li>
-<li><a href="https://docs.rust-embedded.org/book/" target="_blank" rel="noopener noreffer ">The Embedded Rust Book</a>: 有嵌入式开发经验可以跳过 discovery 直接看这本。我买了 F3 板子所以直接跑在板子上没有用 QEMU</li>
-<li><a href="https://rtic.rs" target="_blank" rel="noopener noreffer ">RTIC</a>: 一个裸机多任务框架，更好地共享 Rust 变量。我看的时候是 v0.5，现在已经出到 1.0 了，可喜可贺。</li>
-<li><a href="https://ferrous-systems.com/blog/all/" target="_blank" rel="noopener noreffer ">ferrous-systems&rsquo;s blog</a>: 这家公司的博客介绍了许多 Rust 在嵌入式开发中的技巧，获益匪浅。尤其是实现了一个 <a href="https://github.com/ferrous-systems/async-on-embedded" target="_blank" rel="noopener noreffer ">async/await executor</a></li>
-</ul>
-<h2 id="环境搭建">环境搭建</h2>
-<h3 id="rust-工具链">Rust 工具链</h3>
-<p>这里使用 rustup 安装了 msvc 工具链的 rust</p>]]></description>
+    <description><![CDATA[这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结 资料 The Book: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法 Discovery: 写博客时发现这本]]></description>
 </item>
 </channel>
 </rss>
