@@ -16,10 +16,10 @@
     <meta property="article:modified_time" content="2021-12-27T18:48:13-08:00">
     <meta property="article:tag" content="Rust">
     <meta property="article:tag" content="Embedded">
-    <meta property="og:image" content="https://ezekieldaun.github.io/hello-embedded-rust/hello.jpg">
+    <meta property="og:image" content="https://ezekieldaun.github.io/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://ezekieldaun.github.io/hello-embedded-rust/hello.jpg">
+  <meta name="twitter:image" content="https://ezekieldaun.github.io/logo.png">
   <meta name="twitter:title" content="初探 STM32 嵌入式 Rust">
   <meta name="twitter:description" content="这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结
 资料 The Book: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法 Discovery: 写博客时发现这本书有了使用 micro:bit 的新版, 我读的是使用 STM32F3Discovery 的旧版 The Embedded Rust Book: 有嵌入式开发经验可以跳过 discovery 直接看这本。我买了 F3 板子所以直接跑在板子上没有用 QEMU RTIC: 一个裸机多任务框架，更好地共享 Rust 变量。我看的时候是 v0.5，现在已经出到 1.0 了，可喜可贺。 ferrous-systems’s blog: 这家公司的博客介绍了许多 Rust 在嵌入式开发中的技巧，获益匪浅。尤其是实现了一个 async/await executor 环境搭建 Rust 工具链这里使用 rustup 安装了 msvc 工具链的 rust">
@@ -236,7 +236,7 @@
     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;约 2578 字&nbsp;
                     <svg class="icon"
     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;预计阅读 12 分钟&nbsp;</div>
-        </div><div class="details toc print:!tw-block" id="toc-static"  kept="">
+        </div><div class="featured-image"><img  loading="eager" src='/hello-embedded-rust/hello.jpg' srcset="/hello-embedded-rust/hello_hu_907faed47b5978b4.webp 800w, /hello-embedded-rust/hello_hu_19fefc9c11106623.webp 1200w, /hello-embedded-rust/hello_hu_74809e17ecc5cdaa.webp 1600w"   height="1279" width="2771"></div><div class="details toc print:!tw-block" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span class="details-icon"><svg class="icon"
