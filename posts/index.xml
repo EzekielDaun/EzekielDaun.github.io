@@ -4,7 +4,18 @@
         <link>https://ezekieldaun.github.io/posts/</link>
         <description>所有文章 | Ez的博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
-            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Sat, 06 Jan 2024 21:07:27 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Mon, 18 Aug 2025 21:54:16 -0700</lastBuildDate><atom:link href="https://ezekieldaun.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>BC 环线之旅</title>
+    <link>https://ezekieldaun.github.io/bc_trip/</link>
+    <pubDate>Mon, 18 Aug 2025 21:54:16 -0700</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/bc_trip/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/bc_trip/figures/route.png" referrerpolicy="no-referrer">
+            </div><h1 id="bc-环线之旅" class="headerLink">
+    <a href="#bc-%e7%8e%af%e7%ba%bf%e4%b9%8b%e6%97%85" class="header-mark"></a>BC 环线之旅</h1><p>8 月导师回国了，刚好手里的事情告一段落，于是，2025 年 8 月 11 日，一场说走就走的北 BC 环线之旅开始了。</p>
+<p>全程 4200 公里，行前问 ChatGPT 要了个路线规划。当然，不出意外地没有按这个走。</p>]]></description>
+</item><item>
     <title>Zsh 配置</title>
     <link>https://ezekieldaun.github.io/zsh-addons/</link>
     <pubDate>Sat, 06 Jan 2024 21:07:27 -0800</pubDate><author>
@@ -115,25 +126,5 @@
         <name>Ezekiel</name>
     </author><guid>https://ezekieldaun.github.io/my-first-intern/</guid>
     <description><![CDATA[<p>2021 年大二结束后的暑假，托关系找了份实习。一家医疗器械公司，主营体外检测仪器和配套试剂。安排我到他们做快速荧光 PCR 的项目里。说起来也蛮有趣，我一个臭机械本科生，六个月里竟然前后干了机械电子软件三种工作（大约各两个月）。流水账式地记录下几个主要内容。</p>]]></description>
-</item><item>
-    <title>初探 STM32 嵌入式 Rust</title>
-    <link>https://ezekieldaun.github.io/hello-embedded-rust/</link>
-    <pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate><author>
-        <name>Ezekiel</name>
-    </author><guid>https://ezekieldaun.github.io/hello-embedded-rust/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/hello-embedded-rust/hello.jpg" referrerpolicy="no-referrer">
-            </div><p>这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结</p>
-<h2 id="资料" class="headerLink">
-    <a href="#%e8%b5%84%e6%96%99" class="header-mark"></a>资料</h2><ul>
-<li><a href="https://doc.rust-lang.org/book/" target="_blank" rel="noopener noreferrer">The Book</a>: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法</li>
-<li><a href="https://docs.rust-embedded.org/discovery/" target="_blank" rel="noopener noreferrer">Discovery</a>: 写博客时发现这本书有了使用 micro:bit 的<a href="https://docs.rust-embedded.org/discovery/microbit/" target="_blank" rel="noopener noreferrer">新版</a>, 我读的是使用 STM32F3Discovery 的<a href="https://docs.rust-embedded.org/discovery/f3discovery/" target="_blank" rel="noopener noreferrer">旧版</a></li>
-<li><a href="https://docs.rust-embedded.org/book/" target="_blank" rel="noopener noreferrer">The Embedded Rust Book</a>: 有嵌入式开发经验可以跳过 discovery 直接看这本。我买了 F3 板子所以直接跑在板子上没有用 QEMU</li>
-<li><a href="https://rtic.rs" target="_blank" rel="noopener noreferrer">RTIC</a>: 一个裸机多任务框架，更好地共享 Rust 变量。我看的时候是 v0.5，现在已经出到 1.0 了，可喜可贺。</li>
-<li><a href="https://ferrous-systems.com/blog/all/" target="_blank" rel="noopener noreferrer">ferrous-systems&rsquo;s blog</a>: 这家公司的博客介绍了许多 Rust 在嵌入式开发中的技巧，获益匪浅。尤其是实现了一个 <a href="https://github.com/ferrous-systems/async-on-embedded" target="_blank" rel="noopener noreferrer">async/await executor</a></li>
-</ul>
-<h2 id="环境搭建" class="headerLink">
-    <a href="#%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba" class="header-mark"></a>环境搭建</h2><h3 id="rust-工具链" class="headerLink">
-    <a href="#rust-%e5%b7%a5%e5%85%b7%e9%93%be" class="header-mark"></a>Rust 工具链</h3><p>这里使用 rustup 安装了 msvc 工具链的 rust</p>]]></description>
 </item></channel>
 </rss>
