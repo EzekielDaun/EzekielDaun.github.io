@@ -1,23 +1,23 @@
-# A First Step in STM32 Embedded Rust
+# 初探 STM32 嵌入式 Rust
 
 
-A brief summary for recent learning about embedded rust in internship and projects.
+这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结
 
-## Resources
+## 资料
 
-- [The Book](https://doc.rust-lang.org/book/): Basic rust grammar. Pay attention to `Channel`, `Mutex`, `Cell`, `RefCell` etc. in the concurrency section, which are also useful in embedded rust.
-- [Discovery](https://docs.rust-embedded.org/discovery/): There is a [new version](https://docs.rust-embedded.org/discovery/microbit/) using micro:bit when I write this blog. I was reading the [STM32F3Discovery](https://docs.rust-embedded.org/discovery/f3discovery/) version.
-- [The Embedded Rust Book](https://docs.rust-embedded.org/book/): If you are experienced in embedded systems, you can jump right in to this book. I have the F3 board so I didn't use QEMU.
-- [RTIC](https://rtic.rs): A concurrent framework on bare metal. Better handle rust variables with ownerships. When I learned it was v0.5. Good to see that 1.0 has been released.
-- [ferrous-systems' blog](https://ferrous-systems.com/blog/all/): This company introduced many technologies into embedded rust, includes testing, debugging etc. The most impressive is that they implement a [async/await executor](https://github.com/ferrous-systems/async-on-embedded).
+- [The Book](https://doc.rust-lang.org/book/): 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法
+- [Discovery](https://docs.rust-embedded.org/discovery/): 写博客时发现这本书有了使用 micro:bit 的[新版](https://docs.rust-embedded.org/discovery/microbit/), 我读的是使用 STM32F3Discovery 的[旧版](https://docs.rust-embedded.org/discovery/f3discovery/)
+- [The Embedded Rust Book](https://docs.rust-embedded.org/book/): 有嵌入式开发经验可以跳过 discovery 直接看这本。我买了 F3 板子所以直接跑在板子上没有用 QEMU
+- [RTIC](https://rtic.rs): 一个裸机多任务框架，更好地共享 Rust 变量。我看的时候是 v0.5，现在已经出到 1.0 了，可喜可贺。
+- [ferrous-systems's blog](https://ferrous-systems.com/blog/all/): 这家公司的博客介绍了许多 Rust 在嵌入式开发中的技巧，获益匪浅。尤其是实现了一个 [async/await executor](https://github.com/ferrous-systems/async-on-embedded)
 
-## Environment
+## 环境搭建
 
-### Rust Toolchain
+### Rust 工具链
 
-Here I installed the nightly version of msvc toolchain using rustup.
+这里使用 rustup 安装了 msvc 工具链的 rust
 
-Download core for different target platforms. Otherwise would be unable to compile:
+按需下载对应平台的 core，否则无法编译：
 
 ```shell
 rustup target add thumbv6m-none-eabi        #  Cortex-M0 and Cortex-M0+
@@ -26,81 +26,81 @@ rustup target add thumbv7em-none-eabi       #  Cortex-M4 and Cortex-M7 (no FPU)
 rustup target add thumbv7em-none-eabihf     #  Cortex-M4F and Cortex-M7F (with FPU)
 ```
 
-### Debugging Tools
+### 调试工具
 
-I am using the [scoop](https://github.com/ScoopInstaller/Scoop) package manager. So just `scoop install` the following tools:
+我使用包管理器 [scoop](https://github.com/ScoopInstaller/Scoop), 以下工具`scoop install` 即可
 
 - arm-none-eabi-gdb
 - openocd
 
-Besides, if using ST-LINK, manually install the driver.
+此外，如果使用 ST-LINK，需要手动安装驱动
 
-[This link (Chinese)](https://zhuanlan.zhihu.com/p/51872048) integrated debugging tools into vscode. Haven't tried since CLI is enough.
+[这篇文章](https://zhuanlan.zhihu.com/p/51872048)末尾提供了使用 vscode 调试的方法，我觉得 gdb 命令行就够用了，因此没有尝试
 
 ## Hello World
 
-`cortex-m` only. Other platforms untested.
+仅限 cortex-m 内核，其他平台未研究
 
 ```shell
 cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
 ```
 
-1. modify `.cargo/config.toml`
-1. modify `memory.x`. Usualy STM32 has the FLASH address on `0x08000000`, RAM address on `0x20000000`. If you see multiple RAMs in the manual, take the first one's size.
-1. modify `openocd.cfg`, available configuring scripts could be found under openocd's root directory
-1. run `openocd` at your project directory, keep this terminal open
-1. open a new terminal window, `cargo run`, see if there's any output
+1. 修改 .cargo/config.toml
+1. 修改 memory.x 一般 STM32 FLASH 起始地址在 0x08000000, RAM 在 0x20000000. 芯片手册里如果有多段 RAM，取第一段的大小
+1. 修改 openocd.cfg，可用的配置文件可以在 openocd 的安装目录下找到
+1. 在项目目录下执行`openocd`, 不要关闭这个终端
+1. 另起一个终端，执行`cargo run`, 观察是否收到输出
 
 ## PAC & HAL
 
-[PAC]^(Peripheral Access Crate) is usually generated automatically by [svd2rust](https://crates.io/crates/svd2rust), according to the [SVD]^(CMSIS System View Description) file from suppliers, wraps basic operation on registers. The API is like:
+[PAC]^(Peripheral Access Crate) 一般由 [svd2rust](https://crates.io/crates/svd2rust) 根据 ARM 厂商提供的 [SVD]^(CMSIS System View Description) 文件自动生成，提供了寄存器操作的基本包装，API 用法如：
 
 ```rust
 pwm.ctl.modify(|r, w| w.globalsync0().clear_bit());
 ```
 
-[HAL]^(Hardware Abstract Layer) is based on the PAC, (partly) implements [embedded-hal](https://crates.io/crates/embedded-hal). The STM32 series have some different implementations among each other, making the code for the same peripheral usually not interchangeable. You may not use all the driver crates since it requires some traits that the HAL doesn't implement, or you have to use unsafe blocks to directly manipulate registers.
+[HAL]^(Hardware Abstract Layer) 在 PAC 基础上遵循 [embedded-hal](https://crates.io/crates/embedded-hal) 编写。但至少 STM32 各系列的实现略有区别，导致同样的外设在 f1, f4 系列上的代码可能大不一样，各芯片的 driver crate 也不一定都能使用。部分外设如 FSMC，因为 hal 没有编写相关部分，几乎只能靠手动配置寄存器并引入 unsafe 块才能使用
 
-## To Start with (Bare Metal)
+## 起手式 (裸机)
 
 ````rust
-#![no_main] /* use entry macro */
-#![no_std] /* std not available */
+#![no_main] /* main 使用 entry 宏引入 */
+#![no_std] /* 不使用 std 因为不可用 */
 
-use panic_semihosting as _; /* choose panic handler, need a debugger or it would block */
+use panic_semihosting as _; /* 选择 panic 处理方式，不接调试器 semihosting 会卡死 */
 // use panic_halt as _;
-// use panic_abort as _; /* need nightly toolchain */
+// use panic_abort as _; /* 需要 nightly 工具链 */
 
-// use cortex_m::asm; /* if need to use assembly */
+// use cortex_m::asm; /* 如果需要直接使用汇编指令 */
 use cortex_m_rt::entry;
-// use cortex_m_semihosting::hprintln; /* println! with semihosting, makes debugging easier */
+// use cortex_m_semihosting::hprintln; /* semihosting 下的 println！宏，方便调试 */
 
-// use core::fmt::Write; /* if instead using serial port, use write! to write into serial's tx */
+// use core::fmt::Write; /* 如果使用串口调试，使用 write！宏向串口 tx 输出 */
 
 use hal::{
-    delay::Delay, /* delay function */
-    pac,
+    delay::Delay, /* 常用的延时 */
+    pac, /* hal 包装过的 pac */
     prelude::*,
 };
-use stm32f1xx_hal as hal; /* import a hal */
+use stm32f1xx_hal as hal; /* 导入一个 hal */
 
 #[entry]
 fn main() -> ! {
     let (dp, cp) = (
-        /* dp: device peripherals that the MCU designer provided */
+        /* dp:device peripherals，指 MCU 厂商扩展的外设 */
         pac::Peripherals::take().unwrap(),
-        /* cp: core peripherals that comes with ARM core */
+        /* cp: core peripherals，指 ARM 自带的外设 */
         cortex_m::Peripherals::take().unwrap(),
     );
 
-    /* Setup the clock tree */
+    /* 配置时钟 */
     let (mut flash, mut rcc) = (dp.FLASH.constrain(), dp.RCC.constrain());
     let clocks = rcc.cfgr.use_hse(8.mhz()).freeze(&mut flash.acr);
 
-    /* Use SYST or other clock sources to initialize the delay object */
+    /* 初始化 delay 对象，这里用系统时钟 SYST */
     let mut delay = Delay::new(cp.SYST, clocks);
 
-    /* gpio abstraction, depends on the hal */
+    /* gpio 抽象，各 hal 略有不同 */
     let (mut gpioa, mut gpiob) = (dp.GPIOA.split(&mut rcc.apb2), dp.GPIOB.split(&mut rcc.apb2));
 
     loop{
@@ -110,62 +110,64 @@ fn main() -> ! {
 ```
 ````
 
-## Safe Global Variables
+## safe 全局变量
 
-We all know that modifying a `static mut` variable is unsafe in rust. Tons of style guides require for less global variables as possible. However, they are commonly used in embedded systems as we are doing low level coding and the whole program is not that complex. A better way in rust is using [RTIC](https://rtic.rs/). But here we start from the basics.
+我们都知道操作 `static mut` 是 unsafe 的，大量的编程规范要求尽量减少使用全局变量。但嵌入式环境下往往无法避免。一个更好的方法是规划好变量的作用范围后使用 [RTIC](https://rtic.rs/). 不过这里先讲一下简单的做法和原理
 
-- [`Atomic`](https://doc.rust-lang.org/std/sync/atomic/index.html) is the best way if the platform supports atomic operations. Simple and safe. Disadvantages are that there cannot be complex logic, and only a few primitive types are supported.
-- `Mutex<RefCell<T>>` with critical section. Need to `use cortex_m::interrupt::{self, Mutex};`. Can wrap up complex data types, including abstract for peripherals. But it makes a lot of noise in your code. The [usage](https://docs.rust-embedded.org/book/concurrency/index.html#sharing-peripherals)is roughly:
+- [`Atomic`](https://doc.rust-lang.org/std/sync/atomic/index.html) 是平台支持下最优雅的做法，简洁，安全。缺点是不能进行有复杂逻辑的操作，且仅支持几种基本数据类型，不过一般需求下够用了。
+- `Mutex<RefCell<T>>` 配合临界区使用。需要`use cortex_m::interrupt::{self, Mutex};`. 可以包装更复杂的数据类型，包括外设。但会引入大量语法噪音。[使用方法](https://docs.rust-embedded.org/book/concurrency/index.html#sharing-peripherals)大致为：
 
-  1.  declare a `static FOO:Mutex<RefCell<Option<T>>> = Mutex::new(RefCell::new(None));`
-  2.  initialize peripherals in the start of your `main()` and then open a critical section `interrupt::free(|cs| FOO.borrow(cs).replace(Some(T)));`, move the ownership to the global variable `FOO`
-  3.  to use in other places, after entering a critical section, use `FOO.borrow(cs).borrow()` to get the inner `RefCell` then `as_ref()` to get the wrapped `T`
+  1.  声明一个 `static FOO:Mutex<RefCell<Option<T>>> = Mutex::new(RefCell::new(None));`
+  2.  在 main 中初始化外设并在临界区中使用 `interrupt::free(|cs| FOO.borrow(cs).replace(Some(T)));` 移动所有权给全局变量 `FOO`
+  3.  使用时同样需要进入临界区后，使用 `FOO.borrow(cs).borrow()` 获取`RefCell`后再 `as_ref()` 才能得到内部的 T
 
-  I nearly never use this way as it's too complex and mentally exhausting. In a large project just use RTIC.
+  我几乎从不使用这种方法，心累手也累，复杂项目直接上 RTIC 完事儿
 
-This part usually makes me mad, as you have to use a bunch of layers to wrap up things that you could directly write in C, even if I know that there shouldn't be any problem.
+这部分相当让人抓狂，许多在 C 语言中可以直接写的部分要包上好多层，即便我知道它是安全的。
 
 ## RTIC
 
-I really want to call RTIC a preemptive scheduler. If together with a memory allocator, it works just like a preemptive RTOS. However it's just a foreground/background system, managing tasks by setting interrupt priorities, without a context switching function. The reason we choose it is that it wraps up the complex `Mutex<RefCell<Option<T>>>` usage, and it can register unoccupied hardware interrupts as software interrupts with arguments and capacity.
+我很想管 RTIC 叫抢占式调度框架，如果搭配内存分配器，用起来和抢占式的 RTOS 没啥区别。然而它其实只是个前后台系统，靠设置中断优先级来管理任务，并不具有上下文切换的能力。用它的原因就在于它包装了上述复杂的 `Mutex<RefCell<Option<T>>>`, 并可以将空闲的硬中断注册为可以有参数和容量的多个软中断。
 
-However, because it uses a lot of macros, neither [RLS]^(Rust Language Server) nor [RA]^(Rust Analyzer) can perfectly auto-complete and lint. So I usually code on bare metal first, making the type right, and then copy and paste into the RTIC project.
+然而，缺点来自于它使用了大量的宏，导致无论 [RLS]^(Rust Language Server) 还是 [RA]^(Rust Analyzer) 都不能很好的支持自动补全和类型。有些报错会一直显示却不影响正常编译... 真正编不过时又找不到报错的原因。因此我经常先在裸机上搭好一些外设驱动框架，调试好类型后再复制进 RTIC 项目。
 
-## Memory Allocator
+## 内存分配器
 
-[alloc-cortex-m](https://crates.io/crates/alloc-cortex-m): need nightly toolchain. [usage](https://github.com/rust-embedded/alloc-cortex-m/blob/master/examples/global_alloc.rs)
+[alloc-cortex-m](https://crates.io/crates/alloc-cortex-m): 需要 nightly 工具链，[用法](https://github.com/rust-embedded/alloc-cortex-m/blob/master/examples/global_alloc.rs)
 
-With a memory allocator, we can conveniently use `vec!` etc. The allocator can be config to use external memory after setting up FSMC.
+使用内存分配器后，可以像有 std 一样使用方便地使用 `vec!` 等。可以先通过 FSMC 配置好外部 RAM 后将其内存起始地址指向 RAM
 
 ## RTOS
 
-I have tried [drone](https://www.drone-os.com/) on both WSL and Linux PC but failed to run a hello-world... BTW it seems no longer maintained.
+我尝试过[drone](https://www.drone-os.com/), WSL 和 Linux 物理机都试过，然而连 hello world 都没能跑起来... 它似乎也没在更新了
 
-Also, there is [Tock OS](https://book.tockos.org/), but you have to write peripheral drivers. The official ST [demo](https://www.tockos.org/hardware/) only have f3disco and two f4nucleo board, and neither have I tried.
+另外还有[Tock OS](https://book.tockos.org/), 但外设驱动需要自行编写，官方的 ST [demo](https://www.tockos.org/hardware/) 只有 f3disco 和两个 f4nucleo，并没有尝试过
 
-I am not optimistic about RTOS in Rust, as many existing drivers are in C. Not to mention the compatibility with existing hal.
+RTOS 方面估计很难超越 μCOS 和 FreeRTOS，大量芯片驱动都有现成的 C 代码，Rust 这边还只能用爱发电. OS 能否和现有的 hal 框架兼容还是个问题
 
-## Useful Crates
+## 常用 crate
 
-- [heapless](https://crates.io/crates/heapless)
-- [bitbang-hal](https://crates.io/crates/bitbang-hal)
-- [nb](https://crates.io/crates/nb): although the name is short for non-block, it is usually used to block the code to wait for peripherals. Usage:
+- [heapless](https://crates.io/crates/heapless): 提供了静态内存分配的常用数据类型
+  - HistoryBuffer: 可用于平滑滤波
+  - spsc::Queue: 消息队列
+  - String: 方便输出调试信息
+- [bitbang-hal](https://crates.io/crates/bitbang-hal): 提供了软件模拟的 I2C, USART, SPI
+- [nb](https://crates.io/crates/nb): 虽然名字叫做 non-block 但更多用 block！宏来等待外设工作完成，例如：
   ```rust
   block!(Serial.write(byte))?;
   ```
-- [micromath](https://crates.io/crates/micromath): provide operations on floating point numbers that may be missing in no_std environment
+- [micromath](https://crates.io/crates/micromath): 提供了嵌入式环境下可能缺失的某些 F32 操作
 
-## Conclusion
+## 总结
 
-Embedded rust is definitely acceptable for personal projects. A few disadvantages are:
+个人项目的话，Embedded Rust 只能说差强人意。小芯片 debug 编译二进制太大，没法调试。语法噪音也是相当烦人。我利用几个芯片的 crate 写了个[平衡车](https://github.com/EzekielDaun/rs-balancing-bot)玩，过段时间会专门介绍
 
-- large binaries in debug mode. I have a [balancing-bot](https://github.com/EzekielDaun/rs-balancing-bot) project in which I would tell you more later.
-- annoying grammar noise
+实习中用 rust 写了一些小板子的验证 demo，逻辑简单的话用 hal 分分钟就能起个项目。也用 RTIC 尝试过复杂项目，有这么几个问题：
 
-I tried embedded rust for some tiny boards' verifying demo. If the logic isn't too complex, you can complete the whole project in just a few minutes. I have also tried RTIC for large projects and found a few problems:
+1. 本质仍然是前后台，复杂任务调度比较烧脑
+2. 运行速度比 μCOSⅢ 慢不少，写了个简单的串口环回，能慢将近一半。或许是我时钟没配好...也可能人家商业公司在关中断这块儿确实优化的好。尝试了两天，还是改用 μCOS 了，因为即便我这个实习生写出来也以后没人接手维护...
 
-1. basically foreground/background system, bothersome when design complex scheduling.
-2. much slower that μCOSⅢ. I made a simple serial loop-back, and it could be 50% slower! Maybe I didn't properly config the clock... Or micrium optimized a lot in handling interrupts. I give up in 2 days, turned to μCOS, because even if I complete it, no one could maintain it lol.
+Rust 合理的 trait 抽象加上 embedded-hal 这套统一的规范，使得各种库的编写成为可能。我的平衡车项目几乎纯靠调库就能完成，可见这套抽象的威力。这也是 STM32 的标准库和 HAL 库 之所以火遍中国。然而现实很骨感，一是性能损失，这种抽象多少会带来一些冗余代码，当然 LLVM 能不能优化我就不懂了; 二是虽然有 embedded-hal 规定了一些 trait，但 trait 之外的部分各不相同，就比如 ST 系列，FSMC 几乎没有，F1XXHAL 和 F4XXHAL 许多 api 完全不同... 最后一点纯属猜测，C++ 也有虚函数，也完全可以定义一套接口规范，为何 ARM 厂商不用 C++ 呢？虚表实现有性能损失，那编译器也可以用其他实现呀，反正芯片厂的编译器都是魔改过的...这么多年 C++ 都没在嵌入式铺开，Rust 只能说悬
 
-Rust's awesome trait abstraction and embedded-hal as a unified interface, make general driver crates possible. My balancing bot project was done mainly by using crates, which proved the power of these abstractions. This is also the reason STM32's standard peripheral library and HAL library are so popular in China. However, it inevitably brings extra code with performance trade-off, although you can depend on LLVM, but who knows. Although embedded-hal defines some traits, when out of these traits, hals are usually implemented differently, for example, the GPIO API in STM32F1XX_HAL is very different than in STM32F4XX_HAL. The last thing is only my guess. C++ also has virtual functions, where defining a unified interface is definitely possible. Why they don't use C++? The virtual table may have performance loss, but the compiler could choose other implementation since compilers for embedded chips are commonly hacked by these companies with some magic.
+Rust 是个好语言，但在嵌入式方面生态似乎是更主要的问题。没有解决大痛点的话业界根本没有动力抛弃多年积累重新开始。
 

@@ -1,26 +1,40 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Tech - Category - Ez&#39;s blog</title>
+        <title>Tech - 分类 - Ez的博客</title>
         <link>https://ezekieldaun.github.io/categories/tech/</link>
-        <description>Tech - Category - Ez&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 28 Dec 2021 15:34:52 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/categories/tech/" rel="self" type="application/rss+xml" /><item>
-    <title>Balancing Bot</title>
+        <description>Tech - 分类 - Ez的博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
+            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Tue, 28 Dec 2021 15:34:52 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/categories/tech/" rel="self" type="application/rss+xml" /><item>
+    <title>平衡小车</title>
     <link>https://ezekieldaun.github.io/balancing-bot/</link>
-    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate>
-    <author>xxxx</author>
-    <guid>https://ezekieldaun.github.io/balancing-bot/</guid>
-    <description><![CDATA[In this post, I am going to share my experience in developing a balancing bot. As I haven&rsquo;t formally learned any courses about the control system, I could not guarantee the correctness of all the points.
-The Cascade PID Controller for the Bot PID There are too much explanation about the PID controller. So I will just share my own understanding.
-You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop.]]></description>
-</item>
-<item>
-    <title>A First Step in STM32 Embedded Rust</title>
+    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/balancing-bot/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/balancing-bot/featuredImage.jpg" referrerpolicy="no-referrer">
+            </div><p>大三才做出来平衡小车实在是太菜了&hellip;分享一下过程和学习笔记。写这篇时还没有学过任何控制相关的课程，如有错误请见谅</p>
+<h2 id="平衡小车-pid-原理" class="headerLink">
+    <a href="#%e5%b9%b3%e8%a1%a1%e5%b0%8f%e8%bd%a6-pid-%e5%8e%9f%e7%90%86" class="header-mark"></a>平衡小车 PID 原理</h2><h3 id="pid" class="headerLink">
+    <a href="#pid" class="header-mark"></a>PID</h3><p>网上有太多 PID 解析了，这里不多赘述，讲一下我的理解</p>]]></description>
+</item><item>
+    <title>初探 STM32 嵌入式 Rust</title>
     <link>https://ezekieldaun.github.io/hello-embedded-rust/</link>
-    <pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate>
-    <author>xxxx</author>
-    <guid>https://ezekieldaun.github.io/hello-embedded-rust/</guid>
-    <description><![CDATA[A brief summary for recent learning about embedded rust in internship and projects.
-Resources The Book: Basic rust grammar. Pay attention to Channel, Mutex, Cell, RefCell etc. in the concurrency section, which are also useful in embedded rust. Discovery: There is a new version using micro:bit when I write this blog. I was reading the STM32F3Discovery version. The Embedded Rust Book: If you are experienced in embedded systems, you can jump right in to this book.]]></description>
-</item>
-</channel>
+    <pubDate>Mon, 27 Dec 2021 18:48:13 -0800</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/hello-embedded-rust/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/hello-embedded-rust/hello.jpg" referrerpolicy="no-referrer">
+            </div><p>这段时间在实习和个人项目中学习 STM32 上嵌入式 Rust 的一些总结</p>
+<h2 id="资料" class="headerLink">
+    <a href="#%e8%b5%84%e6%96%99" class="header-mark"></a>资料</h2><ul>
+<li><a href="https://doc.rust-lang.org/book/" target="_blank" rel="noopener noreferrer">The Book</a>: 熟悉 Rust 语法，其中并发部分的 channel 和 Mutex, Cell, RefCell 等，在嵌入式中有类似的用法</li>
+<li><a href="https://docs.rust-embedded.org/discovery/" target="_blank" rel="noopener noreferrer">Discovery</a>: 写博客时发现这本书有了使用 micro:bit 的<a href="https://docs.rust-embedded.org/discovery/microbit/" target="_blank" rel="noopener noreferrer">新版</a>, 我读的是使用 STM32F3Discovery 的<a href="https://docs.rust-embedded.org/discovery/f3discovery/" target="_blank" rel="noopener noreferrer">旧版</a></li>
+<li><a href="https://docs.rust-embedded.org/book/" target="_blank" rel="noopener noreferrer">The Embedded Rust Book</a>: 有嵌入式开发经验可以跳过 discovery 直接看这本。我买了 F3 板子所以直接跑在板子上没有用 QEMU</li>
+<li><a href="https://rtic.rs" target="_blank" rel="noopener noreferrer">RTIC</a>: 一个裸机多任务框架，更好地共享 Rust 变量。我看的时候是 v0.5，现在已经出到 1.0 了，可喜可贺。</li>
+<li><a href="https://ferrous-systems.com/blog/all/" target="_blank" rel="noopener noreferrer">ferrous-systems&rsquo;s blog</a>: 这家公司的博客介绍了许多 Rust 在嵌入式开发中的技巧，获益匪浅。尤其是实现了一个 <a href="https://github.com/ferrous-systems/async-on-embedded" target="_blank" rel="noopener noreferrer">async/await executor</a></li>
+</ul>
+<h2 id="环境搭建" class="headerLink">
+    <a href="#%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba" class="header-mark"></a>环境搭建</h2><h3 id="rust-工具链" class="headerLink">
+    <a href="#rust-%e5%b7%a5%e5%85%b7%e9%93%be" class="header-mark"></a>Rust 工具链</h3><p>这里使用 rustup 安装了 msvc 工具链的 rust</p>]]></description>
+</item></channel>
 </rss>

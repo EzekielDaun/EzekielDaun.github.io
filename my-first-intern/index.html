@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" /><title>第一份实习 - Ez的博客</title><meta name="Description" content="Ezekiel&#39;s blog"><meta property="og:url" content="https://ezekieldaun.github.io/my-first-intern/">
+  <meta property="og:site_name" content="Ez的博客">
+  <meta property="og:title" content="第一份实习">
+  <meta property="og:description" content="2021 年大二结束后的暑假，托关系找了份实习。一家医疗器械公司，主营体外检测仪器和配套试剂。安排我到他们做快速荧光 PCR 的项目里。说起来也蛮有趣，我一个臭机械本科生，六个月里竟然前后干了机械电子软件三种工作（大约各两个月）。流水账式地记录下几个主要内容。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-12-28T15:34:14-08:00">
+    <meta property="article:modified_time" content="2021-12-28T15:34:14-08:00">
+    <meta property="article:tag" content="Rust">
+    <meta property="article:tag" content="C/C&#43;&#43;">
+    <meta property="article:tag" content="RTOS">
+    <meta property="article:tag" content="SolidWorks">
+    <meta property="article:tag" content="PCB">
+    <meta property="article:tag" content="Embedded">
+    <meta property="og:image" content="https://ezekieldaun.github.io/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://ezekieldaun.github.io/logo.png">
+  <meta name="twitter:title" content="第一份实习">
+  <meta name="twitter:description" content="2021 年大二结束后的暑假，托关系找了份实习。一家医疗器械公司，主营体外检测仪器和配套试剂。安排我到他们做快速荧光 PCR 的项目里。说起来也蛮有趣，我一个臭机械本科生，六个月里竟然前后干了机械电子软件三种工作（大约各两个月）。流水账式地记录下几个主要内容。">
+<meta name="application-name" content="DoIt">
+<meta name="apple-mobile-web-app-title" content="DoIt">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<link rel="canonical" href="https://ezekieldaun.github.io/my-first-intern/" /><link rel="prev" href="https://ezekieldaun.github.io/hello-embedded-rust/" /><link rel="next" href="https://ezekieldaun.github.io/balancing-bot/" />
+<link rel="stylesheet" href="/css/main.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">{"@context": "https://schema.org","@type": "BlogPosting",
+        "headline": "第一份实习",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://ezekieldaun.github.io/my-first-intern/"
+        },"genre": "posts","keywords":["Rust","C/C++","RTOS","SolidWorks","PCB","Embedded"],"wordcount":  3731 ,
+        "url": "https://ezekieldaun.github.io/my-first-intern/","datePublished": "2021-12-28T15:34:14-08:00","dateModified": "2021-12-28T15:34:14-08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Ezekiel",
+                "url": "https://ezekieldaun.github.io"
+            },"description": ""
+    }</script></head>
+
+
+<body data-instant-intensity="viewport" class="tw-flex tw-min-h-screen tw-flex-col"><script>
+    function setTheme(theme) {
+      document.body.setAttribute('theme', theme); 
+      document.documentElement.className = theme;
+      document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');
+      if (theme === 'light') {
+        document.documentElement.classList.remove('tw-dark')
+      } else {
+        document.documentElement.classList.add('tw-dark')
+      }
+      window.theme = theme;   
+      window.isDark = window.theme !== 'light' 
+    }
+    function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+    function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+    if (window.localStorage && localStorage.getItem('theme')) {
+        let theme = localStorage.getItem('theme');
+        if (theme === 'light' || theme === 'dark') {
+        setTheme(theme);
+        } else {
+            if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+      } else { 
+        if ('auto' === 'light' || 'auto' === 'dark') 
+            setTheme('auto'), saveTheme('auto'); 
+        else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');
+    }
+    let metaColors = {'light': '#f8f8f8','dark': '#161b22'}
+    getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    window.switchThemeEventSet = new Set()
+</script><div id="back-to-top"></div>
+    <div id="mask"></div><header class="desktop print:!tw-hidden" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Ez的博客">Ez</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item"
+                    href="/posts/" > 文章 </a><a class="menu-item"
+                    href="/tags/" > 标签 </a><a class="menu-item"
+                    href="/categories/" > 分类 </a><span class="menu-item delimiter"></span><button class="menu-item language" aria-label="选择语言">简体中文<svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
+                    <select class="language-select" aria-label="选择语言" id="language-select-desktop"
+                        onchange="location = this.value;"><option value="/my-first-intern/"  selected>简体中文</option></select>
+                </button><span class="menu-item search" id="search-desktop">
+                    <input type="text"
+                        placeholder="搜索文章标题或内容..."
+                        id="search-input-desktop">
+                    <button class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                        <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+                    </button>
+                    <button class="search-button search-clear" id="search-clear-desktop" title="清空">
+                        <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"/></svg>
+                    </button>
+                    <span class="search-button search-loading tw-animate-spin" id="search-loading-desktop">
+                        <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>
+                    </span>
+                </span><button class="menu-item theme-select" aria-label="切换主题">
+                    <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
+                    <select class="color-theme-select" id="theme-select-desktop" aria-label="切换主题">
+                        <option value="light">浅色</option>
+                        <option value="dark">深色</option>
+                        <option value="auto">跟随系统</option>
+                    </select>
+                </button></div>
+        </div>
+    </div>
+</header><header class="mobile print:!tw-hidden" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Ez的博客">Ez</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                <div class="search mobile" id="search-mobile">
+                    <input type="text"
+                        placeholder="搜索文章标题或内容..."
+                        id="search-input-mobile">
+                    <button class="search-button search-toggle tw-h-10" id="search-toggle-mobile" title="搜索">
+                        <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+                    </button>
+                    <button class="search-button search-clear tw-h-fit" id="search-clear-mobile" title="清空">
+                        <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"/></svg>
+                    </button>
+                    <span class="search-button search-loading tw-animate-spin" id="search-loading-mobile">
+                        <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>
+                    </span>
+                </div>
+                <button class="search-cancel" id="search-cancel-mobile">
+                    取消
+                </button>
+            </div><a class="menu-item" href="/posts/" title="" >文章</a><a class="menu-item" href="/tags/" title="" >标签</a><a class="menu-item" href="/categories/" title="" >分类</a><button class="menu-item theme-select tw-w-full" aria-label="切换主题">
+                <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
+                <select class="color-theme-select" id="theme-select-mobile" aria-label="切换主题">
+                    <option value="light">浅色</option>
+                    <option value="dark">深色</option>
+                    <option value="auto">跟随系统</option>
+                </select>
+            </button><button class="menu-item tw-w-full" title="">简体中文<svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
+                <select class="language-select" title="" onchange="location = this.value;"><option value="/my-first-intern/"  selected>简体中文</option></select>
+            </button></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="tw-mx-4 tw-flex-1"><div class="toc print:!tw-hidden" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#软件原型">软件原型</a></li>
+    <li><a href="#步进电机驱动调研">步进电机驱动调研</a></li>
+    <li><a href="#荧光镜片组外壳迭代">荧光镜片组外壳迭代</a></li>
+    <li><a href="#荧光模块采集程序">荧光模块采集程序</a></li>
+    <li><a href="#荧光采集模块主控固件">荧光采集模块主控固件</a></li>
+    <li><a href="#cqt-数据拟合--可视化">C++/Qt 数据拟合 + 可视化</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+    </div><dialog id="toc-dialog" class="tw-max-w-full tw-w-full tw-max-h-full tw-h-full tw-ml-16">
+        <div class="toc tw-mx-4 tw-max-w-full">
+            <h2 class="tw-mx-0 tw-my-6 tw-uppercase tw-text-2xl">目录</h2>
+            <div class="toc-content"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#软件原型">软件原型</a></li>
+    <li><a href="#步进电机驱动调研">步进电机驱动调研</a></li>
+    <li><a href="#荧光镜片组外壳迭代">荧光镜片组外壳迭代</a></li>
+    <li><a href="#荧光模块采集程序">荧光模块采集程序</a></li>
+    <li><a href="#荧光采集模块主控固件">荧光采集模块主控固件</a></li>
+    <li><a href="#cqt-数据拟合--可视化">C++/Qt 数据拟合 + 可视化</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+        </div>
+    </dialog><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single print:!tw-w-full print:!tw-max-w-none print:!tw-m-0 print:!tw-p-0"><h1 class="single-title" data-pagefind-meta="date:2021-12-28" data-pagefind-body>第一份实习</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="https://ezekieldaun.github.io" title="Author" target="_blank" rel="noopener noreferrer author" class="author">Ezekiel</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/work/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Work</a></span></div>
+            <div class="post-meta-line"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;<time datetime="2021-12-28">2021-12-28</time>&nbsp;<svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1 0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7 0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174L402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7l-43.2-43.2c-4.1-4.1-10.8-4.1-14.8 0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg>&nbsp;<time datetime="2021-12-28">2021-12-28</time>&nbsp;<svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;约 3731 字&nbsp;
+                    <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;预计阅读 17 分钟&nbsp;</div>
+        </div><div class="details toc print:!tw-block" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#软件原型">软件原型</a></li>
+    <li><a href="#步进电机驱动调研">步进电机驱动调研</a></li>
+    <li><a href="#荧光镜片组外壳迭代">荧光镜片组外壳迭代</a></li>
+    <li><a href="#荧光模块采集程序">荧光模块采集程序</a></li>
+    <li><a href="#荧光采集模块主控固件">荧光采集模块主控固件</a></li>
+    <li><a href="#cqt-数据拟合--可视化">C++/Qt 数据拟合 + 可视化</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content" data-pagefind-body><div class="details admonition warning open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></svg></span>警告<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content">本文最后更新于 <span class="timeago" datetime="2021-12-28T15:34:14" title="December 28, 2021">2021-12-28</span>，文中内容可能已过时。</div></div></div><p>2021 年大二结束后的暑假，托关系找了份实习。一家医疗器械公司，主营体外检测仪器和配套试剂。安排我到他们做快速荧光 PCR 的项目里。说起来也蛮有趣，我一个臭机械本科生，六个月里竟然前后干了机械电子软件三种工作（大约各两个月）。流水账式地记录下几个主要内容。</p>
+<h2 id="软件原型" class="headerLink">
+    <a href="#%e8%bd%af%e4%bb%b6%e5%8e%9f%e5%9e%8b" class="header-mark"></a>软件原型</h2><p>仪器准备投放到基层医院，所以需要一个比较易用的界面，方便操作员快速培训上岗。正好我入职啥也不懂，安排我设计下软件原型。咱也不是艺术生，配色啥的咱也不懂，主要就是设计 UI/UX 的操作流程，点这个按钮跳到什么什么界面这样。原型软件领导直接给买了两份 axure，不过似乎 figma 更火的样子。现在看来软件原型也确实是一个很好的入门项目，快速熟悉了基本的仪器原理和运行流程。</p>
+<h2 id="步进电机驱动调研" class="headerLink">
+    <a href="#%e6%ad%a5%e8%bf%9b%e7%94%b5%e6%9c%ba%e9%a9%b1%e5%8a%a8%e8%b0%83%e7%a0%94" class="header-mark"></a>步进电机驱动调研</h2><p>唉，下个学期才开电机的课，就当提前预习了吧。驱动器一般分为脉冲型和总线型。</p>
+<ul>
+<li>
+<p>脉冲型：</p>
+<p>你只需要发脉冲，一个脉冲走一步，全步半步微步什么的可以用其他引脚配置。缺点是运动加减速全部都要自己控制，实时性要求比较高，如果要求闭环控制则更复杂；胜在价格便宜，一片不过十几块钱</p>
+</li>
+<li>
+<p>总线型：</p>
+<ul>
+<li>
+<p>驱动模块：</p>
+<p>当时正在使用一款国产 CAN 总线驱动器，小毛病不断而且价格不菲，一台机器要 12 个，每个要 300 多元，成本上希望压榨一下。领导的意思是自己搞个 FPGA 接脉冲型芯片，12 个驱动器一起控制了。我想了想 FPGA 开发难度实在是有点大，而且只带 12 个是不是有点大材小用 <del>关键是项目里没人会</del></p>
+</li>
+<li>
+<p>驱动芯片：</p>
+<p>推荐了 <a href="https://www.trinamic.com/" target="_blank" rel="noopener noreferrer">Trinamic</a> 的 <code>TMC5160</code>，一个是功能强效果好，另外公司里另一个项目组就选了同款芯片，有打好的电路板可以直接拿来用。芯片一片 80 左右，单片机用 F103 最低配都绰绰有余，也可以用个资源多的型号同时控多路 SPI 挂多个芯片。算上外围元件 + 制板费也比原来低不少，而且还不用自己开发</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="荧光镜片组外壳迭代" class="headerLink">
+    <a href="#%e8%8d%a7%e5%85%89%e9%95%9c%e7%89%87%e7%bb%84%e5%a4%96%e5%a3%b3%e8%bf%ad%e4%bb%a3" class="header-mark"></a>荧光镜片组外壳迭代</h2><p>同类机器一般用激光器做光源，虽然效果超棒但价格也很美丽。我们这边打算拿 5W LED 灯珠 + 透镜 + 窄带滤光片，反正又不是成像，能用就行，中间还需要加一片二向色镜滤掉 LED 反射信号，保留荧光信号分给 <strong><ruby>PD<rt>Photon Detector</rt></ruby></strong>。第一版原型已经验证了可行性，只不过信号强度比较有限，希望还能提升一点。</p>
+<p>按我的初中光学水平，聚焦嘛，几组透镜焦点对上就行。同时尽量缩短光传播的距离减少衰减。所以就需要焦距极短的透镜，聚光能力更强。不过我们仪器体积有限，上不了太大的镜片，只能用鼓形透镜，我们需求的型号又没有现货，第一版跟厂家定制把球形透镜削成鼓形，价格也是非常美丽。</p>
+<p>领导提出让我试一下不严格对齐焦点，优先压缩衰减距离，3D 打印个模型试试看效果。同时因为不聚焦了嘛，平凸透镜换更便宜的非球面透镜，滤光片也换了国产供应商进一步压缩成本。SolidWorks 走起。利用 SW 的型腔功能，可以先画镜片的装配，再从一个基体里把镜片的部分切掉。改模型的过程中还发现上一版光路中心偏移了 0.5mm LOL.</p>
+<p>因为探头尺寸小了好多，LED 电路板也得重新画，咱也不会 AD，就由另一个学 EE 的实习生照我新画的尺寸再出一版。别说，画板子门道还挺多。这 LED 有发热问题只能用铝基板，铝基板布线只能走单面，LED 功率比较大线宽又不能给太小，但因为压缩了尺寸，紧挨着 LED 的两排 M2 螺丝孔直接断绝了走线的可能。但 3D 打印件已经投出去了，只能填上一排螺丝孔走线。哎，这种活还是得既懂机械又懂电子的人来啊！</p>
+<p>用电源夹着测了下光功率，各通道比上一版提升 50%-100% 不等。</p>
+<h2 id="荧光模块采集程序" class="headerLink">
+    <a href="#%e8%8d%a7%e5%85%89%e6%a8%a1%e5%9d%97%e9%87%87%e9%9b%86%e7%a8%8b%e5%ba%8f" class="header-mark"></a>荧光模块采集程序</h2><p>拿电源测还不够，终究得上我们自己的采集电路试试。探头阵列装在一块 LED 板上，另一个平面再固定一块 PD 板，两块板在交叉处留焊盘再焊上。因为探头阵列整体尺寸变了，不仅 LED 板，PD 板也要重画。PD 嘉立创不给焊而且单独在一面，只能自己用焊膏拿风枪从另一面吹，所以全部件都得手焊，因为体积极小选的封装也超小，焊起来是既费手又费眼睛。因为要尽量减少漏光，3D 打印外壳给 PD 留的定位公差比较小，真正吹 PD 的时候才知道手焊这种贴片元件定位准有多难……</p>
+<p>那个实习生那边焊着板子，我这边准备研究一下采集电路单片机的程序。因为采集电路有好几级放大，为了方便开发做了模块化设计，有单片机在的那块主控板可以通用，留了几路 SPI 从 FPC 排线接出来。但是板子打少了没有空的给我用，只好给了我一个更早的引脚不同的版本，而且同事居然把这版程序搞丢了…… 好在原理图还在，也不是不能重新写，只是之前只会 Arduino AVR 树莓派那些，STM32 还是第一次接触……</p>
+<p>简单看了看，有什么寄存器版，标准库版，HAL 版，看着就头大。电子工程师同事跟着正点原子学下来的。该说不说教程是挺详细，不过时间紧任务重，学到 SPI 那边怎么也得两三周。STM32 这方面。正好入职之前在看 Rust，听说嵌入式也能用，查了一下 STM32F103 的支持也不错，那为啥不试一下呢。直接 <a href="https://github.com/rust-embedded/cortex-m-quickstart" target="_blank" rel="noopener noreferrer">quick-start</a> 走起。改下编译配置，瞬间就出来一个 semihosting 打印 helloworld。再从 <a href="https://docs.rs/stm32f1xx-hal/latest/stm32f1xx_hal/" target="_blank" rel="noopener noreferrer">f1xx-hal</a> example 里抄个点灯，前后也就十来分钟。一看 SPI 也有例程可抄，不过得先研究一下我们 ADC 和 DAC 的手册。</p>
+<p>好家伙，前后一共没用了一天半，我这个采集测试程序直接能跑了，震惊同事一整天。Rust 在包管理这块真是吊打 c 语言生态啊。除了打印还是 semihosting 没换成串口，有阻塞和速度问题比较烦人。</p>
+<h2 id="荧光采集模块主控固件" class="headerLink">
+    <a href="#%e8%8d%a7%e5%85%89%e9%87%87%e9%9b%86%e6%a8%a1%e5%9d%97%e4%b8%bb%e6%8e%a7%e5%9b%ba%e4%bb%b6" class="header-mark"></a>荧光采集模块主控固件</h2><p>紧接着决定整合另外一块板的功能，两个单片机变一个，电机和荧光一起控制，芯片也重新选了 F407，所以程序自然也得重新开始。单位有原子的 407 开发板，还是一样 cargo 导入 hal，点灯一气呵成。因为需要串口通信，还有实时性要求，又研究了下串口中断。一中断就打破了正常的控制流，随之带来潜在的并发问题。又因为 Rust 主打的线程安全，写中断要来回包好几层，一个变量光类型就恨不得半个窗口宽，实在有点丑陋，所以调研了几个 rust RTOS，结果没一个能用的。最后退而求其次选择了 <a href="https://crates.io/crates/cortex-m-rtic" target="_blank" rel="noopener noreferrer">rtic</a> <del>1.0 了好耶！</del>。但测试了一下串口响应发现比 uC/OS 慢不少，加上调步进电机的 CAN 控制器又遇到了些问题，还有我走了之后 Rust 代码无人维护等等缺陷，最后还是花了大半个月学 uC/OS 和 STM32 hal 库。这段时间真是进步飞快，每天全身心地投在学习里，uC/OS 英文文档来回读了好几遍，结合原子/野火各方例程边学边实践，信号量、队列、内存管理等等概念虽然不能说理解了底层原理，但基本的使用还是不成问题的，还仔细学习了一下上下文切换的核心汇编代码。</p>
+<p>整理了一下业务逻辑，仿照内核搞了个任务分发器。串口中断处理完，先进任务分发器，根据消息决定要安排的任务和优先级（不一定回到被打断的任务）。同时还搞了个低优先级的串口发送任务用于回复上位机。我觉得逻辑还蛮清楚的，可同事说这样适合任务复杂的场景，我们这块用不到，却也没说具体怎么调整……</p>
+<p>因为花了很多时间学习，真正业务代码开发就变得非常紧张，加上电机 CAN 驱动器居然有 BUG，停止状态位居然有可能不准，需要额外的定时任务轮询电机状态…… 连续加班半个月<del>我就是个月薪 3000 的实习生啊喂</del>终于赶出了个可用的版本，然后发烧病了三天。等我下周再看到同事改过的代码后，我算是理解了所谓“不用这么复杂”的意思：</p>
+<ul>
+<li>跳过分发器任务间直接通信，优先级逻辑要在代码里到处跳才能搞明白</li>
+<li>重复逻辑直接复制粘贴绝不循环：8 个信号量 8 个任务 8 个队列，串口任务里 8 个 switch case。反正业务定死了就这么多绝不写成数组</li>
+</ul>
+<p>行吧，反正他改过了，那就算他接手了，领导给我派别的任务了</p>
+<h2 id="cqt-数据拟合--可视化" class="headerLink">
+    <a href="#cqt-%e6%95%b0%e6%8d%ae%e6%8b%9f%e5%90%88--%e5%8f%af%e8%a7%86%e5%8c%96" class="header-mark"></a>C++/Qt 数据拟合 + 可视化</h2><p>别说，PCR S 形扩增曲线这个事儿我高中还是学过的。反倒是同事们都是 90 年左右出生，高中的时候 PCR 还没进课本，入职培训听的一愣一愣的。软工同事 GitHub 找了个 GSL 库曲线拟合的 C++ wrapper <del>GPL 代码真的合适么</del>，虽然初始猜测给的很离谱，但双曲正切还是拟出来了而且效果不错。</p>
+<p>核酸检测结果需要计算 <strong><ruby>CT<rt>Cycle Threshold</rt></ruby></strong> 值，我们希望软件能够自动计算。流程大概是先拟合，然后定基线范围，按基线平均值 + k 倍基线标准差画一根水平线，取该线和曲线交点 x 值作为 CT 值。基本原理并不难，但实际应用时有各种问题。</p>
+<ul>
+<li>
+<p>拟合异常：</p>
+<p>至少开发阶段，不扩增的情况很常见，甚至有时候曲线还能往下掉，这时候拟合就会很离谱。用拟合前一个预判断 + 拟合后参数校验即可</p>
+</li>
+<li>
+<p>各通道基线对齐：</p>
+<p>这个其实好说，拟出来参数之后重新算下 y 偏移就行</p>
+</li>
+<li>
+<p>通道串扰：</p>
+<p>这个比较复杂，需求临近实习结束才提出来，所以我只给出了线代的公式和实现的想法。理论上各通道都是线性的，可以提前用已知强度的荧光溶液标定出各通道的补偿矩阵，实际数据扣除基线后用逆矩阵转换一下即可。如果拟合成功，只需要对各通道的拟合参数应用该矩阵即可。</p>
+</li>
+</ul>
+<p>C++ Qt 虽然也是第一次接触，不过也就掉了一次内存泄漏和一次 <code>std::array</code> 的坑。此外画图的部分沿用了之前同事找的开源控件，还做了一些小小的魔改来适配我们的项目。C++ 业务逻辑写多了，才能体会到 Rust Enum 的设计精妙之处。比方说拟合失败，Rust 里面返回 <code>Result&lt;T,E&gt;</code> 或者 <code>Option&lt;T&gt;</code> 就很符合语义。但在 C++ 里想做到同样的事情就得要么手动实现 tagged union，要么传指向堆内存的可空指针给调用者检查，要么就得用异常。Tagged Union 得给同事们讲明白，传指针项目里从来没这么用过，搞不好又是内存泄漏，试了一下异常结果 Linux 工控机上怎么调编译选项也不支持。还好结果都是 float，只好传进引用然后用 NAN 表示失败了……</p>
+<h2 id="总结" class="headerLink">
+    <a href="#%e6%80%bb%e7%bb%93" class="header-mark"></a>总结</h2><p>虽然说是托关系找的实习，但也确实投入了相当多的实际开发，获得了很多机电软方面的实践经验。第一份实习竟然就得到了如此全面的锻炼！工作环境也相当不错，标配人体工学椅，小零食饮料以及咖啡机，采购报销虽然要自己垫钱但回款也很及时，同事领导也都很友善。</p>
+</div>
+
+        
+
+
+<h2>相关内容</h2>
+<div class="related-container">
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/balancing-bot/"><img   src='/balancing-bot/featuredImage.jpg'    height="200" width="400"></a>
+            </div><h2 class="related-title">
+                <a href="/balancing-bot/">平衡小车</a>
+            </h2>
+        </div>
+    <div class="related-item-container">
+            <div class="related-image">
+                <a href="/hello-embedded-rust/"><img   src='/hello-embedded-rust/hello.jpg'    height="200" width="400"></a>
+            </div><h2 class="related-title">
+                <a href="/hello-embedded-rust/">初探 STM32 嵌入式 Rust</a>
+            </h2>
+        </div>
+    
+
+</div>
+
+<div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line print:!tw-hidden">
+            <div class="post-info-md"></div>
+            <div class="post-info-share"></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.941 225.941L286.059 14.059A48 48 0 0 0 252.118 0H48C21.49 0 0 21.49 0 48v204.118a48 48 0 0 0 14.059 33.941l211.882 211.882c18.744 18.745 49.136 18.746 67.882 0l204.118-204.118c18.745-18.745 18.745-49.137 0-67.882zM112 160c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm513.941 133.823L421.823 497.941c-18.745 18.745-49.137 18.745-67.882 0l-.36-.36L527.64 323.522c16.999-16.999 26.36-39.6 26.36-63.64s-9.362-46.641-26.36-63.64L331.397 0h48.721a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882z"/></svg>&nbsp;<a href="/tags/rust/">Rust</a>,&nbsp;<a href="/tags/c/c&#43;&#43;/">C/C&#43;&#43;</a>,&nbsp;<a href="/tags/rtos/">RTOS</a>,&nbsp;<a href="/tags/solidworks/">SolidWorks</a>,&nbsp;<a href="/tags/pcb/">PCB</a>,&nbsp;<a href="/tags/embedded/">Embedded</a></section>
+        <section class="print:!tw-hidden">
+            <span><button class="tw-text-fgColor-link-muted hover:tw-text-fgColor-link-muted-hover" onclick="window.history.back();">返回</button></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav print:tw-hidden"><a href="/hello-embedded-rust/" class="prev" rel="prev" title="初探 STM32 嵌入式 Rust"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"/></svg>初探 STM32 嵌入式 Rust</a>
+            <a href="/balancing-bot/" class="next" rel="next" title="平衡小车">平衡小车<svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></a></div>
+</div>
+</article></main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer" title="Hugo 0.148.2">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreferrer" title="DoIt 0.4.2"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1 0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7 0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174L402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7l-43.2-43.2c-4.1-4.1-10.8-4.1-14.8 0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg> DoIt</a>
+                </div><div class="footer-line"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 448c-110.532 0-200-89.451-200-200 0-110.531 89.451-200 200-200 110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200zm107.351-101.064c-9.614 9.712-45.53 41.396-104.065 41.396-82.43 0-140.484-61.425-140.484-141.567 0-79.152 60.275-139.401 139.762-139.401 55.531 0 88.738 26.62 97.593 34.779a11.965 11.965 0 0 1 1.936 15.322l-18.155 28.113c-3.841 5.95-11.966 7.282-17.499 2.921-8.595-6.776-31.814-22.538-61.708-22.538-48.303 0-77.916 35.33-77.916 80.082 0 41.589 26.888 83.692 78.277 83.692 32.657 0 56.843-19.039 65.726-27.225 5.27-4.857 13.596-4.039 17.82 1.738l19.865 27.17a11.947 11.947 0 0 1-1.152 15.518z"/></svg>2020 - 2025<span class="author">&nbsp;<a href="https://ezekieldaun.github.io" target="_blank" rel="noopener noreferrer">Ezekiel</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer><div class="print:!tw-hidden tw-flex tw-flex-col tw-fixed tw-right-4 tw-bottom-4 tw-gap-2"><a href="#back-to-top" id="back-to-top-button" class="tw-transition-opacity tw-opacity-0 tw-block tw-bg-bgColor-secondary tw-rounded-full" style="padding: 0.6rem; line-height: 1.3rem; font-size: 1rem;" title="回到顶部">
+      <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg>
+  </a>
+
+  <button id="toc-drawer-button" class="tw-block tw-bg-bgColor-secondary tw-rounded-full md:tw-hidden" style="padding: 0.6rem; line-height: 1.3rem; font-size: 1rem;">
+      <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>
+  </button></div>
+<div id="cookieconsent-container"></div><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/lightgallery/lightgallery.min.css">
+        <noscript><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"></noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css">
+<script>window.config={"autocomplete.min.js":"/lib/autocomplete/autocomplete.min.js","comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"fuse.min.js":"/lib/fuse/fuse.min.js","lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"table":{"sort":true}};</script><script
+    src="/lib/tablesort/tablesort.min.js"
+    
+  ></script><script
+    src="/lib/lightgallery/lightgallery.min.js"
+    
+      defer
+    
+  ></script><script
+    src="/lib/lightgallery/lg-thumbnail.min.js"
+    
+      defer
+    
+  ></script><script
+    src="/lib/lightgallery/lg-zoom.min.js"
+    
+      defer
+    
+  ></script><script
+    src="/lib/katex/katex.min.js"
+    
+      defer
+    
+  ></script><script
+    src="/lib/katex/auto-render.min.js"
+    
+      defer
+    
+  ></script><script
+    src="/lib/katex/copy-tex.min.js"
+    
+      defer
+    
+  ></script><script
+    src="/lib/katex/mhchem.min.js"
+    
+      defer
+    
+  ></script><script
+    src="/js/katex.min.js"
+    
+      defer
+    
+  ></script><script
+    src="/lib/cookieconsent/cookieconsent.min.js"
+    
+      defer
+    
+  ></script><script
+    src="/js/cookieconsent.min.js"
+    
+      defer
+    
+  ></script><script
+    src="/js/theme.min.js"
+    
+      defer
+    
+  ></script>
+
+<script type="speculationrules">
+  {
+    "prerender": [
+      {
+        "where": { "href_matches": "/*" },
+        "eagerness": "moderate"
+      }
+    ]
+  }
+</script>
+</body>
+
+</html>

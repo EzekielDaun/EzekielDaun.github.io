@@ -1,54 +1,54 @@
-# Balancing Bot
+# 平衡小车
 
 
-In this post, I am going to share my experience in developing a balancing bot. As I haven't formally learned any courses about the control system, I could not guarantee the correctness of all the points.
+大三才做出来平衡小车实在是太菜了...分享一下过程和学习笔记。写这篇时还没有学过任何控制相关的课程，如有错误请见谅
 
-## The Cascade PID Controller for the Bot
+## 平衡小车 PID 原理
 
 ### PID
 
-There are too much explanation about the PID [controller](https://en.wikipedia.org/wiki/PID_controller). So I will just share my own understanding.
+网上有太多 PID 解析了，这里不多赘述，讲一下我的理解
 
-You must have tried to play a song with a steel ruler, watching it vibrate, become weaker and weaker and finally stop. The ruler can vibrate because it has some elasticity, while this vibration becomes weaker and weaker since there is some sort of damping. A spring with a damper could solve most problems, and this is actually what a PD controller does. The second-order ODEs could explain:
+小时候一定拨过钢尺，振幅越来越小最后不振了。能来回振是因为钢尺有弹性，能停下是因为有阻尼。弹簧 + 阻尼一般能解决大部分问题，而这其实就是 PD 控制器。二阶线性微分方程从原理上解释了这一切。~~忘光了现学的...~~
 
 $$
 my''+cy'+ky=f(t)
 $$
 
-Assume that $m, c, k$ are all positive. The solutions of the characteristic equation $r_1 , r_2$ have a real negative part $\frac{-c}{2m}$. So the general solution of the ODE $y=K_1 e^{r_1 t} + K_2 e^{r_2 t}$ must converge. The ideal case is the critical damping, where $r_1 = r_2$ and the general solution becomes $y=Ke^{rt} + Kte^{rt}$.
+~~用 RLC 电路理解也可以~~
 
-Therefore, a PD controller could be considered as adding a spring and a damper to the system to make it stable. However, with some constant external load, the controlled value will eventually stabilize at some deviation from the target, depending on the `P` parameter. The integration part `I` is introduced to cancel this kind of steady-state error.
+假设这些参量均大于零，即特征方程的解$r_1 , r_2$的实部$\frac{-c}{2m}$小于零，则微分方程的通解$y=K_1 e^{r_1 t} + K_2 e^{r_2 t}$一定收敛。理想情况是临界阻尼$r_1 = r_2$, 此时通解为$y=Ke^{rt} + Kte^{rt}$
 
-### The Angle Loop
+因此，PD 控制器可以理解为给原本的模型套上了弹簧和阻尼来使它稳定。然而，对于有某些固定载荷的情况，被控量最终会根据 `P` 稳定在某个偏离目标量的地方。积分项 `I` 的引入就是为了消除这种稳态误差。
 
-Take the bot's angle as the input of the PD controller. When the bot inclines, we accelerate the base to catch up the head, and vice versa. However, with only the angle loop, even if well-tuned, the bot could eventually accelerate in one direction, because the motor has a maximum speed. When the bot is perpendicular to the ground, it doesn't mean that the bot has no speed. Because of the small P output, the motor behaves like a brake, making the robot rapidly nods to the ground, resulting in an even larger angle than before.
+### 姿态环
 
-### The Speed Loop
+将小车当前的倾角作为 PD 控制器的输入，这里注意各参数的符号。小车前倾，我们就向前加速赶一步，后倾就向后加速。但这种控制方法并不稳定，即便参数调试得非常好，最后小车总是加速向一侧倒下。这是因为电机速度具有上限。当小车姿态已经归中但底盘仍有速度时，因为比例部分几乎为零，电机输出一个极小值，产生近似刹车的效果，使得小车快速点头，反而可能产生了比一开始更大的倾角。
 
-To solve this problem, the speed loop is introduced. It takes the speed of the robot as input, outputs to the angle loop as the zero angle. When the robot has a positive speed, it makes the angle loop's zero angle decline, thus, generate a negative output to cancel this positive speed. The angle loop uses PD, and the speed loop use PI, since we are not interesting in the changing rate of speed.
+### 速度环
 
-The tuning of two controllers could be a little harder. It's obvious that we need to tune the angle loop first because it directly controls the actuator. The ideal process is tuning the angle loop's P parameter first for a fast response, and then the angle loop's D parameter until the bot could stand for a while, finally the speed loop.
+为了解决这个问题，我们引入了速度环。速度环以车轮转速为输入，其输出作为姿态环的目标位置输入，即小车有前向的速度时，将姿态环的零位调整到一个后倾的角度，让姿态环多赶一步。姿态环采用 PD，速度环采用 PI. 两套控制参数的调试还是有点麻烦，理想过程是先调姿态 P 到一个不错的响应，再调姿态 D 到能够站立一小会儿，再调速度环。
 
-## The Story from Interrupt
+## 中断引发的故事
 
-### RaspberryPi
+### 树莓派
 
-I always think that Arduino is more like a toy, because of the lack of useful applications. But RPi, which has GPIO ports too, is also a more playable **Linux** PC! So I bought the cheapest RPi model 4B with 2 GB RAM to make this bot. I mainly use the C language and [Wiring Pi](http://wiringpi.com). The other hardware and kits are from [taobao](https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-10676576509.5.2d6922d9W5CQkh&id=45470143481). As a mechanical engineering student, I drew a acrylic board to position them. They were connected by jumping wires and a breadboard. Alright, let's drive them first:
+我总觉得 arduino 更像个玩具，买了没啥大用，而树莓派也有 GPIO 口，还是个 Linux PC，怎么看可玩性都更高一些。于是买了个最丐的 2G RAM 4B 进行开发。主要使用 C 语言和 [Wiring Pi](http://wiringpi.com). 硬件部分[淘宝](https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-10676576509.5.2d6922d9W5CQkh&id=45470143481)解决，上来先驱动下各个部件：
 
-- DC Motor<br>
-  The driver is the common L298N. In brief we use 2 pins for direction, and an extra PWM pin for the output voltage. It's very easy to use [WiringPi](http://wiringpi.com)'s hardware PWM [function](http://wiringpi.com/reference/core-functions/) to drive RPi's pwm0 and pwm1.
+- 直流电机<br>
+  驱动器是常见的 L298N. 简单说就是两个引脚电平调方向，一路 PWM 输出控制电压。PWM 采用树莓派的 pwm0, pwm1 两路硬件 pwm, [WiringPi](http://wiringpi.com) 有对应的函数，非常好写，注意一下引脚号即可。
 - MPU6050<br>
-  A six-DoF accelerometer and gyroscope, with integrated [DMP]^(Digital Motion Processor) that can output the fused orientation in quaternion, saving the load on MCU. However, it could not be used with common I2C instructions described in the manual. An official embedded motion driver provides the code for using DMP on MSP430. The core is passing a bunch of mysterious numbers through I2C to turn on the DMP function. I spent a lot of time looking for a RPi's DMP library and only got [this](https://github.com/richardghirst/PiBits/tree/master/MPU6050-Pi-Demo) library in C++. Although it's possible to port the motion driver to RPi, this might be too hard for me, a newbie at that time. Anyway, let's write some C in C++.
-- Encoder<br>
-  It generates two square waves with 90° phase latency, with a fixed number of rising/falling edges in each round. When there is an edge in one wave, by reading the voltage level of the other wave, the direction could be determined. Magic! It often works with interrupts on RPi.
+  I2C 协议的六轴陀螺仪加速度计。MPU6050 有内置的运动处理器 DMP，可以直接以四元数的形式输出融合后的姿态，~~诶！?什么叫融合...直接读不就完了？~~ 节约主机计算资源，不过不能通过一般的方式驱动，芯片手册里也没有驱动相关的信息。官方提供了 MSP430 上的例程，代码量比较大，核心是要传一串神秘代码来开启 DMP 功能。我找了半天适合树莓派的 dmp 库只发现了[这个 C++ 库](https://github.com/richardghirst/PiBits/tree/master/MPU6050-Pi-Demo). 虽说也可以自行移植，但当时我这个小白办不到啊... 唉，在 C++ 里写 C 吧。
+- 编码器<br>
+  硬件上它产生两路 90° 相位的方波，每转一圈会产生固定数量的跳变。通过读一路跳变时另一路的电平来确定当前旋转方向，往往用中断驱动。真是神奇啊。
 
-WiringPi wraps up convenient functions to register interrupt handlers:
+WiringPi 包装了方便的函数来让我们注册中断处理函数：
 
 ```C
 int wiringPiISR (int pin, int edgeType,  void (*function)(void)) ;
 ```
 
-Pass in the function pointer, the registered function could then be called when the interrupt occurs. Notice that this function pointer takes void and returns void. How could it communicate to other codes? The answer is global variable:
+这里只需要传入函数指针，即可在中断发生时调用注册的函数。注意这个函数的返回值和参数都是`void`, 那么怎么与外界联系呢？答案是使用全局变量：
 
 ```C
 long long COUNT;
@@ -66,9 +66,9 @@ int main(void){
 }
 ```
 
-Therefore, when the interrupt occurs, `COUNT` would increment. Since the encoder counts very fast, I declared the type of `COUNT` as `long long` (64 Bits on RPi). ~~No!!!!~~
+这样，每次中断发生时，COUNT 的值都会自增。因为编码器计数非常快，这里把 COUNT 定义为 long long (64 位)
 
-Here we go. I successfully drive the motor and encoder!~~Actually?~~ And we can elegantly press `q` in SSH to quit. Everything goes well and there is only the control part to do. I'll put my C code at this stage:
+贴一下我的 C 代码，成功驱动了电机和编码器~~吗？~~, 还可以在 SSH 中按`q`退出，可以说距离完成只差控制部分了：
 
 motor.h
 
@@ -251,83 +251,75 @@ void *usrInterrupt(void *arg) {
 
 ```
 
-Because of the DMP problem that I mentioned before, I was planning to migrate to C++. After reading some [tutorials](https://www.runoob.com/cplusplus/cpp-tutorial.html), I was feeling good to have a `C with class` level in C++. After all, I could treat a class as a struct, right?
+因为上文提到的 MPU6050 的 DMP 问题，我准备迁移到 C++, 正好也准备学一学 C++. 于是看了几天菜鸟教程，自信已经有了 C with class 的水平。我定义了一个电机类 `Motor` ~~代码不忍直视就不贴了~~: 成员有驱动电机的各引脚`short pin_x`, 编码器计数`long long pos`, 电机速度`int spd`, 驱动函数`void Motor::run(int pow)`, 以及编码器中断发生时修改编码器计数的成员函数`void Motor::enc(int phase)`. 为了限制访问，能私有的我都定义成了 private ~~真是年轻啊啊啊 (捂脸~~; 还定义了一个底盘类 `Base`, 成员有两个电机实例和一个 `MPU6050` 实例。因为 `Motor` 类成员都是私有的，还费劲定义了一番友元类友元函数等等，以便编码器读速度的线程可以访问到电机实例。保险起见，还用`int piHiPri (int priority)`把测速线程调到了最高优先级
 
-The total structure is: 4 IRQ handlers setting encoder counter global variables; a speed measuring thread that loops with a fixed time interval and writes the different in encoder counters to the speed global variables; the main thread would do one step of PID control if receive a data from MPU6050.
+一番忙活下来，终于能编译了。卧槽！? 编码器竟然会时不时抽风！即便电机不动也会乱跳数字。最奇葩的是这个 bug 竟然**不能稳定复现**... 我百思不得其解。鉴于编码器是速度环的基本，这个问题没解决，后面的部分也无法开展... 这个问题真是让我毫无头绪，毕竟原理上这份 C++ 版本和之前的 C 版毫无差别。苍蝇乱撞一天后，我...放弃了...
 
-So, I defined a `Motor` class, with member `short pin_x` for motor driver, `long long pos` for encoder counter, `int spd` for saving the measured speed, member function `void Motor::run(int pow)`, as well as `void Motor::enc(int phase)` to be called by the interrupt handler. To wrap up all the details, I make all members that could be private `private`~~wtf!?~~. And `Base` class with two `Motor`s and an `MPU6050`. Because `Motor` nearly has its all members private, I also defined the `Base` as a friend class of `Motor`, as well as a lot of friend functions to make WiringPi be able to register interrupts in `main()`, to make speed measuring thread be able to access the `Motor`s, etc. To be safe, I use `int piHiPri (int priority)` to make the speed measuring thread the highest priority. Since the interrupt handler was declared as `(void*) f(void)`, I have to make 4 different wrapper functions to wrap up the actual handler member functions.
+不过我隐约觉得问题可能在我套的这么多层抽象上
 
-Eventually, it passed the compiler. WTF!? The speed readings from the encoder could sometimes jump up to some super large numbers, even if the motor is actually not running. The weirdest is that I could not even be able to **stably reproduce** that! I was greatly exhausted by that. Since the speed measurement is the very first thing in the speed loop, I couldn't have any progress until it is addressed. I couldn't have any idea about that because, in theory, this should have no difference from the previous C version. Finally, after doing tests and trials for the whole day, I gave up.
+### Rust 与并发编程
 
-But I vaguely felt that I may wrap too many abstractions.
+假期短暂，我的第一次尝试以失败告终。之后在网课之余，机缘巧合，我接触到了 Rust 这门语言。简单看了看 [the book](https://doc.rust-lang.org/stable/book/) 发现还不错，于是花了三周多，在网课之余把它看完了。其中 `ownership` 和 `borrow checker` 非常特别，它们规定：
 
-### Rust and Concurrent Programming
+对一个变量的引用 (指针), 只能存在：
 
-My short winter break came to an end, and I failed in my first trial to make this bot. Later, in my free time besides online courses, I coincidentally met the Rust programming language. I felt good having a quick glance at [the book](https://doc.rust-lang.org/stable/book/) and spent about three weeks thoroughly reading it. Its special `Ownership` and `Borrow Checker` impressed me very much.
+1. **有且仅有一个独占引用**(写者), 且**没有**共享引用 (读者), 或
+2. 没有独占引用 (写着), 任意多个共享引用 (读者)
 
-They define:
+换句话说，只要有人在写，其他任何读写操作都不能进行。等等，我之前的编码器计数是怎么实现的？违背了这个规范呀！
 
-> - At any given time, you can have either **one mutable reference** or **any number of immutable references**.
-> - References must always be valid.
+一年后的今天，让我们彻底了结这个问题：**数据争用**. 我用的 Raspbian 是 32 位版本，其 long long 被定义为 64 位有符号整型。换句话说，绝大部分对 64 位整数的操作都不能在一条汇编指令中完成。因此，当测速线程修改了速度变量却还没完成时，有可能被调度打断 (raspbian 并不是实时系统). 此时读取这个变量就会发生数据争用的问题。至于 C 代码为什么没问题，是因为仅仅打印了编码器计数，而没有另起一个测速线程。中断处理速度极快且不会被其他线程抢占，而中断发生的频率又没有高到能够常常打断主线程中的读取过程。~~我翻 makefile 才发现我 C 开了 O3, C++ 啥优化也没开...~~
 
-The second point is easy to understand. In C/C++, never use a freed pointer. But the first one... Wait, how did I implement my speed measuring thread?
+那么，合理的解决办法是什么呢？
 
-Let's give an end to this problem: **[race condition](https://en.wikipedia.org/wiki/Race_condition)**. My Raspbian is a 32-bit version, where a `long long int` is a 64-bit signed integer. In other words, almost all operations towards it could not be completed in a single assembly instruction. Therefore, when the speed measuring thread partly change the counter but not complete yet, it might be preempted by the scheduler to the main thread. Now reading(loading) this counter in main could generate a race condition. The reason that the C version worked is that it only prints the counter without spawning another thread. The IRQ handler runs really fast and could never be preempted by other threads, while the interrupt frequency isn't that high to frequently preempt the reading process in the main thread. ~~When I check the makefiles, I found the C version was compiled with -O3 while the C++ version had no optimization option at all~~
+1. 原子操作<br>
+   atom 是不可分的意思，原子操作就是不会被打断的操作。缺点是需要处理器支持，且一般只能操作长度不大于处理器字长的数据类型。关于 `Ordering` 的选择，如果只需要原子性，使用 `Ordering::Relax` 即可，用于计数的话再适合不过了。在多核情况下还需要考虑内存一致性来选择 [Ordering](https://doc.rust-lang.org/std/sync/atomic/enum.Ordering.html), 最严格的一般是 `Ordering::SeqCst`.
+2. 互斥锁\读写锁 (普通线程)<br>
+   对于有操作系统 (包括实时系统) 情况下普通线程间的资源共享，可以使用这两种锁。详见 [the book](https://doc.rust-lang.org/book/ch16-03-shared-state.html). 如果获取锁失败，线程可以选择出让控制权让操作系统先调度其他线程。
+3. 临界区 (中断)<br>
+   由于中断总能抢占当前线程，除非你允许中断处理函数在资源被占用的情况下漏掉中断不处理，否则主线程中的锁形同虚设。有的处理器可以暂时关闭所有中断，这样当前正在执行的任务就不会被打断。如果使用 rust，还需要配合 `Mutex`, `RefCell` 等来通过语法检查，详见 [the embedded rust book](https://docs.rust-embedded.org/book/concurrency/index.html#sharing-peripherals).
+4. 缓冲区<br>
+   还有一种取巧的做法，使用内存来通信。环形缓冲区可以实现为数组 + 头尾原子指针，我们可以让发送端独占头指针，接收端独占尾指针，每次发送/接收，都向内存中写入/读取数据后操作指针自增。只要缓冲区够大且接收端处理速度大于发送端发送速度，一般不会漏掉消息。保险起见还可以在发送和/或接收时加上头尾指针判断
 
-So, what are the proper ways to do that?
+如果现在让我重新设计树莓派编码器测速逻辑：我会使用中断操作原子类型计数，用互斥锁包装速度全局变量，让测速线程和主线程抢锁，来保证对速度变量的操作不会产生竟态条件。
 
-1. Atomic Operations<br>
-   An atomic operation will never be preempted. The bad thing is that it depends on your CPU instruction set and the compiler, and usually, it can only operate data type no longer than the CPU's word size. For `Ordering`, if we only need it to be atomic (usually in single-thread application) without considering the [memory consistency](https://en.wikipedia.org/wiki/Consistency_model), just choose `Ordering::Relax`, which is also the best choice for a counter. In multi-thread models, you first need to understand your memory model, then choose the [ordering](https://doc.rust-lang.org/std/sync/atomic/enum.Ordering.html). Usually the most strict is `Ordering::SeqCst`.
-2. Mutex\RwLock (for normal threads\tasks)<br>
-   For sharing resources between multiple threads with an OS/RTOS, these two locks are recommended. See details in [the book](https://doc.rust-lang.org/book/ch16-03-shared-state.html). Once failed in pending the lock, the thread could give up their time slice back to the scheduler for other threads.
-3. Critical Section(IRQ Handler)<br>
-   Since interrupts can always preempt the running thread unless you allow an IRQ handler to check the resource's availability first and not to handle when the resource is occupied, the above locks in normal threads will not actually work. Some CPUs could temporarily disable all the interrupts, so that the running thread would not be preempted. If using Rust, `Mutex`, `RefCell` etc. are needed to pass compiling, see [the embedded rust book](https://docs.rust-embedded.org/book/concurrency/index.html#sharing-peripherals).
-4. Buffer<br>
-   Another clever way is to use the memory to communicate. A probable implementation for a ring buffer could have an array and head&tail pointers. We could let the tx to have the ownership of the head, rx to have the tail. Increment the corresponding pointer after each operation. As long as the array is long enough and the the rx could handle faster than tx in average, we won't miss any messages.
+不过，后来实习接触了 STM32 这样的单片机，拿来做平衡小车足够了，反观树莓派 4B 还需要 5V3A 供电，我还特意买了微雪的电池扩展版，头顶两节 18650 简直不要太笨重，于是树莓派就光荣的吃灰了。STM32 的定时器具有编码器功能，可以通过每次读取后清零的方法获取速度，配合定时器中断测速即可。不过我用 rust 实现的版本因为软件 I2C 的库必须要一个定时器，导致没定时器拿来做中断了... 只好用延时实现。
 
-If I were to redesign the speed measuring login in RPi, I would use an `AtomicI32` in IRQ for the encoder counter, a `RwLock<RefCell<_>>` for the speed global variable. To make no race conditions.
+## 多传感器融合
 
-However, in my later internship, I learned STM32, a common model is F103C8T6@72MHz, which is definitely enough for a balancing bot. Compared with the RPi4B, which requires a 5V3A power supply and I deliberately bought a [battery extension board](https://www.waveshare.com/product/modules/others/power-relays/ups-hat.htm) for it, making it super bulky. The STM32 has a [QEI]^(Quadrature Encoder Interface) option in Timer peripherals that allows us to read the speed by a timer interrupt invoked "read and reset" operation. However when I implemented this in Rust, I spent an additional timer for software virtual I2C, which makes it no free timers for that interrupt... Finally I have to measure speed in the main loop with delay function.
+还记得 MPU6050 有个 DMP 库吗？后来转向 Rust + STM32 后，因为没找到能用的 DMP 库，我就用的六轴原始数据。确定角度还不简单？三轴加速度和重力一比较就完事儿了，我用的库还有现成的包装 [get_acc_angles(&mut self) -> Result<Vector2<f32>, Mpu6050Error<E>>](https://docs.rs/mpu6050/0.1.5/mpu6050/struct.Mpu6050.html#method.get_acc_angles).
 
-## Sensor Fusion
+快快拿来一试，再加上现成的 [PID 库](https://crates.io/crates/pid_control), P 输入用刚才获得的角度，D 输入直接用陀螺仪，不到一个小时[代码](https://github.com/EzekielDaun/rs-balancing-bot)就编译通过了。不得不说，Rust 这点真的香：99% 的情况下**能过编译就能跑**. 小车拿在手里，前倾就向前加速，后倾就向后加速，各参数极性正确！但是 PID 参数我竟然调了三天都没调明白...连最基本的姿态环都几乎无法实现。最好的一组参数也只能维持个 10 秒钟左右。我干脆两手捏住轮子当成纯倒立摆，诶！?怎么这都稳定不了？看了输出才发现，获取到的角度抖动太大！那就加平滑滤波！可加了滤波也没法稳定，这让我又犯了难...
 
-Remember the DMP in MPU6050? Since I didn't found a workable DMP library (called crate in Rust) in Rust, I used the raw data from the sensor. To get the angle, just simply compare the direction of the acceleration with gravity. The MPU6050 crate has already implemented this function [get_acc_angles(&mut self) -> Result<Vector2<f32>, Mpu6050Error<E>>](https://docs.rs/mpu6050/0.1.5/mpu6050/struct.Mpu6050.html#method.get_acc_angles).
+想想也是，这小车本身就在抖动，读出来的加速度可不仅仅是重力加速度。那要怎么确定角度呢？有以下几种办法：
 
-Combined with the [PID crate](https://crates.io/crates/pid_control) with the angle data as P input, gyro data as D input, I got my code compiled in less than an hour. I have to praise Rust that in 99% cases, a code passed compiling could **directly run** without critical bugs. I tilted the bot and it responded well as expected, which prove that the polarities of each parameter are all correct. But I struggled in tuning for three days without any progress... Even the most basic position loop works really bad. The best I tried could merely stand for around 10s. I tried to fix the wheels to make it a simply reversed pendulum and see what would happen. WTF!? It failed to be stable as well...There must be some critical problems...
-
-I logged all the data and found the calculated angle a very noisy signal. But it was still unstable even I manually smoothed it...
-
-Well, I have to admit that it actually make sense. Because the bot is moving, there have to be an additional acceleration adding to the gravity, which makes the calculated angle unreliable.
-
-So how to get the angle? Here are some answers:
-
-### Complementary Filter
+### 互补滤波
 
 $$
 \theta = k \cdot \theta_{\text{acc}} + (1-k)\cdot \int{{\omega}dt}
 $$
 
-By integrating the angular speed reading $\omega$, we could get another angle measurement $\theta_\text{gyro}$. Of course this angle should have some error caused by the integrating implementation. The angle measured by comparing acceleration with gravity is notated as $\theta_\text{acc}$. We can assign different weights to both values, take the weighted sum as the result. Actual implementation could use recursion:
+通过对读取到的角速度 $\omega$ 积分，我们也可以得到一个角度数据 $\theta_\text{gyro}$. 当然这个数据会因为累加存在一定的误差。之前提到从加速度计和重力方向也可以得到一个角度数据 $\theta_\text{acc}$, 我们把两个数据分辨乘以一定的权重后相加，作为上述控制系统的输入。在实际实现时，往往采用递推的方式将其改写为：
 
 $$
 \theta_{i+1} = k \cdot \theta_{\text{acc}} + (1-k)\cdot ({\theta_{i} + \omega dt})
 $$
 
-We can also dynamically adjust the weight. For example, when the accelerometer has a large reading, the gyro should be more reliable; when the gyro has a small reading, the accelerometer should be more reliable.
+还可以根据当前两个数据的大小来动态调整权重，比如：当加速度计测到一个较大数据时，更相信陀螺仪。当陀螺仪数据很小时，更相信加速度计。
 
-At first, I was planning to use Rust on STM32 to implement a complementary filter. Because as mentioned before, I had run up all the timers and had to use delay in the main loop, the practice showed that the actual delay time would vary, which made it hard to decide the $dt$ to be multiplied. I don't want this project to be even harder, so finally I decided to return to C, with off-the-shelf DMP driver on STM32.
+本来想用 Rust 在 STM32 上实现互补滤波的，但因为之前提到的定时器不够只能在 main 函数中 delay 测速来完成整个控制循环，实践发现这个延时并不稳定，导致陀螺仪积分要乘的 $dt$ 不好确定。最后还是决定转回 C，有 DMP 不用，何苦呢。
 
-### Kalman Filter
+### 卡尔曼滤波
 
-The most famous filter in the control theorem. However, I was not able to understand it at this time. I tried the existing rust crate [adskalman](https://crates.io/crates/adskalman) but failed because the binaries are too large to flash.
+久仰卡尔曼滤波大名，可惜我水平不够还没看明白原理... 如果有现成的库可以使用，自然是拿来主义。我尝试了 rust 的 [adskalman](https://crates.io/crates/adskalman), 但因为编译出的二进制太大没能成功烧录。
 
-I wish sometime in future I could complete this section.
+关于卡尔曼滤波的原理，希望自己以后可以补充完全。
 
-## Summary
+## 总结
 
-The final bot with C and DMP is shown in the following picture. I'm not going to put the final code as it was done in limited time with very bad quality.
+最后用 C 和 DMP 完成的版本效果如下。时间紧张，代码质量太差，就不献丑了。
 
-![The Bot](example.gif)
+![动态图](example.gif)
 
-It wouldn't be hard to build a balancing bot as long as you understand the theory behind it. Actually, the most time-spending part was dealing with hardware and learning concurrent programming with a non-linear control flow. If I had chosen Arduino first, with tons of online Arduino resources, I may not meet Rust and STM32. Looking back on this long journey from RPi, I sincerely appreciate myself for getting these interesting experiences and knowledge.
+平衡小车，搞明白原理其实并不难。如果我一上来就选了 arduino，或许就不会接触到 Rust 和 STM32. 从树莓派一路踩坑下来，反倒收获了更多的知识和经验。
 

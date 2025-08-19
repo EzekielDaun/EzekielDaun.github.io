@@ -1,23 +1,57 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Tags - Tag - Ez&#39;s blog</title>
+        <title>Tags - 标签 - Ez的博客</title>
         <link>https://ezekieldaun.github.io/tags/</link>
-        <description>Tags - Tag - Ez&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 28 Dec 2021 15:34:52 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+        <description>Tags - 标签 - Ez的博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
+            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Wed, 13 Apr 2022 15:49:02 -0700</lastBuildDate><atom:link href="https://ezekieldaun.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>UBC</title>
+    <link>https://ezekieldaun.github.io/tags/ubc/</link>
+    <pubDate>Wed, 13 Apr 2022 15:49:02 -0700</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/tags/ubc/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>Embedded</title>
     <link>https://ezekieldaun.github.io/tags/embedded/</link>
-    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate>
-    <author>xxxx</author>
-    <guid>https://ezekieldaun.github.io/tags/embedded/</guid>
+    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/tags/embedded/</guid>
     <description><![CDATA[]]></description>
-</item>
-<item>
+</item><item>
     <title>Rust</title>
     <link>https://ezekieldaun.github.io/tags/rust/</link>
-    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate>
-    <author>xxxx</author>
-    <guid>https://ezekieldaun.github.io/tags/rust/</guid>
+    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/tags/rust/</guid>
     <description><![CDATA[]]></description>
-</item>
-</channel>
+</item><item>
+    <title>C/C&#43;&#43;</title>
+    <link>https://ezekieldaun.github.io/tags/c/c&#43;&#43;/</link>
+    <pubDate>Tue, 28 Dec 2021 15:34:14 -0800</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/tags/c/c&#43;&#43;/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>PCB</title>
+    <link>https://ezekieldaun.github.io/tags/pcb/</link>
+    <pubDate>Tue, 28 Dec 2021 15:34:14 -0800</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/tags/pcb/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>RTOS</title>
+    <link>https://ezekieldaun.github.io/tags/rtos/</link>
+    <pubDate>Tue, 28 Dec 2021 15:34:14 -0800</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/tags/rtos/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>SolidWorks</title>
+    <link>https://ezekieldaun.github.io/tags/solidworks/</link>
+    <pubDate>Tue, 28 Dec 2021 15:34:14 -0800</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/tags/solidworks/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
 </rss>

@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - Ez&#39;s blog</title>
+        <link>https://ezekieldaun.github.io/en/tags/</link>
+        <description>Tags - Tag - Ez&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>liuyifei0905@gmail.com (Ezekiel)</managingEditor>
+            <webMaster>liuyifei0905@gmail.com (Ezekiel)</webMaster><lastBuildDate>Tue, 28 Dec 2021 15:34:52 -0800</lastBuildDate><atom:link href="https://ezekieldaun.github.io/en/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>Embedded</title>
+    <link>https://ezekieldaun.github.io/en/tags/embedded/</link>
+    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/en/tags/embedded/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Rust</title>
+    <link>https://ezekieldaun.github.io/en/tags/rust/</link>
+    <pubDate>Tue, 28 Dec 2021 15:34:52 -0800</pubDate><author>
+        <name>Ezekiel</name>
+    </author><guid>https://ezekieldaun.github.io/en/tags/rust/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
+</rss>

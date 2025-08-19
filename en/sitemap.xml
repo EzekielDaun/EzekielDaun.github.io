@@ -2,102 +2,120 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://ezekieldaun.github.io/balancing-bot/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/en/balancing-bot/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/balancing-bot/"
+                        href="https://ezekieldaun.github.io/balancing-bot/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://ezekieldaun.github.io/balancing-bot/"
+                    href="https://ezekieldaun.github.io/en/balancing-bot/"
                     /></url><url>
-            <loc>https://ezekieldaun.github.io/categories/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/en/categories/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/categories/"
+                        href="https://ezekieldaun.github.io/categories/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://ezekieldaun.github.io/categories/"
+                    href="https://ezekieldaun.github.io/en/categories/"
                     /></url><url>
-            <loc>https://ezekieldaun.github.io/tags/embedded/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/en/tags/embedded/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/tags/embedded/"
+                        href="https://ezekieldaun.github.io/tags/embedded/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://ezekieldaun.github.io/tags/embedded/"
+                    href="https://ezekieldaun.github.io/en/tags/embedded/"
                     /></url><url>
-            <loc>https://ezekieldaun.github.io/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/en/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/"
+                        href="https://ezekieldaun.github.io/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://ezekieldaun.github.io/"
+                    href="https://ezekieldaun.github.io/en/"
                     /></url><url>
-            <loc>https://ezekieldaun.github.io/posts/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/en/posts/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/posts/"
+                        href="https://ezekieldaun.github.io/posts/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://ezekieldaun.github.io/posts/"
+                    href="https://ezekieldaun.github.io/en/posts/"
                     /></url><url>
-            <loc>https://ezekieldaun.github.io/tags/rust/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/en/tags/rust/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/tags/rust/"
+                        href="https://ezekieldaun.github.io/tags/rust/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://ezekieldaun.github.io/tags/rust/"
+                    href="https://ezekieldaun.github.io/en/tags/rust/"
                     /></url><url>
-            <loc>https://ezekieldaun.github.io/tags/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/en/tags/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/tags/"
+                        href="https://ezekieldaun.github.io/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://ezekieldaun.github.io/tags/"
+                    href="https://ezekieldaun.github.io/en/tags/"
                     /></url><url>
-            <loc>https://ezekieldaun.github.io/categories/tech/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/en/categories/tech/</loc><lastmod>2021-12-28T15:34:52-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/categories/tech/"
+                        href="https://ezekieldaun.github.io/categories/tech/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://ezekieldaun.github.io/categories/tech/"
+                    href="https://ezekieldaun.github.io/en/categories/tech/"
                     /></url><url>
-            <loc>https://ezekieldaun.github.io/hello-embedded-rust/</loc><lastmod>2021-12-27T18:48:13-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/en/hello-embedded-rust/</loc><lastmod>2021-12-27T18:48:13-08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/hello-embedded-rust/"
+                        href="https://ezekieldaun.github.io/hello-embedded-rust/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://ezekieldaun.github.io/hello-embedded-rust/"
+                    href="https://ezekieldaun.github.io/en/hello-embedded-rust/"
                     /></url><url>
-            <loc>https://ezekieldaun.github.io/hello-world/</loc><lastmod>2021-11-08T19:38:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/en/hello-world/</loc><lastmod>2021-11-08T19:38:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/hello-world/"
+                        href="https://ezekieldaun.github.io/hello-world/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://ezekieldaun.github.io/hello-world/"
+                    href="https://ezekieldaun.github.io/en/hello-world/"
                     /></url><url>
-            <loc>https://ezekieldaun.github.io/categories/misc/</loc><lastmod>2021-11-08T19:38:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://ezekieldaun.github.io/en/categories/misc/</loc><lastmod>2021-11-08T19:38:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://ezekieldaun.github.io/zh-cn/categories/misc/"
+                        href="https://ezekieldaun.github.io/categories/misc/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://ezekieldaun.github.io/categories/misc/"
+                    href="https://ezekieldaun.github.io/en/categories/misc/"
+                    /></url><url>
+            <loc>https://ezekieldaun.github.io/en/authors/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://ezekieldaun.github.io/authors/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://ezekieldaun.github.io/en/authors/"
+                    /></url><url>
+            <loc>https://ezekieldaun.github.io/en/series/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://ezekieldaun.github.io/series/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://ezekieldaun.github.io/en/series/"
                     /></url></urlset>
